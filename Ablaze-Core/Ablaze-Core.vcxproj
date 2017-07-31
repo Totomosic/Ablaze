@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{823221E9-C406-4385-9988-AD9F6F5E7F32}</ProjectGuid>
+    <RootNamespace>AblazeCore</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediates\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ablaze-Core\src\;$(SolutionDir)Dependencies\FreeImage\include\;$(SolutionDir)Dependencies\FreeType\include\;$(SolutionDir)Dependencies\FreeType-GL\include\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLFW\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FreeImage\lib\;$(SolutionDir)Dependencies\FreeType\lib\;$(SolutionDir)Dependencies\FreeType-GL\lib\;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib-vc2015\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ablaze-Core\src\;$(SolutionDir)Dependencies\FreeImage\include\;$(SolutionDir)Dependencies\FreeType\include\;$(SolutionDir)Dependencies\FreeType-GL\include\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLFW\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FreeImage\lib\;$(SolutionDir)Dependencies\FreeType\lib\;$(SolutionDir)Dependencies\FreeType-GL\lib\;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib-vc2015\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ablaze-Core\src\;$(SolutionDir)Dependencies\FreeImage\include\;$(SolutionDir)Dependencies\FreeType\include\;$(SolutionDir)Dependencies\FreeType-GL\include\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLFW\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FreeImage\lib\;$(SolutionDir)Dependencies\FreeType\lib\;$(SolutionDir)Dependencies\FreeType-GL\lib\;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib-vc2015\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)Ablaze-Core\src\;$(SolutionDir)Dependencies\FreeImage\include\;$(SolutionDir)Dependencies\FreeType\include\;$(SolutionDir)Dependencies\FreeType-GL\include\;$(SolutionDir)Dependencies\GLEW\include\;$(SolutionDir)Dependencies\GLFW\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\FreeImage\lib\;$(SolutionDir)Dependencies\FreeType\lib\;$(SolutionDir)Dependencies\FreeType-GL\lib\;$(SolutionDir)Dependencies\GLEW\lib\;$(SolutionDir)Dependencies\GLFW\lib-vc2015\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application\Application.cpp" />
+    <ClCompile Include="src\Debug\Timer.cpp" />
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\Entities\Camera.cpp" />
+    <ClCompile Include="src\Entities\Components\Colliders\Collider.cpp" />
+    <ClCompile Include="src\Entities\Components\Component.cpp" />
+    <ClCompile Include="src\Entities\Components\ComponentSet.cpp" />
+    <ClCompile Include="src\Entities\Components\Lighting\Light.cpp" />
+    <ClCompile Include="src\Entities\Components\Misc\Identifier.cpp" />
+    <ClCompile Include="src\Entities\Components\Misc\Parent.cpp" />
+    <ClCompile Include="src\Entities\Components\Motion\RigidBody.cpp" />
+    <ClCompile Include="src\Entities\Components\Motion\Transform.cpp" />
+    <ClCompile Include="src\Entities\Components\Rendering\CameraComponent.cpp" />
+    <ClCompile Include="src\Entities\Components\Rendering\MeshComponent.cpp" />
+    <ClCompile Include="src\Entities\Components\Scripting\Script.cpp" />
+    <ClCompile Include="src\Entities\GameObject.cpp" />
+    <ClCompile Include="src\Entities\GameObjects.cpp" />
+    <ClCompile Include="src\Entities\Systems\Defaults\LightingSystem.cpp" />
+    <ClCompile Include="src\Entities\Systems\Defaults\PhysicsSystem.cpp" />
+    <ClCompile Include="src\Entities\Systems\Defaults\UpdateSystem.cpp" />
+    <ClCompile Include="src\Entities\Systems\System.cpp" />
+    <ClCompile Include="src\Entities\Systems\SystemManager.cpp" />
+    <ClCompile Include="src\Entities\Tags.cpp" />
+    <ClCompile Include="src\Factories\Assets.cpp" />
+    <ClCompile Include="src\Factories\FontFactory.cpp" />
+    <ClCompile Include="src\Factories\MaterialFactory.cpp" />
+    <ClCompile Include="src\Factories\MeshFactory.cpp" />
+    <ClCompile Include="src\Factories\ModelFactory.cpp" />
+    <ClCompile Include="src\Factories\Models\WavefrontLoader.cpp" />
+    <ClCompile Include="src\Factories\TextureFactory.cpp" />
+    <ClCompile Include="src\Graphics\Context.cpp" />
+    <ClCompile Include="src\Graphics\Fonts\Font.cpp" />
+    <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Graphics\Shaders\ShaderManager.cpp" />
+    <ClCompile Include="src\Graphics\Shaders\Uniforms\UniformManager.cpp" />
+    <ClCompile Include="src\Graphics\Textures\ImageLoader.cpp" />
+    <ClCompile Include="src\Graphics\Textures\Texture.cpp" />
+    <ClCompile Include="src\Graphics\Textures\Texture2D.cpp" />
+    <ClCompile Include="src\Graphics\Textures\TextureCube.cpp" />
+    <ClCompile Include="src\Graphics\Textures\TextureManager.cpp" />
+    <ClCompile Include="src\Graphics\Time.cpp" />
+    <ClCompile Include="src\Graphics\Viewport.cpp" />
+    <ClCompile Include="src\Graphics\Window.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
+    <ClCompile Include="src\Input\Tools\Keyboard.cpp" />
+    <ClCompile Include="src\Input\Tools\Mouse.cpp" />
+    <ClCompile Include="src\Maths\mat4.cpp" />
+    <ClCompile Include="src\Maths\Ray.cpp" />
+    <ClCompile Include="src\Maths\vec2.cpp" />
+    <ClCompile Include="src\Maths\vec3.cpp" />
+    <ClCompile Include="src\Maths\vec4.cpp" />
+    <ClCompile Include="src\RenderEngine\Interfaces\Renderable.cpp" />
+    <ClCompile Include="src\RenderEngine\Interfaces\Renderer.cpp" />
+    <ClCompile Include="src\RenderEngine\Models\Cuboid.cpp" />
+    <ClCompile Include="src\RenderEngine\Models\Rectangle.cpp" />
+    <ClCompile Include="src\RenderEngine\Models\Sphere.cpp" />
+    <ClCompile Include="src\RenderEngine\Models\Tile.cpp" />
+    <ClCompile Include="src\RenderEngine\PBR\PBRMaterial.cpp" />
+    <ClCompile Include="src\RenderEngine\Post Processing\PostProcessor.cpp" />
+    <ClCompile Include="src\RenderEngine\Post Processing\PostProcessorEffect.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\Commands\ClearCommand.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\Commands\Command.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\Commands\RenderCommand.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\Material.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\Mesh.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\Model.cpp" />
+    <ClCompile Include="src\Scene\Layer.cpp" />
+    <ClCompile Include="src\Scene\Physics\Physics.cpp" />
+    <ClCompile Include="src\Scene\Physics\stucts\BoundingBox.cpp" />
+    <ClCompile Include="src\Scene\Physics\stucts\CollisionInfo.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\structs\Data\Color.cpp" />
+    <ClCompile Include="src\structs\Data\Vertex.cpp" />
+    <ClCompile Include="src\structs\Framebuffers\Framebuffer.cpp" />
+    <ClCompile Include="src\structs\IndexBuffer.cpp" />
+    <ClCompile Include="src\structs\VAO.cpp" />
+    <ClCompile Include="src\structs\VBO.cpp" />
+    <ClCompile Include="src\System\Allocator.cpp" />
+    <ClCompile Include="src\System\Memory.cpp" />
+    <ClCompile Include="src\System\MemoryManager.cpp" />
+    <ClCompile Include="src\Utils\Files\DataFile.cpp" />
+    <ClCompile Include="src\Utils\Files\FontFile.cpp" />
+    <ClCompile Include="src\Utils\Files\GLSLFile.cpp" />
+    <ClCompile Include="src\Utils\Files\ImageFile.cpp" />
+    <ClCompile Include="src\Utils\Files\TextFile.cpp" />
+    <ClCompile Include="src\Utils\Files\WavefrontFile.cpp" />
+    <ClCompile Include="src\Utils\Funcs.cpp" />
+    <ClCompile Include="src\Utils\Virtual File System\FileSystem.cpp" />
+    <ClCompile Include="src\Utils\Virtual File System\VFS.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Ablaze.h" />
+    <ClInclude Include="src\AblazeGL.h" />
+    <ClInclude Include="src\Application\Application.h" />
+    <ClInclude Include="src\Debug\Debug.h" />
+    <ClInclude Include="src\Debug\Timer.h" />
+    <ClInclude Include="src\Engine.h" />
+    <ClInclude Include="src\Entities\Camera.h" />
+    <ClInclude Include="src\Entities\Components\Colliders\Collider.h" />
+    <ClInclude Include="src\Entities\Components\Component.h" />
+    <ClInclude Include="src\Entities\Components\Components.h" />
+    <ClInclude Include="src\Entities\Components\ComponentSet.h" />
+    <ClInclude Include="src\Entities\Components\Lighting\Light.h" />
+    <ClInclude Include="src\Entities\Components\Misc\Identifier.h" />
+    <ClInclude Include="src\Entities\Components\Misc\Parent.h" />
+    <ClInclude Include="src\Entities\Components\Motion\RigidBody.h" />
+    <ClInclude Include="src\Entities\Components\Motion\Transform.h" />
+    <ClInclude Include="src\Entities\Components\Rendering\CameraComponent.h" />
+    <ClInclude Include="src\Entities\Components\Rendering\MeshComponent.h" />
+    <ClInclude Include="src\Entities\Components\Scripting\Script.h" />
+    <ClInclude Include="src\Entities\Entities.h" />
+    <ClInclude Include="src\Entities\GameObject.h" />
+    <ClInclude Include="src\Entities\GameObjects.h" />
+    <ClInclude Include="src\Entities\Systems\Defaults\LightingSystem.h" />
+    <ClInclude Include="src\Entities\Systems\Defaults\PhysicsSystem.h" />
+    <ClInclude Include="src\Entities\Systems\Defaults\UpdateSystem.h" />
+    <ClInclude Include="src\Entities\Systems\System.h" />
+    <ClInclude Include="src\Entities\Systems\SystemManager.h" />
+    <ClInclude Include="src\Entities\Tags.h" />
+    <ClInclude Include="src\Enums.h" />
+    <ClInclude Include="src\Factories\Assets.h" />
+    <ClInclude Include="src\Factories\Factories.h" />
+    <ClInclude Include="src\Factories\FontFactory.h" />
+    <ClInclude Include="src\Factories\MaterialFactory.h" />
+    <ClInclude Include="src\Factories\MeshFactory.h" />
+    <ClInclude Include="src\Factories\ModelFactory.h" />
+    <ClInclude Include="src\Factories\Models\WavefrontLoader.h" />
+    <ClInclude Include="src\Factories\TextureFactory.h" />
+    <ClInclude Include="src\Graphics\Context.h" />
+    <ClInclude Include="src\Graphics\Fonts\Font.h" />
+    <ClInclude Include="src\Graphics\Graphics.h" />
+    <ClInclude Include="src\Graphics\Shaders\Shader.h" />
+    <ClInclude Include="src\Graphics\Shaders\ShaderManager.h" />
+    <ClInclude Include="src\Graphics\Shaders\Uniforms\UniformManager.h" />
+    <ClInclude Include="src\Graphics\Textures\ImageLoader.h" />
+    <ClInclude Include="src\Graphics\Textures\Texture.h" />
+    <ClInclude Include="src\Graphics\Textures\Texture2D.h" />
+    <ClInclude Include="src\Graphics\Textures\TextureCube.h" />
+    <ClInclude Include="src\Graphics\Textures\TextureManager.h" />
+    <ClInclude Include="src\Graphics\Time.h" />
+    <ClInclude Include="src\Graphics\Viewport.h" />
+    <ClInclude Include="src\Graphics\Window.h" />
+    <ClInclude Include="src\Input\Input.h" />
+    <ClInclude Include="src\Input\Tools\Keyboard.h" />
+    <ClInclude Include="src\Input\Tools\Mouse.h" />
+    <ClInclude Include="src\Log.h" />
+    <ClInclude Include="src\Maths\mat4.h" />
+    <ClInclude Include="src\Maths\Maths.h" />
+    <ClInclude Include="src\Maths\Ray.h" />
+    <ClInclude Include="src\Maths\vec2.h" />
+    <ClInclude Include="src\Maths\vec3.h" />
+    <ClInclude Include="src\Maths\vec4.h" />
+    <ClInclude Include="src\Object.h" />
+    <ClInclude Include="src\RenderEngine\Interfaces\Renderable.h" />
+    <ClInclude Include="src\RenderEngine\Interfaces\Renderer.h" />
+    <ClInclude Include="src\RenderEngine\Models\Cuboid.h" />
+    <ClInclude Include="src\RenderEngine\Models\Rectangle.h" />
+    <ClInclude Include="src\RenderEngine\Models\Sphere.h" />
+    <ClInclude Include="src\RenderEngine\Models\Tile.h" />
+    <ClInclude Include="src\RenderEngine\PBR\PBRMaterial.h" />
+    <ClInclude Include="src\RenderEngine\Post Processing\PostProcessor.h" />
+    <ClInclude Include="src\RenderEngine\Post Processing\PostProcessorEffect.h" />
+    <ClInclude Include="src\RenderEngine\RenderEngine.h" />
+    <ClInclude Include="src\RenderEngine\structs\Commands\ClearCommand.h" />
+    <ClInclude Include="src\RenderEngine\structs\Commands\Command.h" />
+    <ClInclude Include="src\RenderEngine\structs\Commands\RenderCommand.h" />
+    <ClInclude Include="src\RenderEngine\structs\Material.h" />
+    <ClInclude Include="src\RenderEngine\structs\Mesh.h" />
+    <ClInclude Include="src\RenderEngine\structs\Model.h" />
+    <ClInclude Include="src\Scene\Layer.h" />
+    <ClInclude Include="src\Scene\Physics\Physics.h" />
+    <ClInclude Include="src\Scene\Physics\stucts\BoundingBox.h" />
+    <ClInclude Include="src\Scene\Physics\stucts\CollisionInfo.h" />
+    <ClInclude Include="src\Scene\Physics\stucts\RayCastInfo.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\structs\Buffer.h" />
+    <ClInclude Include="src\structs\Data\Color.h" />
+    <ClInclude Include="src\structs\Data\Vertex.h" />
+    <ClInclude Include="src\structs\Framebuffers\Framebuffer.h" />
+    <ClInclude Include="src\structs\IndexBuffer.h" />
+    <ClInclude Include="src\structs\Structs.h" />
+    <ClInclude Include="src\structs\VAO.h" />
+    <ClInclude Include="src\structs\VBO.h" />
+    <ClInclude Include="src\System\Allocator.h" />
+    <ClInclude Include="src\System\Memory.h" />
+    <ClInclude Include="src\System\MemoryManager.h" />
+    <ClInclude Include="src\System\System.h" />
+    <ClInclude Include="src\Types.h" />
+    <ClInclude Include="src\Utils\Files\DataFile.h" />
+    <ClInclude Include="src\Utils\Files\FontFile.h" />
+    <ClInclude Include="src\Utils\Files\GLSLFile.h" />
+    <ClInclude Include="src\Utils\Files\ImageFile.h" />
+    <ClInclude Include="src\Utils\Files\TextFile.h" />
+    <ClInclude Include="src\Utils\Files\WavefrontFile.h" />
+    <ClInclude Include="src\Utils\Funcs.h" />
+    <ClInclude Include="src\Utils\Utils.h" />
+    <ClInclude Include="src\Utils\Virtual File System\FileSystem.h" />
+    <ClInclude Include="src\Utils\Virtual File System\VFS.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

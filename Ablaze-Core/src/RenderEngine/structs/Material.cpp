@@ -1,0 +1,184 @@
+#include "Material.h"
+
+namespace Ablaze
+{
+
+	Material::Material(const String& name, const Color& color, const Shader* const shader, Texture* texture, bool depthState, bool blendState, GLenum srcBlendState, GLenum dstBlendState)
+		: name(name), diffuseColor(color), shader(shader), textures(), depthState(depthState), blendState(blendState), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	{
+		if (texture != nullptr)
+		{
+			textures.push_back(texture);
+		}
+	}
+
+	Material::Material() : Material::Material("", Color::White(), nullptr, nullptr)
+	{
+	
+	}
+
+	Material::~Material()
+	{
+	
+	}
+
+	const Color& Material::GetColor() const
+	{
+		return diffuseColor;
+	}
+
+	const Shader* const Material::GetShader() const
+	{
+		return shader;
+	}
+
+	Texture* Material::GetTexture(int index) const
+	{
+		return textures[index];
+	}
+
+	const bool& Material::GetDepthState() const
+	{
+		return depthState;
+	}
+
+	const bool& Material::GetBlendState() const
+	{
+		return blendState;
+	}
+
+	const GLenum& Material::GetSrcBlend() const
+	{
+		return srcBlendState;
+	}
+
+	const GLenum& Material::GetDstBlend() const
+	{
+		return dstBlendState;
+	}
+
+	const String& Material::GetName() const
+	{
+		return name;
+	}
+
+	bool Material::HasTransparency() const
+	{
+		// TODO: make a lot more extensive to include transparency in model and textures
+		return diffuseColor.a != 1.0f;
+	}
+
+	bool Material::HasTextures() const
+	{
+		return textures.size() > 0;
+	}
+
+	void Material::AddTexture(Texture* texture)
+	{
+		textures.push_back(texture);
+	}
+
+	void Material::RemoveTexture(Texture* texture)
+	{
+		auto it = std::find(textures.begin(), textures.end(), texture);
+		if (it != textures.end())
+		{
+			textures.erase(it);
+		}
+	}
+
+	const std::vector<Texture*>& Material::GetAllTextures() const
+	{
+		return textures;
+	}
+
+	void Material::AddUniformFloat(const String& varname, float value)
+	{
+		uniforms.AddFloatUniform(varname, value);
+	}
+
+	void Material::AddUniformVec2(const String& varname, const maths::vec2& value)
+	{
+		uniforms.AddVec2Uniform(varname, value);
+	}
+
+	void Material::AddUniformVec3(const String& varname, const maths::vec3& value)
+	{
+		uniforms.AddVec3Uniform(varname, value);
+	}
+
+	void Material::AddUniformVec4(const String& varname, const maths::vec4& value)
+	{
+		uniforms.AddVec4Uniform(varname, value);
+	}
+
+	void Material::AddUniformColor(const String& varname, const Color& value)
+	{
+		uniforms.AddColorUniform(varname, value);
+	}
+
+	void Material::AddUniformMat4(const String& varname, const maths::mat4& value)
+	{
+		uniforms.AddMat4Uniform(varname, value);
+	}
+
+	void Material::SetColor(const Color& color)
+	{
+		diffuseColor = color;
+	}
+
+	void Material::SetShader(const Shader* const shader)
+	{
+		this->shader = shader;
+	}
+
+	void Material::SetDepthState(bool depth)
+	{
+		depthState = depth;
+	}
+
+	void Material::SetBlendState(bool blend)
+	{
+		blendState = blend;
+	}
+
+	void Material::SetSrcBlend(GLenum src)
+	{
+		srcBlendState = src;
+	}
+
+	void Material::SetDstBlend(GLenum dst)
+	{
+		dstBlendState = dst;
+	}
+
+	void Material::ApplyMaterial() const
+	{
+		shader->Enable();
+		uniforms.UploadAll(shader);
+		if (depthState)
+		{
+			glEnable(GL_DEPTH_TEST);
+		}
+		else
+		{
+			glDisable(GL_DEPTH_TEST);
+		}
+		if (blendState)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(srcBlendState, dstBlendState);
+		}
+		else
+		{
+			glDisable(GL_BLEND);
+		}
+		int count = 0;
+		for (auto texture : GetAllTextures())
+		{
+			shader->SetTexture(*texture, "tex" + std::to_string(count));
+			count++;
+		}
+	}
+
+}

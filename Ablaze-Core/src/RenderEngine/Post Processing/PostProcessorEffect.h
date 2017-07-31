@@ -1,0 +1,23 @@
+#pragma once
+#include "Graphics\Shaders\Shader.h"
+#include "structs\Framebuffers\Framebuffer.h"
+#include "Types.h"
+
+namespace Ablaze
+{
+
+	class PostProcessorEffect
+	{
+	private:
+		String name;
+		Shader* effectShader;
+
+	public:
+		PostProcessorEffect(const String& name, Shader* effectShader);
+
+		Shader* GetShader() const;
+		const String& GetName() const;
+
+	};
+
+}
