@@ -77,7 +77,7 @@ namespace Ablaze
 
 		// Sort gameObjects
 		std::sort(gameObjects.begin(), gameObjects.end(), [t](GameObject* a, GameObject* b) {
-			return ((a->Transform()->GetPosition() - t->GetPosition()).GetLengthSqrd() < (b->Transform()->GetPosition() - t->GetPosition()).GetLengthSqrd());
+			return ((a->Transform()->GetNievePosition() - t->GetNievePosition()).GetLengthSqrd() < (b->Transform()->GetNievePosition() - t->GetNievePosition()).GetLengthSqrd());
 		});
 
 		for (auto obj : gameObjects)

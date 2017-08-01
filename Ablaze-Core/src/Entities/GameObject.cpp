@@ -44,7 +44,7 @@ namespace Ablaze
 		AddComponent(new Components::Transform(position, rotation, scale));
 		AddComponent(new Components::Parent(Anchor())); // All objects are a child of the Anchor Object
 		AddComponent(new Components::Identifier(Tags::None));
-		AddComponent(new Components::MeshComponent(MeshFactory::BuildCuboidUnnamed(maths::vec3(1, 1, 1), Color::White(), MaterialFactory::Build("Default", Color::White(), Shader::Default()))));
+		AddComponent(new Components::MeshComponent(MeshFactory::BuildCuboidUnnamed(maths::vec3(1, 1, 1), Color::White(), MaterialFactory::Build("_GAMEOBJECT_DEFAULT_", Color::White(), Shader::Default()))));
 		// TODO: add Renderer Component
 	}
 

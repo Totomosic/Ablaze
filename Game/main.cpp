@@ -75,6 +75,8 @@ public:
 		GameObject* plane = new GameObject(0, 20, 0);
 		plane->Mesh()->SetMesh("Learjet");
 
+		glEnable(GL_CULL_FACE);
+
 #if 0
 		GameObject* floor = new GameObject(0, -1500, 0);
 		floor->Mesh()->SetMesh("Floor");
@@ -95,7 +97,7 @@ public:
 		floor->AddComponent(new Components::Collider(BoundingBox(maths::vec3(50, 0, 50))));
 
 		GameObject* prev = floor;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 50; i++)
 		{
 			GameObject* current = GameObject::Instantiate(floor, maths::vec3(0, -10, 0));
 			current->MakeChildOf(prev, false);
@@ -121,7 +123,6 @@ public:
 	void Tick() override
 	{
 		WindowHandle()->SetTitle("Ablaze: " + std::to_string(Time::AverageFPS()) + " FPS");
-		AB_INFO(MemoryManager::GetMegabytes());
 	}
 
 	void Update() override

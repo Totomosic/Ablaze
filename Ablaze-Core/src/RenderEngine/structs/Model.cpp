@@ -8,11 +8,13 @@ namespace Ablaze
 	{
 		vao = new VAO(Elements);
 		vao->AttachVBO(vbo);
-		vbo->SetAttribPointer(VERTEX_ATTRIB_INDEX, 3, GL_FLOAT, sizeof(Vertex), (float*)0);
-		vbo->SetAttribPointer(NORMAL_ATTRIB_INDEX, 3, GL_FLOAT, sizeof(Vertex), (float*)(3 * sizeof(GLfloat)));
-		vbo->SetAttribPointer(TEX_ATTRIB_INDEX, 2, GL_FLOAT, sizeof(Vertex), (float*)((3 + 3) * sizeof(GLfloat)));
-		vbo->SetAttribPointer(COLOR_ATTRIB_INDEX, 4, GL_FLOAT, sizeof(Vertex), (float*)((3 + 3 + 2) * sizeof(GLfloat)));
-		vbo->SetAttribPointer(COLOR_ATTRIB_INDEX + 1, 3, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Vertex::tangent));
+		BufferLayout layout;
+		layout.Push<maths::vec3>("POSITION");
+		layout.Push<maths::vec3>("NORMAL");
+		layout.Push<maths::vec2>("TEXCOORD");
+		layout.Push<maths::vec4>("COLOR");
+		layout.Push<maths::vec3>("TANGENT");
+		vbo->ApplyLayout(layout);
 		vao->AttachIndexBuffer(indexBuffer);
 	}
 
@@ -46,11 +48,13 @@ namespace Ablaze
 		delete this->vbo;
 		this->vbo = vbo;
 		vao->AttachVBO(vbo);
-		vbo->SetAttribPointer(VERTEX_ATTRIB_INDEX, 3, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Vertex::position));
-		vbo->SetAttribPointer(NORMAL_ATTRIB_INDEX, 3, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Vertex::normal));
-		vbo->SetAttribPointer(TEX_ATTRIB_INDEX, 2, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Vertex::texCoord));
-		vbo->SetAttribPointer(COLOR_ATTRIB_INDEX, 4, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Vertex::color));
-		vbo->SetAttribPointer(COLOR_ATTRIB_INDEX + 1, 3, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Vertex::tangent));
+		BufferLayout layout;
+		layout.Push<maths::vec3>("POSITION");
+		layout.Push<maths::vec3>("NORMAL");
+		layout.Push<maths::vec2>("TEXCOORD");
+		layout.Push<maths::vec4>("COLOR");
+		layout.Push<maths::vec3>("TANGENT");
+		vbo->ApplyLayout(layout);
 	}
 
 	void Model::SetIndexBuffer(IndexBuffer* ibo)

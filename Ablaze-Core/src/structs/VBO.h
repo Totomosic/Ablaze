@@ -1,6 +1,7 @@
 #pragma once
 #include "Buffer.h"
 #include "structs/Data/Vertex.h"
+#include "BufferLayout.h"
 
 namespace Ablaze
 {
@@ -10,6 +11,7 @@ namespace Ablaze
 	private:
 		GLint attributeIndex;
 		GLint dataDimension;
+		BufferLayout layout;
 
 	public:
 		VBO(GLint bufferSize, GLint attributeIndex, GLint dataDimension = 3, float* data = nullptr, GLenum bufferUsage = GL_STATIC_DRAW);
@@ -17,14 +19,14 @@ namespace Ablaze
 
 		GLint GetAttribIndex() const;
 		GLint GetDataDimension() const;
+		const BufferLayout& GetLayout() const;
 
 		void EnableAttrib() const;
 		void DisableAttrib() const;
 
 		void Upload(Vertex* data, GLint byteLength);
 
-		void SetAttribPointer(GLint stride = 0, const float* pointer = nullptr) const;
-		void SetAttribPointer(GLint attributeIndex, GLint dataDimension, GLenum dataType, GLint stride = 0, const GLvoid* pointer = nullptr) const;
+		void ApplyLayout(const BufferLayout& layout);
 
 	};
 

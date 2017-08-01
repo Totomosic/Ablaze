@@ -25,6 +25,11 @@ namespace Ablaze
 		return dataDimension;
 	}
 
+	const BufferLayout& VBO::GetLayout() const
+	{
+		return layout;
+	}
+
 	void VBO::EnableAttrib() const
 	{
 		glEnableVertexAttribArray(attributeIndex);
@@ -41,16 +46,16 @@ namespace Ablaze
 		glBufferSubData(target, 0, byteLength, data);
 	}
 
-	void VBO::SetAttribPointer(GLint stride, const float* pointer) const
+	void VBO::ApplyLayout(const BufferLayout& bufferLayout)
 	{
-		glVertexAttribPointer(attributeIndex, dataDimension, GL_FLOAT, GL_FALSE, stride, (void*)pointer);
-		EnableAttrib();
-	}
-
-	void VBO::SetAttribPointer(GLint attributeIndex, GLint dataDimension, GLenum dataType, GLint stride, const GLvoid* pointer) const
-	{
-		glVertexAttribPointer(attributeIndex, dataDimension, dataType, GL_FALSE, stride, pointer);
-		glEnableVertexAttribArray(attributeIndex);
+		layout = bufferLayout;
+		const std::vector<BufferElement>& layout = bufferLayout.GetLayout();
+		for (uint i = 0; i < layout.size(); i++)
+		{
+			const BufferElement& element = layout[i];
+			glEnableVertexAttribArray(i);
+			glVertexAttribPointer(i, element.count, element.type, element.normalized, bufferLayout.GetStride(), (const void*)element.offset);
+		}
 	}
 
 }

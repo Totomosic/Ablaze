@@ -122,7 +122,6 @@ namespace Ablaze
 	{
 		Bind();
 		vbo->Bind();
-		vbo->SetAttribPointer();
 		attributes[vbo->GetAttribIndex()] = vbo;
 
 		if (vbo->GetAttribIndex() == VERTEX_ATTRIB_INDEX)

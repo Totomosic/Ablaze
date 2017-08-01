@@ -225,6 +225,7 @@
     <ClCompile Include="src\Scene\Physics\stucts\BoundingBox.cpp" />
     <ClCompile Include="src\Scene\Physics\stucts\CollisionInfo.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\structs\BufferLayout.cpp" />
     <ClCompile Include="src\structs\Data\Color.cpp" />
     <ClCompile Include="src\structs\Data\Vertex.cpp" />
     <ClCompile Include="src\structs\Framebuffers\Framebuffer.cpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="src\Scene\Physics\stucts\RayCastInfo.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\structs\Buffer.h" />
+    <ClInclude Include="src\structs\BufferLayout.h" />
     <ClInclude Include="src\structs\Data\Color.h" />
     <ClInclude Include="src\structs\Data\Vertex.h" />
     <ClInclude Include="src\structs\Framebuffers\Framebuffer.h" />

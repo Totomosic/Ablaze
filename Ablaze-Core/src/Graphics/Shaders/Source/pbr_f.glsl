@@ -127,7 +127,7 @@ void main()
         // add to outgoing radiance Lo
         float NdotL = max(dot(N, L), 0.0);                
         Lo += (kD * albedo / PI + specular) * radiance * NdotL; 
-    }   
+    }
   
     vec3 ambient = vec3(0.03) * albedo * ambientOcclusion;
     vec3 color = ambient + Lo;

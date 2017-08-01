@@ -20,7 +20,7 @@ namespace Ablaze
 		Texture::Create();
 		BYTE* pixels = LoadTextureImage(path.c_str(), &width, &height, &bpp);
 		Bind();
-		glTexParameteri(textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		switch (bpp)
 		{

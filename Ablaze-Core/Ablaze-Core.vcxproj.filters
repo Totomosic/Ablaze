@@ -282,6 +282,9 @@
     <ClCompile Include="src\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\structs\BufferLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">
@@ -603,6 +606,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structs\BufferLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

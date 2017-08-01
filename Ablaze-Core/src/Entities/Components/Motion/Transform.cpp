@@ -34,6 +34,15 @@ namespace Ablaze
 			return position;
 		}
 
+		maths::vec3 Transform::GetNievePosition() const
+		{
+			if (owner->HasComponent<Parent>())
+			{
+				return owner->Parent()->GetParentObject()->Transform()->GetNievePosition() + position;
+			}
+			return position;
+		}
+
 		maths::mat4 Transform::GetRotation() const
 		{
 			if (owner->HasComponent<Parent>())
