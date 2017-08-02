@@ -1,5 +1,6 @@
 #pragma once
 #include "Components\ComponentSet.h"
+#include "RenderEngine\structs\Mesh.h"
 #include "Maths\Maths.h"
 
 #define GAME_OBJECT_ANCHOR 0
@@ -14,7 +15,6 @@ namespace Ablaze
 		class Transform;
 		class Parent;
 		class Identifier;
-		class Renderer;
 		class MeshComponent;
 	}
 
@@ -38,12 +38,12 @@ namespace Ablaze
 	public:
 		GameObject(const maths::vec3& position, const maths::mat4& rotation = maths::mat4::Identity(), const maths::vec3& scale = maths::vec3(1, 1, 1));
 		GameObject(float x, float y, float z, const maths::mat4& rotation = maths::mat4::Identity(), const maths::vec3& scale = maths::vec3(1, 1, 1));
-		GameObject(const GameObject* parent, bool preserveCurrentPosition = true);
+		GameObject(const GameObject* parent, bool preserveCurrentPosition = false);
 		GameObject(); 				
 
 		void Destroy();
 		GameObject* Clone() const;
-		void MakeChildOf(const GameObject* parent, bool preserveCurrentPosition = true);
+		void MakeChildOf(const GameObject* parent, bool preserveCurrentPosition = false);
 		void MakeStandalone(bool preserveCurrentPosition = true);
 		void SetLayer(Layer* layer);
 		Layer* GetLayer() const;
@@ -67,10 +67,13 @@ namespace Ablaze
 
 		// Get Default Components
 		Components::Transform* Transform() const;
-		Components::Parent* Parent() const;
-		Components::Renderer* Renderer() const;
+		Components::Parent* ParentComponent() const;
 		Components::Identifier* Identifier() const;
 		Components::MeshComponent* Mesh() const;
+
+		const GameObject* const Parent() const;
+		void SetMesh(const String& meshName);
+		void SetMesh(Ablaze::Mesh* mesh);
 
 		static GameObject* Empty();
 

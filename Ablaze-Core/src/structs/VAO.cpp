@@ -30,9 +30,9 @@ namespace Ablaze
 		return id;
 	}
 
-	VBO& VAO::GetAttribute(GLint index)
+	VBO* VAO::GetAttribute(GLint index)
 	{
-		return *(attributes[index]);
+		return (attributes[index]);
 	}
 
 	GLint VAO::GetRenderCount() const
@@ -65,9 +65,9 @@ namespace Ablaze
 		return indexBuffer != nullptr;
 	}
 
-	IndexBuffer& VAO::GetIndexBuffer() const
+	IndexBuffer* VAO::GetIndexBuffer() const
 	{
-		return *indexBuffer;
+		return indexBuffer;
 	}
 
 	void VAO::SetPrimitiveType(GLenum primitive)
@@ -82,8 +82,8 @@ namespace Ablaze
 		{
 			if (HasAttribute(VERTEX_ATTRIB_INDEX))
 			{
-				const VBO& vbo = GetAttribute(VERTEX_ATTRIB_INDEX);
-				renderCount = vbo.GetSize() / sizeof(float) / vbo.GetDataDimension();
+				const VBO* vbo = GetAttribute(VERTEX_ATTRIB_INDEX);
+				renderCount = vbo->GetSize() / sizeof(float) / vbo->GetDataDimension();
 			}
 			else
 			{
@@ -94,8 +94,8 @@ namespace Ablaze
 		{
 			if (HasIndexBuffer())
 			{
-				const IndexBuffer& ibo = GetIndexBuffer();
-				renderCount = ibo.GetSize() / sizeof(GLuint);
+				const IndexBuffer* ibo = GetIndexBuffer();
+				renderCount = ibo->GetSize() / sizeof(GLuint);
 			}
 			else
 			{

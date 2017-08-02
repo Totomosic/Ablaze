@@ -57,7 +57,7 @@ public:
 		MaterialFactory::OrderPBR("BrickMaterial", Color::White(), Shader::PBR(), "OctoAlbedo", "OctoRoughness", "OctoMetallic", "OctoAO", "OctoNormal");
 		ModelFactory::OrderCuboid("Wall", maths::vec3(25, 9.9f, 2), Color::White());
 		ModelFactory::OrderTile("Floor", maths::vec2(50, 50), Color::White()); 
-		ModelFactory::Build("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/learjet.obj"));
+		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/learjet.obj"));
 		FontFactory::Order("Roboto", "/res/Roboto-Regular.ttf", 32);
 		MeshFactory::Order("Floor", "Floor", "BrickMaterial");
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
@@ -71,46 +71,26 @@ public:
 		PushScene(scene);
 		Layer* layer = new Layer("Scene", new Renderer(), camera);
 		scene->PushLayer(layer);
-
-		GameObject* plane = new GameObject(0, 20, 0);
-		plane->Mesh()->SetMesh("Learjet");
-
-		glEnable(GL_CULL_FACE);
-
-#if 0
-		GameObject* floor = new GameObject(0, -1500, 0);
-		floor->Mesh()->SetMesh("Floor");
-		floor->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
-		floor->AddComponent(new Components::Collider(BoundingBox(maths::vec3(50, 0, 50))));
-
-		GameObject* prev = floor;
-		for (int i = 0; i < 100; i++)
-		{
-			GameObject* current = GameObject::Instantiate(floor, maths::vec3(0, 10, 0));
-			current->MakeChildOf(prev, false);
-			prev = current;
-		}
-#else
+		
 		GameObject* floor = new GameObject(0, 0, 0);
-		floor->Mesh()->SetMesh("Floor");
+		floor->SetMesh("Floor");
 		floor->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
 		floor->AddComponent(new Components::Collider(BoundingBox(maths::vec3(50, 0, 50))));
 
 		GameObject* prev = floor;
-		for (int i = 0; i < 50; i++)
-		{
+		for (int i = 0; i < 1; i++)
+		{	
 			GameObject* current = GameObject::Instantiate(floor, maths::vec3(0, -10, 0));
 			current->MakeChildOf(prev, false);
 			prev = current;
 		}
-#endif
 
-		/*GameObject* plane = new GameObject(0, 30, 0);
-		plane->Mesh()->SetMesh("Learjet");
+		GameObject* plane = new GameObject(0, 20, 0);
+		plane->SetMesh("Learjet");
 		plane->AddComponent(new Components::RigidBody(1, true, 0.0f, 0.0f, false));
 		Components::Collider* c = new Components::Collider(maths::vec3(4, 4, 40), maths::vec3(0, -2, 0));
 		c->AddBoundingBox(BoundingBox(maths::vec3(30, 1, 5)), maths::vec3(0, -3, -1));
-		plane->AddComponent(c);*/
+		plane->AddComponent(c);
 
 		Shader::PBR()->Enable();
 		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 100, 0));
@@ -118,6 +98,9 @@ public:
 		Shader::PBR()->SetUniformVec3("Lights[1].Position", maths::vec3(0, 0, 100));
 		Shader::PBR()->SetUniformVec3("Lights[1].Color", maths::vec3(1));
 		Shader::PBR()->SetUniformInt("lightCount", 2);
+
+		WavefrontFile* file = VFS::CreateNewFile<WavefrontFile>("/res/Plane.obj");
+		file->Write(ModelFactory::RequestWeak("Learjet"));
 	}
 
 	void Tick() override
@@ -132,19 +115,19 @@ public:
 		Components::RigidBody* r = cam->GetComponent<Components::RigidBody>();
 		if (Input::KeyDown(GLFW_KEY_W))
 		{
-			r->Acceleration() += CalculateVector(t->Forward()) * 10.0f;
+			r->Acceleration() += CalculateVector(t->Forward()) * 50.0f;
 		}
 		if (Input::KeyDown(GLFW_KEY_S))
 		{
-			r->Acceleration() += CalculateVector(t->Forward()) * -10.0f;
+			r->Acceleration() += CalculateVector(t->Forward()) * -50.0f;
 		}
 		if (Input::KeyDown(GLFW_KEY_D))
 		{
-			r->Acceleration() += CalculateVector(t->Right()) * 10.0f;
+			r->Acceleration() += CalculateVector(t->Right()) * 50.0f;
 		}
 		if (Input::KeyDown(GLFW_KEY_A))
 		{
-			r->Acceleration() += CalculateVector(t->Right()) * -10.0f;
+			r->Acceleration() += CalculateVector(t->Right()) * -50.0f;
 		}
 		if (Input::KeyDown(GLFW_KEY_LEFT))
 		{
@@ -164,7 +147,7 @@ public:
 		}
 		if (Input::KeyDown(GLFW_KEY_SPACE))
 		{
-			r->Velocity().y = 5.0f;
+			r->Velocity().y = 10.0f;
 			r->Acceleration().y = 0.0f;
 		}
 

@@ -84,29 +84,37 @@ namespace Ablaze
 		return success ? result : String();
 	}
 
-	bool FileSystem::WriteFile(const String& path, byte* buffer, int64 length, bool overrideFile)
+	bool FileSystem::WriteFile(HANDLE handle, byte* buffer, int64 length, bool overrideFile)
 	{
-		HANDLE file = CreateFile(path.c_str(), (overrideFile) ? GENERIC_WRITE : FILE_APPEND_DATA, 0, NULL, (overrideFile) ? CREATE_ALWAYS : OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-		if (file == INVALID_HANDLE_VALUE)
+		if (handle == nullptr || handle == INVALID_HANDLE_VALUE)
 		{
-			AB_WARN("Failed to write file: " + path + ". With error: " + std::to_string(GetLastError()));
+			AB_WARN("Failed to write to unopened file");
 			return false;
 		}
 
-		//int64 size = GetFileSizeInternal(file);
 		DWORD written;
-		bool result = ::WriteFile(file, buffer, length, &written, NULL);
-		CloseHandle(file);
-		if (!result)
-		{
-			AB_WARN("Failed to write file: " + path + ". With error: " + std::to_string(GetLastError()));
-		}
+		bool result = ::WriteFile(handle, buffer, length, &written, NULL);
 		return result;
 	}
 
-	bool FileSystem::WriteTextFile(const String& path, const String& text, bool overrideFile)
+	bool FileSystem::WriteTextFile(HANDLE handle, const String& text, bool overrideFile)
 	{
-		return WriteFile(path, (byte*)&text[0], text.length(), overrideFile);
+		return WriteFile(handle, (byte*)&text[0], text.length(), overrideFile);
+	}
+
+	HANDLE FileSystem::OpenFile(const String& path, bool clearFile)
+	{
+		HANDLE file = CreateFile(path.c_str(), (clearFile) ? GENERIC_WRITE : FILE_APPEND_DATA, 0, NULL, (clearFile) ? CREATE_ALWAYS : OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		if (file == INVALID_HANDLE_VALUE)
+		{
+			AB_WARN("Failed to write file: " + path + ". With error: " + std::to_string(GetLastError()));
+		}
+		return file;
+	}
+
+	void FileSystem::CloseFile(HANDLE handle)
+	{
+		CloseHandle(handle);
 	}
 
 	void FileSystem::DeleteDataFile(const String& path)

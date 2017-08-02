@@ -34,7 +34,7 @@ namespace Ablaze
 		static Tile* BuildTile(const String& modelName, const maths::vec2& size, const Color& color = Color::White());
 		static Model* BuildText(const String& textName, const String& text, Font* font, const Color& color = Color::White());
 
-		static void Order(const String& modelName, const String& filename);
+		static void Order(const String& modelName, const WavefrontFile* const file);
 		static void OrderRectangle(const String& modelName, const maths::vec2& size, const Color& color = Color::White());
 		static void OrderCuboid(const String& modelName, const maths::vec3& size, const Color& color = Color::White());
 		static void OrderSphere(const String& modelName, float radius, const Color& color = Color::White());

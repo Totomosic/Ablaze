@@ -100,9 +100,9 @@ namespace Ablaze
 		return textModel;
 	}
 
-	void ModelFactory::Order(const String& modelName, const String& filename)
+	void ModelFactory::Order(const String& modelName, const WavefrontFile* const file)
 	{
-		//Decrement(Build(modelName, filename)->GetName());
+		Decrement(Build(modelName, file)->GetName());
 	}
 
 	void ModelFactory::OrderRectangle(const String& modelName, const maths::vec2& size, const Color& color)

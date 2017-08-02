@@ -1,7 +1,7 @@
 #pragma once
 #include "Viewport.h"
 #include "Maths\Maths.h"
-#include "structs\Data\Color.h"
+#include "Types.h"
 #include "Enums.h"
 #include "structs\Framebuffers\Framebuffer.h"
 
@@ -22,7 +22,7 @@ namespace Ablaze
 
 		int GetWidth() const;
 		int GetHeight() const;
-		String GetTitle() const;
+		const String& GetTitle() const;
 		const Color& GetClearColor() const;
 		GLFWwindow* GetWindowPtr() const;
 		const Framebuffer* GetFramebuffer() const;

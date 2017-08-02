@@ -45,7 +45,6 @@ namespace Ablaze
 		AddComponent(new Components::Parent(Anchor())); // All objects are a child of the Anchor Object
 		AddComponent(new Components::Identifier(Tags::None));
 		AddComponent(new Components::MeshComponent(MeshFactory::BuildCuboidUnnamed(maths::vec3(1, 1, 1), Color::White(), MaterialFactory::Build("_GAMEOBJECT_DEFAULT_", Color::White(), Shader::Default()))));
-		// TODO: add Renderer Component
 	}
 
 	GameObject::GameObject(float x, float y, float z, const maths::mat4& rotation, const maths::vec3& scale) : GameObject(maths::vec3(x, y, z), rotation, scale)
@@ -143,14 +142,9 @@ namespace Ablaze
 		return GetComponent<Components::Transform>();
 	}
 
-	Components::Parent* GameObject::Parent() const
+	Components::Parent* GameObject::ParentComponent() const
 	{
 		return GetComponent<Components::Parent>();
-	}
-
-	Components::Renderer* GameObject::Renderer() const
-	{
-		return GetComponent<Components::Renderer>();
 	}
 
 	Components::Identifier* GameObject::Identifier() const
@@ -161,6 +155,21 @@ namespace Ablaze
 	Components::MeshComponent* GameObject::Mesh() const
 	{
 		return GetComponent<Components::MeshComponent>();
+	}
+
+	const GameObject* const GameObject::Parent() const
+	{
+		return ParentComponent()->GetParentObject();
+	}
+
+	void GameObject::SetMesh(Ablaze::Mesh* mesh)
+	{
+		Mesh()->SetMesh(mesh);
+	}
+
+	void GameObject::SetMesh(const String& meshName)
+	{
+		Mesh()->SetMesh(meshName);
 	}
 
 

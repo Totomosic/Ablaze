@@ -15,4 +15,15 @@ namespace Ablaze
 		this->size += size * count;
 	}
 
+	BufferLayout BufferLayout::Vertex()
+	{
+		BufferLayout l;
+		l.Push<maths::vec3>("POSITION");
+		l.Push<maths::vec3>("NORMAL");
+		l.Push<maths::vec2>("TEXCOORD");
+		l.Push<Color>("COLOR");
+		l.Push<maths::vec3>("TANGENT");
+		return l;
+	}
+
 }

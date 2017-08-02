@@ -10,6 +10,8 @@ namespace Ablaze
 	protected:
 		String physicalPath;
 		FileType type;
+		HANDLE handle;
+		bool isOpen;
 
 	protected:
 		DataFile(const String& physicalPath, FileType type);
@@ -17,6 +19,11 @@ namespace Ablaze
 	public:
 		const String& GetPath() const;
 		FileType GetType() const;
+		bool IsOpen() const;
+		HANDLE GetHandle() const;
+
+		virtual HANDLE Open(bool clearFile);
+		virtual void Close();
 
 		virtual void Write(byte* data, int64 length);
 		virtual void WriteTo(const String& filepath);

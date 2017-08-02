@@ -10,6 +10,11 @@
 namespace Ablaze
 {
 
+	enum class Access
+	{
+		Read = GL_READ_ONLY, Write = GL_WRITE_ONLY, ReadWrite = GL_READ_WRITE
+	};
+
 	template <class Type> class Buffer
 	{
 	protected:
@@ -69,10 +74,10 @@ namespace Ablaze
 			glBindBuffer(target, 0);
 		}
 
-		GLvoid* MapBuffer(GLenum access)
+		GLvoid* MapBuffer(Access access)
 		{
 			Bind();
-			return glMapBuffer(target, access);
+			return glMapBuffer(target, (GLenum)access);
 		}
 
 		GLboolean UnmapBuffer()
@@ -97,15 +102,20 @@ namespace Ablaze
 			//delete[] data;
 		}
 
-		void Download(GLint offset, GLint length, Type* ptr)
+		void Download(GLint offset, GLint byteLength, Type* ptr)
 		{
 			Bind();
-			glGetBufferSubData(target, offset, length, ptr);
+			glGetBufferSubData(target, offset, byteLength, ptr);
 		}
 
 		void Download(GLint length, Type* ptr)
 		{
 			Download(0, length, ptr);
+		}
+		
+		void Download(Type* ptr)
+		{
+			Download(bufferSize, ptr);
 		}
 
 	private:

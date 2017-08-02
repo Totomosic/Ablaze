@@ -1,11 +1,13 @@
 #pragma once
 
+#include "Data/Color.h"
+#include "Data/Vertex.h"
+
+#include "Framebuffers/Framebuffer.h"
+#include "Framebuffers/GBuffer.h"
+
 #include "Buffer.h"
-#include "VBO.h"
+#include "BufferLayout.h"
 #include "IndexBuffer.h"
 #include "VAO.h"
-
-#include "Framebuffers\Framebuffer.h"
-
-#include "Data\Vertex.h"
-#include "Data\Color.h"
+#include "VBO.h"

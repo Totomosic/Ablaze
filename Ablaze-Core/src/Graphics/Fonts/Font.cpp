@@ -61,7 +61,7 @@ namespace Ablaze
 	{
 		VBO* vbo = new VBO(text.length() * 4 * sizeof(Vertex), 0);
 		IndexBuffer* ibo = new IndexBuffer(text.length() * 6 * sizeof(GLuint));
-		Vertex* buffer = (Vertex*)vbo->MapBuffer(GL_WRITE_ONLY);
+		Vertex* buffer = (Vertex*)vbo->MapBuffer(Access::Write);
 		GLuint* indices = new GLuint[text.length() * 6];
 		float x = GetWidth(text) / -2.0f;
 		float y = GetHeight(text) / -2.0f;

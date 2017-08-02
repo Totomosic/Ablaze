@@ -16,8 +16,11 @@ namespace Ablaze
 		static bool ReadFile(const String& path, void* buffer, int64 size = -1);
 		static String ReadTextFile(const String& path);
 
-		static bool WriteFile(const String& path, byte* buffer, int64 length, bool overrideFile = true);
-		static bool WriteTextFile(const String& path, const String& text, bool overrideFile = true);
+		static bool WriteFile(HANDLE handle, byte* buffer, int64 length, bool overrideFile = true);
+		static bool WriteTextFile(HANDLE handle, const String& text, bool overrideFile = true);
+
+		static HANDLE OpenFile(const String& path, bool clearFile);
+		static void CloseFile(HANDLE handle);
 
 		static void DeleteDataFile(const String& path);
 	};

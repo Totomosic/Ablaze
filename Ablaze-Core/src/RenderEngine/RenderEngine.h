@@ -12,5 +12,4 @@
 
 #include "Post Processing\PostProcessor.h"
 
-#include "structs\Commands\RenderCommand.h"
-#include "structs\Commands\ClearCommand.h"
+#include "structs\Commands\Commands.h"

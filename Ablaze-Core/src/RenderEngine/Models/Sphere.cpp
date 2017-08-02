@@ -17,8 +17,8 @@ namespace Ablaze
 	void Sphere::Create(const Color& color)
 	{
 		float space = 10;
-		Vertex* ptr = (Vertex*)vbo->MapBuffer(GL_WRITE_ONLY);
-		GLuint* indices = (GLuint*)indexBuffer->MapBuffer(GL_WRITE_ONLY);
+		Vertex* ptr = (Vertex*)vbo->MapBuffer(Access::Write);
+		GLuint* indices = (GLuint*)indexBuffer->MapBuffer(Access::Write);
 		uint currentVertex = 0;
 
 		for (float b = 0; b <= 180; b += space)

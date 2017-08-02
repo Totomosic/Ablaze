@@ -29,7 +29,7 @@ namespace Ablaze
 		{
  			if (owner->HasComponent<Parent>())
 			{
-				return owner->Parent()->GetParentObject()->Transform()->GetModelMatrix().GetColumn(3).xyz() + position;
+				return owner->Parent()->Transform()->GetModelMatrix().GetColumn(3).xyz() + position;
 			}
 			return position;
 		}
@@ -38,7 +38,7 @@ namespace Ablaze
 		{
 			if (owner->HasComponent<Parent>())
 			{
-				return owner->Parent()->GetParentObject()->Transform()->GetNievePosition() + position;
+				return owner->Parent()->Transform()->GetNievePosition() + position;
 			}
 			return position;
 		}
@@ -47,7 +47,7 @@ namespace Ablaze
 		{
 			if (owner->HasComponent<Parent>())
 			{
-				return rotation * owner->Parent()->GetParentObject()->Transform()->GetRotation();
+				return rotation * owner->Parent()->Transform()->GetRotation();
 			}
 			return rotation;
 		}
@@ -109,7 +109,6 @@ namespace Ablaze
 			maths::vec3 rotAxis = axis;
 			if (space == Space::World)
 			{
-				// TODO: investigate this
 				rotAxis = (rotation.Inverse() * maths::vec4(rotAxis, 0)).xyz();
 			}
 			if (Angle == Angle::Degrees)

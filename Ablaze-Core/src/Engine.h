@@ -2,6 +2,8 @@
 #include "Types.h"
 #include "Maths/Maths.h"
 
+#define _GL_ERRORS
+
 namespace Ablaze
 {
 

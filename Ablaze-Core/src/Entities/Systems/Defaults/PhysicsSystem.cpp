@@ -46,6 +46,10 @@ namespace Ablaze
 					dynamicRb->Acceleration().z = 0;
 					dynamicRb->Velocity().z = 0;
 				}
+				if (info.collided)
+				{
+					// TODO: work out how to make parent of object that collided with
+				}
 			}
 		}
 	}

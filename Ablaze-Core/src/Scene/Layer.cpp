@@ -1,8 +1,7 @@
 #include "Layer.h"
 #include "Entities/Components/Components.h"
 #include "Entities/Camera.h"
-#include "RenderEngine/structs/Commands/RenderCommand.h"
-#include "RenderEngine/structs/Commands/ClearCommand.h"
+#include "RenderEngine/structs/Commands/Commands.h"
 #include "Graphics/Context.h"
 
 namespace Ablaze
@@ -93,7 +92,7 @@ namespace Ablaze
 			renderer->PushCommand(new RenderCommand(renderable));
 			renderables.push_back(renderable);
 		}
-
+		renderer->PushCommand(new RTSwapCommand(Context::Window()->GetFramebuffer()));
 		renderer->Execute(cam->GetViewMatrix(), cam->GetProjectionMatrix());
 
 		for (auto renderable : renderables)

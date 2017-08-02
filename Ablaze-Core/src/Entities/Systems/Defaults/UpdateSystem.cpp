@@ -24,6 +24,7 @@ namespace Ablaze
 			{
 				rb->SetAcceleration(rb->GetAcceleration() + maths::vec3(0, -9.8f, 0));
 			}
+			rb->Velocity() *= maths::vec3(0.95f, 1.0f, 0.95f); // TODO: replace with proper friction
 		}
 	}
 

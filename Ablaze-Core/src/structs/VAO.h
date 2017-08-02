@@ -30,8 +30,8 @@ namespace Ablaze
 		virtual ~VAO();
 
 		GLuint GetID() const;
-		VBO& GetAttribute(GLint index);
-		IndexBuffer& GetIndexBuffer() const;
+		VBO* GetAttribute(GLint index);
+		IndexBuffer* GetIndexBuffer() const;
 		GLint GetRenderCount() const;
 		GLint GetVertexCount() const;
 		GLenum GetPrimitiveType() const;

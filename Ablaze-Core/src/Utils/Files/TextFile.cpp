@@ -21,7 +21,15 @@ namespace Ablaze
 
 	void TextFile::WriteTo(const String& path, const String& data) const
 	{
-		FileSystem::WriteTextFile(path, data);
+		HANDLE file = FileSystem::OpenFile(VFS::ResolvePhysicalPath(path, 0), false);
+		FileSystem::WriteTextFile(file, data);
+		FileSystem::CloseFile(file);
+	}
+
+	void TextFile::WriteLine(const String& line) const
+	{
+		FileSystem::WriteTextFile(handle, line, false);
+		FileSystem::WriteTextFile(handle, "\n", false);
 	}
 
 	String TextFile::Read() const

@@ -18,7 +18,7 @@ namespace Ablaze
 	{
 		//                                        Front                    Back                  Right                      Left                Top               Bottom
 		indexBuffer->Upload(new GLuint[6 * 6]{ 0, 3, 6, 0, 6, 9,  12, 15, 18, 12, 18, 21,  11, 8, 17, 11, 17, 14,  23, 20, 5, 23, 5, 2,  22, 1, 10, 22, 10, 13,  4, 19, 16, 4, 16, 7 }, 6 * 6 * sizeof(GLuint));
-		Vertex* ptr = (Vertex*)vbo->MapBuffer(GL_WRITE_ONLY);
+		Vertex* ptr = (Vertex*)vbo->MapBuffer(Access::Write);
 
 		maths::vec3 s = size / 2.0f;
 		maths::vec3 t(0, 0, 1);

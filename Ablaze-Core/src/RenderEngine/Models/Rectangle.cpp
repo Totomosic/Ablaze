@@ -17,7 +17,7 @@ namespace Ablaze
 	void Rectangle::Create(const Color& color)
 	{
 		indexBuffer->Upload(new GLuint[6]{ 0, 1, 2, 0, 2, 3 }, 6 * sizeof(GLuint));
-		auto ptr = (Vertex*)vbo->MapBuffer(GL_WRITE_ONLY);
+		auto ptr = (Vertex*)vbo->MapBuffer(Access::Write);
 
 		maths::vec3 n(0, 0, 1);
 		maths::vec2 s = size / 2.0f;

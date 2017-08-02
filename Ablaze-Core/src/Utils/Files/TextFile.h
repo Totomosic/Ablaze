@@ -17,6 +17,7 @@ namespace Ablaze
 	public:
 		void Write(const String& data) const;
 		void WriteTo(const String& filepath, const String& data) const;
+		void WriteLine(const String& line) const;
 		String Read() const;
 
 		friend class VFS;

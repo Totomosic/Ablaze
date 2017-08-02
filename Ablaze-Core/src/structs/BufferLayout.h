@@ -27,6 +27,7 @@ namespace Ablaze
 
 		inline const std::vector<BufferElement>& GetLayout() const { return elements; }
 		inline uint GetStride() const { return size; }
+		inline const BufferElement& GetElement(int index) const { return elements[index]; }
 
 		template<class T>
 		void Push(const String& name, bool normalized = false)
@@ -63,6 +64,14 @@ namespace Ablaze
 		{
 			Push(name, GL_FLOAT, sizeof(GLfloat), 4, normalized);
 		}
+
+		template<>
+		void Push<Color>(const String& name, bool normalized)
+		{
+			Push<maths::vec4>(name, normalized);
+		}
+
+		static BufferLayout Vertex();
 
 	private:
 		void Push(const String& name, uint type, uint size, uint count, bool normalized);

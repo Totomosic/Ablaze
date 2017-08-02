@@ -16,8 +16,8 @@ namespace Ablaze
 
 	void Tile::Create(const Color& color)
 	{
-		Vertex* ptr = (Vertex*)vbo->MapBuffer(GL_WRITE_ONLY);
-		GLuint* indices = (GLuint*)indexBuffer->MapBuffer(GL_WRITE_ONLY);
+		Vertex* ptr = (Vertex*)vbo->MapBuffer(Access::Write);
+		GLuint* indices = (GLuint*)indexBuffer->MapBuffer(Access::Write);
 		float w = size.x / 2.0f;
 		float d = size.y / 2.0f;
 		maths::vec3 normal(0.0f, 1.0f, 0.0f);

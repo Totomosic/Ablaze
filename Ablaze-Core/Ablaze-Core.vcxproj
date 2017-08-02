@@ -183,6 +183,7 @@
     <ClCompile Include="src\Factories\MeshFactory.cpp" />
     <ClCompile Include="src\Factories\ModelFactory.cpp" />
     <ClCompile Include="src\Factories\Models\WavefrontLoader.cpp" />
+    <ClCompile Include="src\Factories\Models\WavefrontWriter.cpp" />
     <ClCompile Include="src\Factories\TextureFactory.cpp" />
     <ClCompile Include="src\Graphics\Context.cpp" />
     <ClCompile Include="src\Graphics\Fonts\Font.cpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="src\RenderEngine\structs\Commands\ClearCommand.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Commands\Command.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Commands\RenderCommand.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\Commands\RTSwapCommand.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Material.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Mesh.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Model.cpp" />
@@ -229,6 +231,7 @@
     <ClCompile Include="src\structs\Data\Color.cpp" />
     <ClCompile Include="src\structs\Data\Vertex.cpp" />
     <ClCompile Include="src\structs\Framebuffers\Framebuffer.cpp" />
+    <ClCompile Include="src\structs\Framebuffers\GBuffer.cpp" />
     <ClCompile Include="src\structs\IndexBuffer.cpp" />
     <ClCompile Include="src\structs\VAO.cpp" />
     <ClCompile Include="src\structs\VBO.cpp" />
@@ -282,6 +285,7 @@
     <ClInclude Include="src\Factories\MeshFactory.h" />
     <ClInclude Include="src\Factories\ModelFactory.h" />
     <ClInclude Include="src\Factories\Models\WavefrontLoader.h" />
+    <ClInclude Include="src\Factories\Models\WavefrontWriter.h" />
     <ClInclude Include="src\Factories\TextureFactory.h" />
     <ClInclude Include="src\Graphics\Context.h" />
     <ClInclude Include="src\Graphics\Fonts\Font.h" />
@@ -320,7 +324,9 @@
     <ClInclude Include="src\RenderEngine\RenderEngine.h" />
     <ClInclude Include="src\RenderEngine\structs\Commands\ClearCommand.h" />
     <ClInclude Include="src\RenderEngine\structs\Commands\Command.h" />
+    <ClInclude Include="src\RenderEngine\structs\Commands\Commands.h" />
     <ClInclude Include="src\RenderEngine\structs\Commands\RenderCommand.h" />
+    <ClInclude Include="src\RenderEngine\structs\Commands\RTSwapCommand.h" />
     <ClInclude Include="src\RenderEngine\structs\Material.h" />
     <ClInclude Include="src\RenderEngine\structs\Mesh.h" />
     <ClInclude Include="src\RenderEngine\structs\Model.h" />
@@ -335,6 +341,7 @@
     <ClInclude Include="src\structs\Data\Color.h" />
     <ClInclude Include="src\structs\Data\Vertex.h" />
     <ClInclude Include="src\structs\Framebuffers\Framebuffer.h" />
+    <ClInclude Include="src\structs\Framebuffers\GBuffer.h" />
     <ClInclude Include="src\structs\IndexBuffer.h" />
     <ClInclude Include="src\structs\Structs.h" />
     <ClInclude Include="src\structs\VAO.h" />
