@@ -3,15 +3,9 @@
 namespace Ablaze
 {
 
-	Tile::Tile(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VBO(4 * sizeof(Vertex), 0), new IndexBuffer(6 * sizeof(GLuint)))
+	Tile::Tile(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VBO(4 * sizeof(Vertex), 0), new IndexBuffer(6 * sizeof(GLuint)), maths::vec3(size.x, 0, size.y))
 	{
-		this->size = size;
 		Create(color);
-	}
-
-	const maths::vec2& Tile::GetSize() const
-	{
-		return size;
 	}
 
 	void Tile::Create(const Color& color)
@@ -19,7 +13,7 @@ namespace Ablaze
 		Vertex* ptr = (Vertex*)vbo->MapBuffer(Access::Write);
 		GLuint* indices = (GLuint*)indexBuffer->MapBuffer(Access::Write);
 		float w = size.x / 2.0f;
-		float d = size.y / 2.0f;
+		float d = size.z / 2.0f;
 		maths::vec3 normal(0.0f, 1.0f, 0.0f);
 
 		ptr->position = maths::vec3(-w, 0.0f, -d);

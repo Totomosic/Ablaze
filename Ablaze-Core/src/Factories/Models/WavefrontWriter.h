@@ -15,9 +15,6 @@ namespace Ablaze
 
 			static void WriteToFile(WavefrontFile* file, Model* model);
 
-		private:
-
-
 		};
 
 	}

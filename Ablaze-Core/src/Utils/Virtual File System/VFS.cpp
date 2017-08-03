@@ -73,12 +73,15 @@ namespace Ablaze
 
 	int64 VFS::GetFileSize(const String& path)
 	{
-		return FileSystem::GetFileSize(ResolvePhysicalPath(path));
+		HANDLE file = FileSystem::OpenFile(path, OpenMode::Read, false, false);
+		int64 val = FileSystem::GetFileSize(file);
+		FileSystem::CloseFile(file);
+		return val;
 	}
 
 	int64 VFS::GetFileSize(const DataFile* const file)
 	{
-		return FileSystem::GetFileSize(file->GetPath());
+		return FileSystem::GetFileSize(file->GetHandle());
 	}
 
 	TextFile* VFS::RetrieveTextFile(const String& path)

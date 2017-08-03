@@ -12,12 +12,10 @@ namespace Ablaze
 
 	protected:
 		TextFile(const String& filepath);
-		TextFile(const String& filepath, const String& data);
 
 	public:
-		void Write(const String& data) const;
-		void WriteTo(const String& filepath, const String& data) const;
-		void WriteLine(const String& line) const;
+		void Write(const String& data);
+		void WriteLine(const String& line);
 		String Read() const;
 
 		friend class VFS;

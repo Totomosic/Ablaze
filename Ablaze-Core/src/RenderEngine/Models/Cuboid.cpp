@@ -3,15 +3,9 @@
 namespace Ablaze
 {
 
-	Cuboid::Cuboid(const String& name, const maths::vec3& size, const Color& color) : Model(name, new VBO(24 * sizeof(Vertex), 0, 3, nullptr), new IndexBuffer(6 * 6 * sizeof(GLuint))),
-		size(size)
+	Cuboid::Cuboid(const String& name, const maths::vec3& size, const Color& color) : Model(name, new VBO(24 * sizeof(Vertex), 0, 3, nullptr), new IndexBuffer(6 * 6 * sizeof(GLuint)), size)
 	{
 		Create(color);
-	}
-
-	const maths::vec3& Cuboid::GetSize() const
-	{
-		return size;
 	}
 
 	void Cuboid::Create(const Color& color)

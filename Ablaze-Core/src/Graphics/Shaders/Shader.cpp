@@ -91,9 +91,14 @@ namespace Ablaze
 		return new Shader(name, vertexData, fragData);
 	}
 
-	Shader* Shader::FromFile(const String& name, const GLSLFile* vertexFile, const GLSLFile* fragFile)
+	Shader* Shader::FromFile(const String& name, GLSLFile* vertexFile, GLSLFile* fragFile)
 	{
-		return new Shader(name, vertexFile->Read(), fragFile->Read());
+		vertexFile->Open(OpenMode::Read);
+		fragFile->Open(OpenMode::Read);
+		Shader* shader = new Shader(name, vertexFile->Read(), fragFile->Read());
+		vertexFile->Close();
+		fragFile->Close();
+		return shader;
 	}
 
 	const Shader* const Shader::Default()

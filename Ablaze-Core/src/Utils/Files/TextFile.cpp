@@ -9,32 +9,24 @@ namespace Ablaze
 
 	}
 
-	TextFile::TextFile(const String& path, const String& data) : DataFile(path, FileType::Text)
+	void TextFile::Write(const String& data)
 	{
-		WriteTo(path, data);
+		DataFile::Write((byte*)data.c_str(), data.length());
 	}
 
-	void TextFile::Write(const String& data) const
+	void TextFile::WriteLine(const String& line)
 	{
-		WriteTo(physicalPath, data);
-	}
-
-	void TextFile::WriteTo(const String& path, const String& data) const
-	{
-		HANDLE file = FileSystem::OpenFile(VFS::ResolvePhysicalPath(path, 0), false);
-		FileSystem::WriteTextFile(file, data);
-		FileSystem::CloseFile(file);
-	}
-
-	void TextFile::WriteLine(const String& line) const
-	{
-		FileSystem::WriteTextFile(handle, line, false);
-		FileSystem::WriteTextFile(handle, "\n", false);
+		String data = (line + "\n");
+		DataFile::AddData((byte*)data.c_str(), data.length());
 	}
 
 	String TextFile::Read() const
 	{
-		return FileSystem::ReadTextFile(physicalPath);
+		if (!isOpen)
+		{
+			AB_ERROR("File with path: " + physicalPath + " was not opened before reading.");
+		}
+		return FileSystem::ReadTextFile(handle);
 	}
 
 }

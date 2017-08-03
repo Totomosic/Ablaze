@@ -57,11 +57,13 @@ public:
 		MaterialFactory::OrderPBR("BrickMaterial", Color::White(), Shader::PBR(), "OctoAlbedo", "OctoRoughness", "OctoMetallic", "OctoAO", "OctoNormal");
 		ModelFactory::OrderCuboid("Wall", maths::vec3(25, 9.9f, 2), Color::White());
 		ModelFactory::OrderTile("Floor", maths::vec2(50, 50), Color::White()); 
-		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/learjet.obj"));
+		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/Plane.obj"));
+		ModelFactory::Order("Cruiser", VFS::RetrieveFile<WavefrontFile>("/res/SunPrincess.obj"));
 		FontFactory::Order("Roboto", "/res/Roboto-Regular.ttf", 32);
 		MeshFactory::Order("Floor", "Floor", "BrickMaterial");
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
-		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial");
+		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
+		MeshFactory::Order("Cruiser", "Cruiser", "RustedMaterial", maths::mat4::Translation(maths::vec3(0, 0, -500)) * maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 
 		Camera* camera = new Camera(Viewport(-window->GetWidth() / 2, -window->GetHeight() / 2, window->GetWidth(), window->GetHeight()), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective);
 		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
@@ -91,6 +93,13 @@ public:
 		Components::Collider* c = new Components::Collider(maths::vec3(4, 4, 40), maths::vec3(0, -2, 0));
 		c->AddBoundingBox(BoundingBox(maths::vec3(30, 1, 5)), maths::vec3(0, -3, -1));
 		plane->AddComponent(c);
+		plane->Identifier()->SetName("Plane");
+
+		GameObject* modelShip = new GameObject(0, 0, 0);
+		modelShip->Transform()->SetScale(0.02f);
+		modelShip->SetMesh("Cruiser");
+		modelShip->AddComponent(new Components::RigidBody(1, true, 0.0f, 0.0f, false));
+		modelShip->AddComponent(Components::Collider::FromMeshComponent(modelShip, false));
 
 		Shader::PBR()->Enable();
 		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 100, 0));
@@ -98,9 +107,6 @@ public:
 		Shader::PBR()->SetUniformVec3("Lights[1].Position", maths::vec3(0, 0, 100));
 		Shader::PBR()->SetUniformVec3("Lights[1].Color", maths::vec3(1));
 		Shader::PBR()->SetUniformInt("lightCount", 2);
-
-		WavefrontFile* file = VFS::CreateNewFile<WavefrontFile>("/res/Plane.obj");
-		file->Write(ModelFactory::RequestWeak("Learjet"));
 	}
 
 	void Tick() override
@@ -152,7 +158,6 @@ public:
 		}
 
 		Application::Update();
-
 	}
 
 	maths::vec3 CalculateVector(const maths::vec3& vector)

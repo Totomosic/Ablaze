@@ -63,8 +63,10 @@ namespace Ablaze
 		IndexBuffer* ibo = new IndexBuffer(text.length() * 6 * sizeof(GLuint));
 		Vertex* buffer = (Vertex*)vbo->MapBuffer(Access::Write);
 		GLuint* indices = new GLuint[text.length() * 6];
-		float x = GetWidth(text) / -2.0f;
-		float y = GetHeight(text) / -2.0f;
+		float width = GetWidth(text);
+		float height = GetHeight(text);
+		float x = width / -2.0f;
+		float y = height / -2.0f;
 		int indexCount = 0;
 		int indicesCount = 0;
 		for (int i = 0; i < text.length(); i++)
@@ -133,7 +135,7 @@ namespace Ablaze
 		}
 		vbo->UnmapBuffer();
 		ibo->Upload(indices, text.length() * 6 * sizeof(GLuint));
-		return new Model(modelName, vbo, ibo);
+		return new Model(modelName, vbo, ibo, maths::vec3(width, height, 0));
 	}
 
 	void Font::Create()

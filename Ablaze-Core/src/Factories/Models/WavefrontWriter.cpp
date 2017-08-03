@@ -39,7 +39,8 @@ namespace Ablaze
 		void WavefrontWriter::WriteToFile(WavefrontFile* file, Model* model)
 		{
 			// TODO: optimize this
-			file->Open(true);
+			file->Open(OpenMode::Write);
+			file->Clear();
 			VBO* vbo = model->GetVAO()->GetAttribute(0);
 			IndexBuffer* ibo = model->GetVAO()->GetIndexBuffer();
 			int64 length = vbo->GetSize() / sizeof(float);

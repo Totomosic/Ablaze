@@ -1,5 +1,6 @@
 #include "WavefrontFile.h"
 #include "Factories/Models/WavefrontWriter.h"
+#include "Factories/ModelFactory.h"
 
 namespace Ablaze
 {
@@ -9,14 +10,14 @@ namespace Ablaze
 	
 	}
 
-	WavefrontFile::WavefrontFile(const String& filepath, const String& data) : TextFile(filepath, data)
-	{
-	
-	}
-
-	void WavefrontFile::Write(Model* model)
+	void WavefrontFile::WriteModel(Model* model)
 	{
 		Internal::WavefrontWriter::WriteToFile(this, model);
+	}
+
+	void WavefrontFile::WriteModel(const String& modelName)
+	{
+		WriteModel(ModelFactory::RequestWeak(modelName));
 	}
 
 }

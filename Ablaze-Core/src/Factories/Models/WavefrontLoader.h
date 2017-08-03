@@ -34,7 +34,7 @@ namespace Ablaze
 		public:
 			WavefrontLoader() { }
 
-			static Model* LoadModel(const String& name, const WavefrontFile* const file);
+			static Model* LoadModel(const String& name, WavefrontFile* const file);
 			static void InsertVertex(std::vector<Vertex>& vertices, std::vector<uint>& indices, std::unordered_map<IndexSet, int>& mapping, VertexSet& inputVertices, IndexSet& indexSet);
 
 		private:

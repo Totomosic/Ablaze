@@ -43,7 +43,7 @@ namespace Ablaze
 		void SetTexture(Texture& texture, String samplerName) const;
 
 		static Shader* FromSource(const String& name, const String& vertexData, const String& fragData);
-		static Shader* FromFile(const String& name, const GLSLFile* vertexFile, const GLSLFile* fragFile);
+		static Shader* FromFile(const String& name, GLSLFile* vertexFile, GLSLFile* fragFile);
 		static const Shader* const Default();
 		static const Shader* const Font();
 		static const Shader* const PBR();

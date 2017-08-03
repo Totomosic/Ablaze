@@ -27,14 +27,14 @@ namespace Ablaze
 		static bool Release(const String& modelName);
 		static bool Release(Model* model);
 
-		static Model* Build(const String& modelName, const WavefrontFile* const file);
+		static Model* Build(const String& modelName, WavefrontFile* const file);
 		static Rectangle* BuildRectangle(const String& modelName, const maths::vec2& size, const Color& color = Color::White());
 		static Cuboid* BuildCuboid(const String& modelName, const maths::vec3& size, const Color& color = Color::White());
 		static Sphere* BuildSphere(const String& modelName, float radius, const Color& color = Color::White());
 		static Tile* BuildTile(const String& modelName, const maths::vec2& size, const Color& color = Color::White());
 		static Model* BuildText(const String& textName, const String& text, Font* font, const Color& color = Color::White());
 
-		static void Order(const String& modelName, const WavefrontFile* const file);
+		static void Order(const String& modelName, WavefrontFile* const file);
 		static void OrderRectangle(const String& modelName, const maths::vec2& size, const Color& color = Color::White());
 		static void OrderCuboid(const String& modelName, const maths::vec3& size, const Color& color = Color::White());
 		static void OrderSphere(const String& modelName, float radius, const Color& color = Color::White());

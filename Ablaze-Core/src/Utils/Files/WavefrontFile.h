@@ -11,10 +11,10 @@ namespace Ablaze
 	{
 	protected:
 		WavefrontFile(const String& filepath);
-		WavefrontFile(const String& filepath, const String& data);
 
 	public:
-		void Write(Model* model);
+		void WriteModel(Model* model);
+		void WriteModel(const String& modelName);
 
 		friend class VFS;
 

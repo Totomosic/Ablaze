@@ -17,7 +17,9 @@ namespace Ablaze
 			Collider(const std::vector<std::pair<maths::vec3, BoundingBox>*>& boundingBoxes);
 
 		public:
-			Collider(const BoundingBox& boundingBox, const maths::vec3& positionOffset = maths::vec3(0.0));
+			Collider(const BoundingBox& boundingBox, const maths::vec3& positionOffset = maths::vec3(0.0f));
+			Collider(Model* model, const maths::vec3& positionOffset = maths::vec3(0.0f));
+			Collider(const String& modelName, const maths::vec3& positionOffset = maths::vec3(0.0f));
 			Collider();
 
 			int GetCount() const;
@@ -27,6 +29,8 @@ namespace Ablaze
 			void AddBoundingBox(const BoundingBox& boundingBox, const maths::vec3& positionOffset = maths::vec3(0.0f));
 
 			Component* Clone() override;
+
+			static Collider* FromMeshComponent(GameObject* object, bool useModelTransforms = true);
 		};
 
 	}

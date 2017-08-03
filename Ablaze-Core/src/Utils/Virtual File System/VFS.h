@@ -36,7 +36,9 @@ namespace Ablaze
 
 		template<class File> static File* CreateNewFile(const String& path, int pathIndex = 0)
 		{
-			return new File(ResolvePhysicalPath(path, pathIndex));
+			File* file = new File(ResolvePhysicalPath(path, pathIndex));
+			file->Clear();
+			return file;
 		}
 
 	private:

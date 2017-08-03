@@ -9,17 +9,20 @@ namespace Ablaze
 {
 	namespace maths
 	{
+
+		const double PI = M_PI;
+
 		class Angles
 		{
 		public:
 			static float ToRadians(float degrees)
 			{
-				return degrees * ((float)M_PI / 180.0f);
+				return degrees * ((float)PI / 180.0f);
 			}
 
 			static float ToDegrees(float radians)
 			{
-				return radians / (float)M_PI * 180.0f;
+				return radians / (float)PI * 180.0f;
 			}
 		};
 	}

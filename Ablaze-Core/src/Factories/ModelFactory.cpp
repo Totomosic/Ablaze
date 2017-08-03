@@ -58,7 +58,7 @@ namespace Ablaze
 		return Release(model->GetName());
 	}
 
-	Model* ModelFactory::Build(const String& modelName, const WavefrontFile* const file)
+	Model* ModelFactory::Build(const String& modelName, WavefrontFile* const file)
 	{
 		Model* model = Internal::WavefrontLoader::LoadModel(modelName, file);
 		CreateNew(model, 1);
@@ -100,7 +100,7 @@ namespace Ablaze
 		return textModel;
 	}
 
-	void ModelFactory::Order(const String& modelName, const WavefrontFile* const file)
+	void ModelFactory::Order(const String& modelName, WavefrontFile* const file)
 	{
 		Decrement(Build(modelName, file)->GetName());
 	}

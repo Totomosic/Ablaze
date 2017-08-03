@@ -3,15 +3,9 @@
 namespace Ablaze
 {
 
-	Rectangle::Rectangle(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VBO(4 * sizeof(Vertex), 0, 3, nullptr), new IndexBuffer(6 * sizeof(GLuint))),
-		size(size)
+	Rectangle::Rectangle(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VBO(4 * sizeof(Vertex), 0, 3, nullptr), new IndexBuffer(6 * sizeof(GLuint)), maths::vec3(size.x, size.y, 0))
 	{
 		Create(color);
-	}
-
-	const maths::vec2& Rectangle::GetSize() const
-	{
-		return size;
 	}
 
 	void Rectangle::Create(const Color& color)
@@ -20,7 +14,7 @@ namespace Ablaze
 		auto ptr = (Vertex*)vbo->MapBuffer(Access::Write);
 
 		maths::vec3 n(0, 0, 1);
-		maths::vec2 s = size / 2.0f;
+		maths::vec3 s = size / 2.0f;
 		float x = s.x;
 		float y = s.y;
 

@@ -20,9 +20,10 @@ namespace Ablaze
 		VAO* vao;
 		VBO* vbo;
 		IndexBuffer* indexBuffer;
+		maths::vec3 size;
 
 	protected:
-		Model(const String& name, VBO* vertexBuffer, IndexBuffer* indexBuffer);
+		Model(const String& name, VBO* vertexBuffer, IndexBuffer* indexBuffer, const maths::vec3& size);
 		Model(const Model& other) = delete;
 
 	public:
@@ -32,6 +33,7 @@ namespace Ablaze
 		VAO* GetVAO() const;
 		VBO* GetVBO() const;
 		IndexBuffer* GetIndexBuffer() const;
+		const maths::vec3& GetSize() const;
 
 		void SetVBO(VBO* vbo);
 		void SetIndexBuffer(IndexBuffer* ibo);

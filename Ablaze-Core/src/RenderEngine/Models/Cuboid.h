@@ -9,15 +9,10 @@ namespace Ablaze
 
 	class Cuboid : public Model
 	{
-	private:
-		maths::vec3 size;
-
 	protected:
 		Cuboid(const String& name, const maths::vec3& size, const Color& color = Color::White());
 
 	public:
-		const maths::vec3& GetSize() const;
-
 		friend class ModelFactory;
 
 	private:

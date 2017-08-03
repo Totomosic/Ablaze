@@ -13,13 +13,51 @@ namespace Ablaze
 {
 	namespace Internal
 	{
-		Model* WavefrontLoader::LoadModel(const String& name, const WavefrontFile* const file)
+
+		void UpdateMinMax(float x, float y, float z, float* minX, float* maxX, float* minY, float* maxY, float* minZ, float* maxZ)
 		{
+			if (x < *minX)
+			{
+				*minX = x;
+			}
+			if (x > *maxX)
+			{
+				*maxX = x;
+			}
+			if (y < *minY)
+			{
+				*minY = y;
+			}
+			if (y > *maxY)
+			{
+				*maxY = y;
+			}
+			if (z < *minZ)
+			{
+				*minZ = z;
+			}
+			if (z > *maxZ)
+			{
+				*maxZ = z;
+			}
+		}
+
+		Model* WavefrontLoader::LoadModel(const String& name, WavefrontFile* const file)
+		{
+			file->Open(OpenMode::Read);
 			std::vector<String> lines = Utils::SplitString(file->Read(), "\n");
+			file->Close();
 			VertexSet inputVertices;
 			std::vector<Vertex> vertices;
 			std::vector<uint> indices;
 			std::unordered_map<IndexSet, int> mapping;
+
+			float minX = (float)+1e10;
+			float maxX = (float)-1e10;
+			float minY = (float)+1e10;
+			float maxY = (float)-1e10;
+			float minZ = (float)+1e10;
+			float maxZ = (float)-1e10;
 
 			uint i = 0;
 			for (String line : lines)
@@ -67,6 +105,7 @@ namespace Ablaze
 					{
 						maths::vec3 position;
 						int result = sscanf(cstr, "%*s %f %f %f", &position.x, &position.y, &position.z);
+						UpdateMinMax(position.x, position.y, position.z, &minX, &maxX, &minY, &maxY, &minZ, &maxZ);
 						if (result == 0)
 							continue;
 						inputVertices.positions.push_back(position);
@@ -142,7 +181,7 @@ namespace Ablaze
 			vbo->Upload(&vertices[0], vertices.size() * sizeof(Vertex));
 
 			IndexBuffer* ib = new IndexBuffer(indices.size() * sizeof(GLuint), &indices[0]);
-			Model* model = new Model(name, vbo, ib);
+			Model* model = new Model(name, vbo, ib, maths::vec3(maxX - minX, maxY - minY, maxZ - minZ));
 			model->GetVAO()->SetPrimitiveType(GL_TRIANGLES);
 			return model;
 		}

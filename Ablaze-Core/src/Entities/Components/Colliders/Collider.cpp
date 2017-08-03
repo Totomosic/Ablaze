@@ -1,4 +1,6 @@
 #include "Collider.h"
+#include "RenderEngine/structs/Mesh.h"
+#include "Entities/Components/Rendering/MeshComponent.h"
 
 namespace Ablaze
 {
@@ -8,12 +10,22 @@ namespace Ablaze
 		Collider::Collider(const std::vector<std::pair<maths::vec3, BoundingBox>*>& boundingBoxes)
 			: boundingBoxes(boundingBoxes)
 		{
-		
+
 		}
 
 		Collider::Collider(const BoundingBox& boundingBox, const maths::vec3& positionOffset)
 		{
 			AddBoundingBox(boundingBox, positionOffset);
+		}
+
+		Collider::Collider(Model* model, const maths::vec3& positionOffset) : Collider(BoundingBox::FromModel(model), positionOffset)
+		{
+		
+		}
+
+		Collider::Collider(const String& modelName, const maths::vec3& positionOffset) : Collider(BoundingBox::FromModel(modelName), positionOffset)
+		{
+		
 		}
 
 		Collider::Collider()
@@ -45,6 +57,17 @@ namespace Ablaze
 		{
 			Collider* c = new Collider(boundingBoxes);
 			return c;
+		}
+
+		Collider* Collider::FromMeshComponent(GameObject* object, bool useModelTransforms)
+		{
+			Collider* collider = new Collider();
+			Mesh* mesh = object->Mesh()->GetMesh();
+			for (int i = 0; i < mesh->GetLength(); i++)
+			{
+				collider->AddBoundingBox(BoundingBox::FromModel(mesh->GetModel(i)), (useModelTransforms) ? mesh->GetTransform(i).GetColumn(3).xyz() : maths::vec3(0.0f));
+			}
+			return collider;
 		}
 
 	}

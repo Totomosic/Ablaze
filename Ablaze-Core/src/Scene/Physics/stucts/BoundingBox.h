@@ -1,12 +1,16 @@
 #pragma once
 #include "Maths\Maths.h"
+#include "Types.h"
 
 namespace Ablaze
 {
 
+	class Model;
+
 	struct BoundingBox
 	{
-	maths::vec3 size;
+	public:
+		maths::vec3 size;
 
 	public:
 		BoundingBox(const maths::vec3& size);
@@ -19,6 +23,9 @@ namespace Ablaze
 		void SetSize(const maths::vec3& size);
 
 		BoundingBox* Clone() const;
+
+		static BoundingBox FromModel(Model* model);
+		static BoundingBox FromModel(const String& modelName);
 
 	};
 

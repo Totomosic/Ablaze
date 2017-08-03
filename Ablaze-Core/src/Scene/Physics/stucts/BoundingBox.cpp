@@ -1,4 +1,5 @@
 #include "BoundingBox.h"
+#include "Factories/ModelFactory.h"
 
 namespace Ablaze
 {
@@ -37,6 +38,16 @@ namespace Ablaze
 	BoundingBox* BoundingBox::Clone() const
 	{
 		return new BoundingBox(size);
+	}
+
+	BoundingBox BoundingBox::FromModel(Model* model)
+	{
+		return BoundingBox(model->GetSize());
+	}
+
+	BoundingBox BoundingBox::FromModel(const String& modelName)
+	{
+		return FromModel(ModelFactory::RequestWeak(modelName));
 	}
 
 }
