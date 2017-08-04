@@ -11,12 +11,11 @@ public:
 
 	void Init() override
 	{
+		Window::SetHint(GLFW_SAMPLES, 4);
 		BuildWindow(1280, 720, "Ablaze: ", Color(100, 200, 255));
 		VFS::Mount("shader", "");
 		VFS::Mount("textures", "");
 		VFS::Mount("res", "res/");
-
-		Shader* ppfx = Shader::FromFile("PPFX", VFS::RetrieveFile<GLSLFile>("/shader/ppfx_v.glsl"), VFS::RetrieveFile<GLSLFile>("/shader/ppfx_f.glsl"));
 
 		Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/res/rustediron2_metallic.png"));
 		Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/res/rustediron2_basecolor.png"));
@@ -80,14 +79,14 @@ public:
 		floor->AddComponent(new Components::Collider(BoundingBox(maths::vec3(50, 0, 50))));
 
 		GameObject* prev = floor;
-		for (int i = 0; i < 1; i++)
+		for (int i = 0; i < 0; i++)
 		{	
 			GameObject* current = GameObject::Instantiate(floor, maths::vec3(0, -10, 0));
 			current->MakeChildOf(prev, false);
 			prev = current;
 		}
 
-		GameObject* plane = new GameObject(0, 20, 0);
+		/*GameObject* plane = new GameObject(0, 20, 0);
 		plane->SetMesh("Learjet");
 		plane->AddComponent(new Components::RigidBody(1, true, 0.0f, 0.0f, false));
 		Components::Collider* c = new Components::Collider(maths::vec3(4, 4, 40), maths::vec3(0, -2, 0));
@@ -99,19 +98,21 @@ public:
 		modelShip->Transform()->SetScale(0.02f);
 		modelShip->SetMesh("Cruiser");
 		modelShip->AddComponent(new Components::RigidBody(1, true, 0.0f, 0.0f, false));
-		modelShip->AddComponent(Components::Collider::FromMeshComponent(modelShip, false));
+		modelShip->AddComponent(Components::Collider::FromMeshComponent(modelShip, false));*/
 
 		Shader::PBR()->Enable();
 		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 100, 0));
-		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(1));
-		Shader::PBR()->SetUniformVec3("Lights[1].Position", maths::vec3(0, 0, 100));
-		Shader::PBR()->SetUniformVec3("Lights[1].Color", maths::vec3(1));
-		Shader::PBR()->SetUniformInt("lightCount", 2);
+		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(10));
+		//Shader::PBR()->SetUniformVec3("Lights[1].Position", maths::vec3(0, 100, 0));
+		//Shader::PBR()->SetUniformVec3("Lights[1].Color", maths::vec3(10));
+		Shader::PBR()->SetUniformInt("lightCount", 1);
 	}
 
 	void Tick() override
 	{
 		WindowHandle()->SetTitle("Ablaze: " + std::to_string(Time::AverageFPS()) + " FPS");
+
+		AB_INFO(Camera::Main()->ScreenPointToWorldRay(Input::NormalizedMousePosition()));
 	}
 
 	void Update() override

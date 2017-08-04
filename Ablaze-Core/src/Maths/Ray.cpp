@@ -9,4 +9,10 @@ namespace Ablaze
 	
 	}
 
+	std::ostream& operator<<(std::ostream& stream, const Ray& ray)
+	{
+		stream << "Ray(orig: " << ray.origin << " dir: " << ray.direction << ")";
+		return stream;
+	}
+
 }

@@ -40,6 +40,8 @@ namespace Ablaze
 		void SwapBuffers() const;
 		void Update();
 
+		static void SetHint(int hintName, int value);
+
 	private:
 		void Load(int width, int height, const Color& clearColor);
 		void SetContext();

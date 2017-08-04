@@ -23,6 +23,9 @@ namespace Ablaze
 		maths::mat4 ProjectionMatrix() const;
 		maths::mat4 ViewMatrix() const;
 
+		Ray ScreenPointToWorldRay(const maths::vec3& point) const;
+		maths::vec3 ScreenPointToWorldPoint(const maths::vec3& point) const;
+
 		static Camera* Main();
 
 	};

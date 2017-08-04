@@ -11,6 +11,7 @@ namespace Ablaze
 
 		Ray(const maths::vec3& origin, const maths::vec3& direction);
 
+		friend std::ostream& operator<<(std::ostream& stream, const Ray& ray);
 	};
 
 }

@@ -10,6 +10,12 @@ namespace Ablaze
 		window = nullptr;
 		prevTime = glfwGetTime();
 		tickPrevTime = prevTime;
+
+		//glfwSetErrorCallback(ErrorCallback);
+		if (!glfwInit())
+		{
+			AB_FATAL("Unable to initialise GLFW");
+		}
 	}
 
 	Application::~Application()

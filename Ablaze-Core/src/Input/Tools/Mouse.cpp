@@ -19,7 +19,7 @@ namespace Ablaze
 		}
 		else
 		{
-			return maths::vec3(position.x, window.GetHeight() - position.y, 0);
+			return maths::vec3(position.x, Context::Window()->GetHeight() - position.y, 0);
 		}
 	}
 

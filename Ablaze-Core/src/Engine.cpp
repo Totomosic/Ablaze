@@ -16,6 +16,7 @@ namespace Ablaze
 			AB_FATAL("Unable to init GLEW");
 		}
 
+		Random::Initialise();
 		GameObject::Initialise();
 		TextureManager::Initialise();
 	}

@@ -4,12 +4,13 @@
 // Includes all vectors along with mat4
 #include "mat4.h"
 #include "Ray.h"
+#include "Random.h"
 
 namespace Ablaze
 {
+
 	namespace maths
 	{
-
 		const double PI = M_PI;
 
 		class Angles

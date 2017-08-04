@@ -202,6 +202,7 @@
     <ClCompile Include="src\Input\Tools\Keyboard.cpp" />
     <ClCompile Include="src\Input\Tools\Mouse.cpp" />
     <ClCompile Include="src\Maths\mat4.cpp" />
+    <ClCompile Include="src\Maths\Random.cpp" />
     <ClCompile Include="src\Maths\Ray.cpp" />
     <ClCompile Include="src\Maths\vec2.cpp" />
     <ClCompile Include="src\Maths\vec3.cpp" />
@@ -307,6 +308,7 @@
     <ClInclude Include="src\Log.h" />
     <ClInclude Include="src\Maths\mat4.h" />
     <ClInclude Include="src\Maths\Maths.h" />
+    <ClInclude Include="src\Maths\Random.h" />
     <ClInclude Include="src\Maths\Ray.h" />
     <ClInclude Include="src\Maths\vec2.h" />
     <ClInclude Include="src\Maths\vec3.h" />

@@ -294,6 +294,9 @@
     <ClCompile Include="src\Factories\Models\WavefrontWriter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Maths\Random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">
@@ -630,6 +633,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Factories\Models\WavefrontWriter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Maths\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

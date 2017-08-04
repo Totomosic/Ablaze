@@ -118,14 +118,13 @@ namespace Ablaze
 #endif
 	}
 
+	void Window::SetHint(int hintName, int value)
+	{
+		glfwWindowHint(hintName, value);
+	}
+
 	void Window::Load(int width, int height, const Color& clearColor)
 	{
-		glfwSetErrorCallback(ErrorCallback);
-		if (!glfwInit())
-		{
-			AB_FATAL("Unable to initialise GLFW");
-		}
-		glfwWindowHint(GLFW_SAMPLES, 4);
 		window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 		if (!window)
 		{
