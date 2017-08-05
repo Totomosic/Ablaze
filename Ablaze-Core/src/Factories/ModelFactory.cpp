@@ -100,6 +100,13 @@ namespace Ablaze
 		return textModel;
 	}
 
+	Terrain* ModelFactory::BuildTerrain(const String& terrainName, const maths::vec2& size, int vertexResolution)
+	{
+		Terrain* terrain = new Terrain(terrainName, size, vertexResolution);
+		CreateNew(terrain, 1);
+		return terrain;
+	}
+
 	void ModelFactory::Order(const String& modelName, WavefrontFile* const file)
 	{
 		Decrement(Build(modelName, file)->GetName());
@@ -128,6 +135,11 @@ namespace Ablaze
 	void ModelFactory::OrderText(const String& textName, const String& text, Font* font, const Color& color)
 	{
 		Decrement(BuildText(textName, text, font, color)->GetName());
+	}
+
+	void ModelFactory::OrderTerrain(const String& terrainName, const maths::vec2& size, int vertexResolution)
+	{
+		Decrement(BuildTerrain(terrainName, size, vertexResolution)->GetName());
 	}
 
 	Rectangle* ModelFactory::FabricateRectangle(const maths::vec2& size, const Color& color)
@@ -178,6 +190,16 @@ namespace Ablaze
 			return Request(hashedName);
 		}
 		return BuildText(hashedName, text, font, color);
+	}
+
+	Terrain* ModelFactory::FabricateTerrain(const maths::vec2& size, int vertexResolution)
+	{
+		String hashedName = "Terrain(" + std::to_string(size.x) + ", " + std::to_string(size.y) + ")res(" + std::to_string(vertexResolution) + ")_HASHED_";
+		if (ContainsKey(hashedName))
+		{
+			return (Terrain*)Request(hashedName);
+		}
+		return BuildTerrain(hashedName, size, vertexResolution);
 	}
 
 	bool ModelFactory::Exists(const String& modelName)

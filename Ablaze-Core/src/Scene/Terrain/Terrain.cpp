@@ -44,11 +44,12 @@ namespace Ablaze
 	{
 		terrainData = data;
 		data->SetTerrain(this);
+		terrainData->Recreate();
 	}
 
 	void Terrain::Generate(const HeightFunction& function)
 	{
-		SetData(new TerrainData(this, terrainData->GetSize(), GetResolution(), function.Generate(terrainData->GetSize(), GetResolution())));
+		SetData(new TerrainData(this, terrainData->GetSize(), GetResolution(), function.Generate(GetResolution(), GetResolution())));
 	}
 
 	void Terrain::CreateIndexBuffer()

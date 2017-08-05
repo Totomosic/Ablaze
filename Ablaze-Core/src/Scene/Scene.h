@@ -4,6 +4,7 @@
 
 #include "Scene\Physics\Physics.h"
 #include "Terrain\Terrain.h"
+#include "Terrain\HeightFunctions\PerlinNoise.h"
 
 namespace Ablaze
 {

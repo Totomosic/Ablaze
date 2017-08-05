@@ -36,7 +36,13 @@ namespace Ablaze
 		void Reset(float restHeight = 0.0f);
 		void SetData(const std::vector<float>& data);
 		void SetData(const HeightFunction& function);
+		void SetRegionHeight(int x, int y, int width, int depth, std::vector<float> heights);
+		void SetRegionHeight(int x, int y, int width, int depth, const HeightFunction& function);
+		void SetRegionHeight(int x, int y, int width, int depth, float height);
 		void SetVertexHeight(int x, int y, float height);
+
+		void EnableEditing();
+		void DisableEditing();
 
 	private:
 		void ApplyToModel();

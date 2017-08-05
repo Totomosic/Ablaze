@@ -13,9 +13,9 @@ namespace Ablaze
 		float smoothness;
 
 	public:
-		PerlinNoise(float min, float max, float smoothness);
+		PerlinNoise(float minVal, float maxVal, float smoothness);
 
-		std::vector<float> Generate(const maths::vec2& terrainSize, int vertexResolution) const override;
+		std::vector<float> Generate(int xVerts, int yVerts) const override;
 
 	};
 

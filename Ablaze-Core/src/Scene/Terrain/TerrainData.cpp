@@ -16,7 +16,7 @@ namespace Ablaze
 		SetData(heights);
 	}
 
-	TerrainData::TerrainData(Terrain* const terrain, const maths::vec2& size, int vertexResolution, const HeightFunction& function) : TerrainData(terrain, size, vertexResolution, function.Generate(size, vertexResolution))
+	TerrainData::TerrainData(Terrain* const terrain, const maths::vec2& size, int vertexResolution, const HeightFunction& function) : TerrainData(terrain, size, vertexResolution, function.Generate(vertexResolution, vertexResolution))
 	{
 	
 	}
@@ -69,13 +69,50 @@ namespace Ablaze
 
 	void TerrainData::SetData(const HeightFunction& function)
 	{
-		SetData(function.Generate(size, vertexResolution));
+		SetData(function.Generate(vertexResolution, vertexResolution));
+	}
+
+	void TerrainData::SetRegionHeight(int x, int y, int width, int depth, std::vector<float> heights)
+	{
+		for (int i = x; i < x + width; i++)
+		{
+			for (int j = y; j < y + depth; j++)
+			{
+				SetVertexHeight(i, j, heights[i + j * width]);
+			}
+		}
+	}
+
+	void TerrainData::SetRegionHeight(int x, int y, int width, int depth, const HeightFunction& function)
+	{
+		SetRegionHeight(x, y, width, depth, function.Generate(width, depth));
 	}
 
 	void TerrainData::SetVertexHeight(int x, int y, float height)
 	{
 		heightData[To1DIndex(x, y)] = height;
 		SetModelVertex(x, y, height);
+	}
+
+	void TerrainData::SetRegionHeight(int x, int y, int width, int depth, float height)
+	{
+		for (int i = x; i < x + width; i++)
+		{
+			for (int j = y; j < y + depth; j++)
+			{
+				SetVertexHeight(i, j, height);
+			}
+		}
+	}
+
+	void TerrainData::EnableEditing()
+	{
+		terrain->vbo->Bind();
+	}
+
+	void TerrainData::DisableEditing()
+	{
+	
 	}
 
 	int TerrainData::To1DIndex(int x, int y) const
@@ -105,7 +142,6 @@ namespace Ablaze
 	{
 		int index = To1DIndex(x, y);
 		int offset = index * terrain->vbo->GetLayout().GetStride() + sizeof(float);
-		terrain->vbo->Bind();
 		glBufferSubData(terrain->vbo->GetTarget(), offset, sizeof(float), &value);
 	}
 

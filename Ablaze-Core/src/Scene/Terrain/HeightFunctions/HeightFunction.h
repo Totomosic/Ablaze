@@ -10,7 +10,7 @@ namespace Ablaze
 		HeightFunction();
 
 	public:
-		virtual std::vector<float> Generate(const maths::vec2& terrainSize, int vertexResolution) const = 0;
+		virtual std::vector<float> Generate(int xVerts, int yVerts) const = 0;
 
 	};
 
