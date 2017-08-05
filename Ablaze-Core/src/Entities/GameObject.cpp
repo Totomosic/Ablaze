@@ -231,7 +231,7 @@ namespace Ablaze
 
 	void GameObject::Initialise()
 	{		
-		for (int i = 0; i < AblazeEngine::maxEntities; i++)
+		for (uint i = 0; i < AblazeEngine::maxEntities; i++)
 		{
 			gameObjects[i] = nullptr;
 		}
@@ -250,7 +250,7 @@ namespace Ablaze
 
 	uint GameObject::GetNextID()
 	{
-		for (int i = 0; i < highestID + 5; i++)
+		for (uint i = 0; i < highestID + 5; i++)
 		{
 			if (gameObjects[i] == nullptr)
 			{

@@ -20,28 +20,28 @@ namespace Ablaze
 		ptr->normal = normal;
 		ptr->texCoord = maths::vec2(0.0f, 1.0f);
 		ptr->color = color;
-		ptr->tangent = maths::vec3(0, 0, -1); // TEST REQUIRED
+		ptr->tangent = maths::vec3(0, 0, 1); // TEST REQUIRED
 		ptr++;
 
 		ptr->position = maths::vec3(-w, 0.0f, d);
 		ptr->normal = normal;
 		ptr->texCoord = maths::vec2(0.0f, 0.0f);
 		ptr->color = color;
-		ptr->tangent = maths::vec3(0, 0, -1); // TEST REQUIRED
+		ptr->tangent = maths::vec3(0, 0, 1); // TEST REQUIRED
 		ptr++;
 
 		ptr->position = maths::vec3(w, 0.0f, d);
 		ptr->normal = normal;
 		ptr->texCoord = maths::vec2(1.0f, 0.0f);
 		ptr->color = color;
-		ptr->tangent = maths::vec3(0, 0, -1); // TEST REQUIRED
+		ptr->tangent = maths::vec3(0, 0, 1); // TEST REQUIRED
 		ptr++;
 
 		ptr->position = maths::vec3(w, 0.0f, -d);
 		ptr->normal = normal;
 		ptr->texCoord = maths::vec2(1.0f, 1.0f);
 		ptr->color = color;
-		ptr->tangent = maths::vec3(0, 0, -1); // TEST REQUIRED
+		ptr->tangent = maths::vec3(0, 0, 1); // TEST REQUIRED
 
 		*indices = 0;
 		indices++;

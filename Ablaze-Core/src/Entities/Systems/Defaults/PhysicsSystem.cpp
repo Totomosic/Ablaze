@@ -23,7 +23,7 @@ namespace Ablaze
 			Components::Collider* dynamicCollider = dynamicObj->GetComponent<Components::Collider>();
 			Components::RigidBody* dynamicRb = dynamicObj->GetComponent<Components::RigidBody>();
 
-			maths::vec3 dVelThisFrame = (dynamicRb->GetVelocity() + dynamicRb->GetAcceleration()) * Time::DeltaTime();
+			maths::vec3 dVelThisFrame = (dynamicRb->GetVelocity() + dynamicRb->GetAcceleration()) * (float)Time::DeltaTime();
 
 			for (GameObject* staticObj : staticObjects)
 			{

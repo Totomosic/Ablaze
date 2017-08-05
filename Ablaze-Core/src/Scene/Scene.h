@@ -3,6 +3,7 @@
 #include "Types.h"
 
 #include "Scene\Physics\Physics.h"
+#include "Terrain\Terrain.h"
 
 namespace Ablaze
 {

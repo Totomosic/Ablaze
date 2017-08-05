@@ -99,7 +99,6 @@ namespace Ablaze
 		{
 			Bind();
 			glBufferSubData(target, offset, byteLength, data);
-			//delete[] data;
 		}
 
 		void Download(GLint offset, GLint byteLength, Type* ptr)

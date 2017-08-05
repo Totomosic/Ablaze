@@ -38,11 +38,11 @@ layout(location = 0) out vec4 finalColor;
 
 vec3 GetNormalFromNormalMap()
 {
-	//vec3 normal = texture(normalMap, f_TexCoord).rgb;
-	//normal = normalize(normal * 2.0 - 1.0);
-	//normal = normalize(f_TBN * normal);
-	//return normal;
-	return f_WorldNormal;
+	vec3 normal = texture(normalMap, f_TexCoord).rgb;
+	normal = normalize(normal * 2.0 - 1.0);
+	normal = normalize(f_TBN * normal);
+	return normal;
+	//return f_WorldNormal;
 }
 
 vec3 fresnelSchlick(float cosTheta, vec3 F0)
@@ -107,9 +107,9 @@ void main()
         // calculate per-light radiance
         vec3 L = normalize(Lights[i].Position - f_WorldPosition);
         vec3 H = normalize(V + L);
-        //float distance    = length(Lights[i].Position - f_WorldPosition);
-        //float attenuation = 1.0 / (distance * distance);
-		float attenuation = 1.0;
+        float distance    = length(Lights[i].Position - f_WorldPosition);
+        float attenuation = 1.0 / (distance * distance);
+		//float attenuation = 1.0;
         vec3 radiance     = Lights[i].Color * attenuation;        
         
         // cook-torrance brdf
@@ -130,7 +130,7 @@ void main()
         Lo += (kD * albedo / PI + specular) * radiance * NdotL; 
     }
   
-    vec3 ambient = vec3(0.03) * albedo * ambientOcclusion;
+    vec3 ambient = vec3(0.05) * albedo * ambientOcclusion;
     vec3 color = ambient + Lo;
 	
     color = color / (color + vec3(1.0));

@@ -50,6 +50,18 @@ public:
 		//Texture2D* roughness = TextureFactory::Build2D("gold-scuffed_roughness.png");
 		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/res/gold-scuffed_normal.png"));
 
+		Terrain* terrain = new Terrain("Terrain", maths::vec2(50, 50), 10);
+		terrain->GetData()->SetVertexHeight(0, 0, 5);
+		terrain->GetData()->SetVertexHeight(1, 1, 5);
+		terrain->GetData()->SetVertexHeight(2, 2, 5);
+		terrain->GetData()->SetVertexHeight(3, 3, 5);
+		terrain->GetData()->SetVertexHeight(4, 4, 5);
+		terrain->GetData()->SetVertexHeight(5, 5, 5);
+		terrain->GetData()->SetVertexHeight(6, 6, 5);
+		terrain->GetData()->SetVertexHeight(7, 7, 5);
+		terrain->GetData()->SetVertexHeight(8, 8, 5);
+		terrain->GetData()->SetVertexHeight(9, 9, 5);
+
 		MaterialFactory::Order("Default", Color::White(), Shader::Default());
 		MaterialFactory::OrderPBR("RustedMaterial", Color::White(), Shader::PBR(), albedo, roughness, metallic, ao, normal);
 		MaterialFactory::OrderPBR("MetallicMaterial", Color::White(), Shader::PBR(), "GroundAlbedo", "GroundRoughness", "GroundMetallic", "AO", "GoldNormal");
@@ -63,6 +75,7 @@ public:
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 		MeshFactory::Order("Cruiser", "Cruiser", "RustedMaterial", maths::mat4::Translation(maths::vec3(0, 0, -500)) * maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
+		MeshFactory::Order("Terrain", terrain, "BrickMaterial");
 
 		Camera* camera = new Camera(Viewport(-window->GetWidth() / 2, -window->GetHeight() / 2, window->GetWidth(), window->GetHeight()), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective);
 		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
@@ -72,9 +85,9 @@ public:
 		PushScene(scene);
 		Layer* layer = new Layer("Scene", new Renderer(), camera);
 		scene->PushLayer(layer);
-		
+
 		GameObject* floor = new GameObject(0, 0, 0);
-		floor->SetMesh("Floor");
+		floor->SetMesh("Terrain");
 		floor->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
 		floor->AddComponent(new Components::Collider(BoundingBox(maths::vec3(50, 0, 50))));
 
@@ -102,7 +115,7 @@ public:
 
 		Shader::PBR()->Enable();
 		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 100, 0));
-		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(10));
+		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(10000));
 		//Shader::PBR()->SetUniformVec3("Lights[1].Position", maths::vec3(0, 100, 0));
 		//Shader::PBR()->SetUniformVec3("Lights[1].Color", maths::vec3(10));
 		Shader::PBR()->SetUniformInt("lightCount", 1);

@@ -228,6 +228,10 @@
     <ClCompile Include="src\Scene\Physics\stucts\BoundingBox.cpp" />
     <ClCompile Include="src\Scene\Physics\stucts\CollisionInfo.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scene\Terrain\HeightFunctions\HeightFunction.cpp" />
+    <ClCompile Include="src\Scene\Terrain\HeightFunctions\PerlinNoise.cpp" />
+    <ClCompile Include="src\Scene\Terrain\Terrain.cpp" />
+    <ClCompile Include="src\Scene\Terrain\TerrainData.cpp" />
     <ClCompile Include="src\structs\BufferLayout.cpp" />
     <ClCompile Include="src\structs\Data\Color.cpp" />
     <ClCompile Include="src\structs\Data\Vertex.cpp" />
@@ -338,6 +342,10 @@
     <ClInclude Include="src\Scene\Physics\stucts\CollisionInfo.h" />
     <ClInclude Include="src\Scene\Physics\stucts\RayCastInfo.h" />
     <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\Terrain\HeightFunctions\HeightFunction.h" />
+    <ClInclude Include="src\Scene\Terrain\HeightFunctions\PerlinNoise.h" />
+    <ClInclude Include="src\Scene\Terrain\Terrain.h" />
+    <ClInclude Include="src\Scene\Terrain\TerrainData.h" />
     <ClInclude Include="src\structs\Buffer.h" />
     <ClInclude Include="src\structs\BufferLayout.h" />
     <ClInclude Include="src\structs\Data\Color.h" />

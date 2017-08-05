@@ -27,7 +27,7 @@ void main()
 	vec3 T = normalize(vec3(modelMatrix * vec4(tangent, 0.0)));	
 	vec3 N = normalize(vec3(modelMatrix * vec4(normal, 0.0)));
 	vec3 B = cross(T, N);
-	mat3 TBN = mat3(T, B, N);
+	mat3 TBN = transpose(mat3(T, B, N));
 
 	f_TexCoord = texCoord;
 	f_Color = color;

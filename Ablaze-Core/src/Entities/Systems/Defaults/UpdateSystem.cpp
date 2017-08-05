@@ -16,8 +16,8 @@ namespace Ablaze
 			Components::Transform* transform = obj->Transform();
 			Components::RigidBody* rb = obj->GetComponent<Components::RigidBody>();
 
-			rb->SetVelocity(rb->GetVelocity() + rb->GetAcceleration() * Time::DeltaTime());
-			transform->Translate(rb->GetVelocity() * Time::DeltaTime(), Space::World);
+			rb->SetVelocity(rb->GetVelocity() + rb->GetAcceleration() * (float)Time::DeltaTime());
+			transform->Translate(rb->GetVelocity() * (float)Time::DeltaTime(), Space::World);
 			rb->SetAcceleration(maths::vec3(0.0));
 
 			if (rb->AffectedByGravity())
