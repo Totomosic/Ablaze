@@ -11,6 +11,7 @@ namespace Ablaze
 
 	void BufferLayout::Push(const String& name, uint type, uint size, uint count, bool normalized)
 	{
+		indices[name] = elements.size();
 		elements.push_back({ name, type, size, count, this->size, normalized });
 		this->size += size * count;
 	}

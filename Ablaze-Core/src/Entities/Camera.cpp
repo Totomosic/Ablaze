@@ -1,9 +1,9 @@
 #include "Camera.h"
 #include "GameObjects.h"
-#include "Components\Rendering\CameraComponent.h"
-#include "Components\Misc\Identifier.h"
-#include "Components\Motion\Transform.h"
-#include "Graphics\Context.h"
+#include "Components/Rendering/CameraComponent.h"
+#include "Components/Misc/Identifier.h"
+#include "Components/Motion/Transform.h"
+#include "Graphics/Context.h"
 #include "Tags.h"
 
 namespace Ablaze

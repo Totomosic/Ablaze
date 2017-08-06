@@ -72,7 +72,7 @@ namespace Ablaze
 		if (success)
 		{
 			// Strip carriage returns
-			result.erase(std::remove(result.begin(), result.end(), '\r'), result.end());
+			result.erase(std::remove(result.begin(), result.end(), '/r'), result.end());
 		}
 		return success ? result : String();
 	}

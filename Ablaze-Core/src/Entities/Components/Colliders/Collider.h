@@ -1,6 +1,6 @@
 #pragma once
-#include "Entities\Components\Component.h"
-#include "Scene\Scene.h"
+#include "Entities/Components/Component.h"
+#include "Scene/Scene.h"
 #include "Types.h"
 
 namespace Ablaze

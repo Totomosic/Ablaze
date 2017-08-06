@@ -50,9 +50,12 @@ public:
 		//Texture2D* roughness = TextureFactory::Build2D("gold-scuffed_roughness.png");
 		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/res/gold-scuffed_normal.png"));
 
-		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(50), 50);
+		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(500), 200);
 		TerrainData* data = terrain->GetData();
-		data->SetRegionHeight(0, 0, 50, 50, PerlinNoise(-15, 15, 3));
+		data->EnableEditing();
+		//data->SetData(HeightmapFunction(VFS::RetrieveFile<ImageFile>("/res/heightmap1.jpg"), 50));
+		data->SetData(PerlinNoise(19421, 50, 16));
+		data->DisableEditing();
 
 		MaterialFactory::Order("Default", Color::White(), Shader::Default());
 		MaterialFactory::OrderPBR("RustedMaterial", Color::White(), Shader::PBR(), albedo, roughness, metallic, ao, normal);
@@ -81,15 +84,10 @@ public:
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
 		floor->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
-		floor->AddComponent(new Components::Collider(BoundingBox(maths::vec3(50, 0, 50))));
+		floor->AddComponent(new Components::Collider(BoundingBox(maths::vec3(500, 0, 500))));
 
-		GameObject* prev = floor;
-		for (int i = 0; i < 0; i++)
-		{	
-			GameObject* current = GameObject::Instantiate(floor, maths::vec3(0, -10, 0));
-			current->MakeChildOf(prev, false);
-			prev = current;
-		}
+		GameObject* water = new GameObject(0, -5, 0);
+		water->SetMesh(MeshFactory::Build("Plane", ModelFactory::BuildTile("Plane", maths::vec2(500), Color(0, 0, 128, 180)), "Default"));
 
 		/*GameObject* plane = new GameObject(0, 20, 0);
 		plane->SetMesh("Learjet");

@@ -18,7 +18,7 @@ namespace Ablaze
 		glGenTextures(1, &id);
 		uint bpp = 0;
 		Texture::Create();
-		BYTE* pixels = LoadTextureImage(path.c_str(), &width, &height, &bpp);
+		BYTE* pixels = Internal::LoadTextureImage(path.c_str(), &width, &height, &bpp);
 		Bind();
 		glTexParameteri(textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

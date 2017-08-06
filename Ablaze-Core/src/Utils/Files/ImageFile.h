@@ -12,6 +12,8 @@ namespace Ablaze
 		ImageFile(const String& physicalPath);
 
 	public:
+		byte* ReadImage(GLsizei* width, GLsizei* height, uint* bpp);
+
 		friend class VFS;
 
 	};

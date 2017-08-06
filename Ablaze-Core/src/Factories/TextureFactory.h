@@ -1,7 +1,7 @@
 #pragma once
-#include "Graphics\Textures\Texture2D.h"
-#include "Graphics\Textures\TextureCube.h"
-#include "Utils\Files\ImageFile.h"
+#include "Graphics/Imaging/Textures/Texture2D.h"
+#include "Graphics/Imaging/Textures/TextureCube.h"
+#include "Utils/Files/ImageFile.h"
 #include <map>
 
 namespace Ablaze

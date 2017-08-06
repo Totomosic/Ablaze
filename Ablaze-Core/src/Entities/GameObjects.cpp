@@ -1,6 +1,6 @@
 #include "GameObjects.h"
-#include "Components\Misc\Identifier.h"
-#include "Components\Motion\Transform.h"
+#include "Components/Misc/Identifier.h"
+#include "Components/Motion/Transform.h"
 
 namespace Ablaze
 {

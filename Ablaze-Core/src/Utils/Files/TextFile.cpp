@@ -1,5 +1,5 @@
 #include "TextFile.h"
-#include "Utils\Virtual File System\VFS.h"
+#include "Utils/Virtual File System/VFS.h"
 
 namespace Ablaze
 {
@@ -16,7 +16,7 @@ namespace Ablaze
 
 	void TextFile::WriteLine(const String& line)
 	{
-		String data = (line + "\n");
+		String data = (line + "/n");
 		DataFile::AddData((byte*)data.c_str(), data.length());
 	}
 

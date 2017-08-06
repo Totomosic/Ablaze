@@ -1,6 +1,6 @@
 #include "Mesh.h"
-#include "Factories\ModelFactory.h"
-#include "Factories\MaterialFactory.h"
+#include "Factories/ModelFactory.h"
+#include "Factories/MaterialFactory.h"
 
 namespace Ablaze
 {

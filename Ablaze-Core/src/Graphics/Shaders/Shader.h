@@ -1,9 +1,9 @@
 #pragma once
 #include "AblazeGL.h"
-#include "Maths\Maths.h"
-#include "structs\Data\Color.h"
-#include "Utils\Utils.h"
-#include "Graphics\Textures\Texture.h"
+#include "Maths/Maths.h"
+#include "structs/Data/Color.h"
+#include "Utils/Utils.h"
+#include "Graphics/Imaging/Textures/Texture.h"
 #include <vector>
 #include <map>
 

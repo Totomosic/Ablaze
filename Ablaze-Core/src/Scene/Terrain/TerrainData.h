@@ -15,11 +15,7 @@ namespace Ablaze
 		Terrain* terrain;
 		maths::vec2 size;
 		int vertexResolution;
-		// 0, 1, 2, 3
-		// 4, 5, 6, 7
-		// 8, 9, 10, 11
-		// 12, 13, 14, 15
-		std::vector<float> heightData; // Represented as a 1D array, listed in rows 
+		std::vector<float> heightData; // Represented as a 1D array, listed in columns
 
 	public:
 		TerrainData(Terrain* const terrain, const maths::vec2& size, int vertexResolution);
@@ -30,6 +26,7 @@ namespace Ablaze
 		const maths::vec2& GetSize() const;
 		int GetVertexResolution() const;
 		float GetVertexHeight(int x, int y) const;
+		float GetHeightAtLocation(float x, float z) const;
 
 		void Recreate();
 		void SetTerrain(Terrain* const terrain);

@@ -1,8 +1,8 @@
 #pragma once
 #include "VBO.h"
 #include "IndexBuffer.h"
-#include "Data\Vertex.h"
-#include "Data\Color.h"
+#include "Data/Vertex.h"
+#include "Data/Color.h"
 #include "Types.h"
 
 namespace Ablaze

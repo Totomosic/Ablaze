@@ -11,6 +11,11 @@ namespace Ablaze
 		gen.seed((int)std::time(nullptr));
 	}
 
+	void Random::SetSeed(long long seed)
+	{
+		gen.seed(seed);
+	}
+
 	int Random::NextInt(int low, int high)
 	{
 		std::uniform_int_distribution<int> dist(low, high);

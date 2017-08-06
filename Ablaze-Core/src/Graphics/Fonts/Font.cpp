@@ -1,6 +1,6 @@
 #include "Font.h"
 #include "Log.h"
-#include "Utils\Virtual File System\VFS.h"
+#include "Utils/Virtual File System/VFS.h"
 
 namespace Ablaze
 {

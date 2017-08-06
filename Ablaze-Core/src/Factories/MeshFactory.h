@@ -1,7 +1,7 @@
 #pragma once
 #include "Types.h"
 #include "Log.h"
-#include "RenderEngine\structs\Mesh.h"
+#include "RenderEngine/structs/Mesh.h"
 #include "ModelFactory.h"
 #include "MaterialFactory.h"
 #include "FontFactory.h"

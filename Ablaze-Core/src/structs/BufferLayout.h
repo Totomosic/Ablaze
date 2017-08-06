@@ -19,6 +19,7 @@ namespace Ablaze
 	class BufferLayout
 	{
 	private:
+		std::unordered_map<String, int> indices;
 		std::vector<BufferElement> elements;
 		uint size;
 
@@ -27,7 +28,9 @@ namespace Ablaze
 
 		inline const std::vector<BufferElement>& GetLayout() const { return elements; }
 		inline uint GetStride() const { return size; }
-		inline const BufferElement& GetElement(int index) const { return elements[index]; }
+		inline const BufferElement& GetElement(const String& elementName) const { return elements[indices.at(elementName)]; }
+		inline int GetIndexOf(const String& elementName) const { return indices.at(elementName); }
+		inline int GetOffsetOf(const String& elementName) const { return GetElement(elementName).offset; }
 
 		template<class T>
 		void Push(const String& name, bool normalized = false)

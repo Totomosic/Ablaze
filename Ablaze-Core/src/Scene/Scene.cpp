@@ -38,10 +38,16 @@ namespace Ablaze
 		Layer::SetCurrentLayer(layer);
 	}
 
+	void Scene::RemoveLayer(Layer* layer)
+	{
+		auto it = std::find(layers.begin(), layers.end(), layer);
+		layers.erase(it);
+	}
+
 	Layer* Scene::PopLayer()
 	{
 		Layer* l = layers.back();
-		layers.erase(layers.end());
+		RemoveLayer(l);
 		return l;
 	}
 

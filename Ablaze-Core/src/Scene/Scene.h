@@ -2,9 +2,10 @@
 #include "Layer.h"
 #include "Types.h"
 
-#include "Scene\Physics\Physics.h"
-#include "Terrain\Terrain.h"
-#include "Terrain\HeightFunctions\PerlinNoise.h"
+#include "Scene/Physics/Physics.h"
+#include "Terrain/Terrain.h"
+#include "Terrain/HeightFunctions/PerlinNoise.h"
+#include "Terrain/HeightFunctions/HeightmapFunction.h"
 
 namespace Ablaze
 {
@@ -25,6 +26,7 @@ namespace Ablaze
 
 		void SetCurrentLayer(int index) const;
 		void PushLayer(Layer* layer);
+		void RemoveLayer(Layer* layer);
 		Layer* PopLayer();
 
 		void Render() const;

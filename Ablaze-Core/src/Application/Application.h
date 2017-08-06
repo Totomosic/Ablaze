@@ -1,8 +1,8 @@
 #pragma once
-#include "Graphics\Context.h"
-#include "Debug\Timer.h"
-#include "Entities\Entities.h"
-#include "Scene\Scene.h"
+#include "Graphics/Context.h"
+#include "Debug/Timer.h"
+#include "Entities/Entities.h"
+#include "Scene/Scene.h"
 #include "Types.h"
 #include <deque>
 

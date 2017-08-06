@@ -1,6 +1,6 @@
 #pragma once
 #include "PostProcessorEffect.h"
-#include "Graphics\Context.h"
+#include "Graphics/Context.h"
 
 namespace Ablaze
 {

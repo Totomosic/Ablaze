@@ -21,6 +21,11 @@ namespace Ablaze
 
 	}
 
+	float Color::GetBrightness() const
+	{
+		return (r + b + g) / 3.0f;
+	}
+
 	float* Color::ToFloat() const
 	{
 		return new float[4]{ r, g, b, a };

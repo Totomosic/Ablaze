@@ -1,8 +1,8 @@
 #pragma once
-#include "Scene\Physics\stucts\BoundingBox.h"
-#include "Scene\Physics\stucts\CollisionInfo.h"
-#include "Scene\Physics\stucts\RayCastInfo.h"
-#include "Entities\GameObject.h"
+#include "Scene/Physics/stucts/BoundingBox.h"
+#include "Scene/Physics/stucts/CollisionInfo.h"
+#include "Scene/Physics/stucts/RayCastInfo.h"
+#include "Entities/GameObject.h"
 
 namespace Ablaze
 {

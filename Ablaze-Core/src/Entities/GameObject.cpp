@@ -1,9 +1,9 @@
 #include "GameObject.h"
 #include "Engine.h"
 #include "Tags.h"
-#include "Components\Components.h"
-#include "Scene\Layer.h"
-#include "Factories\MeshFactory.h"
+#include "Components/Components.h"
+#include "Scene/Layer.h"
+#include "Factories/MeshFactory.h"
 
 namespace Ablaze
 {

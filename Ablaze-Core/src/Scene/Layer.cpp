@@ -12,10 +12,7 @@ namespace Ablaze
 	Layer::Layer(String name, Renderer* renderer, GameObject* camera)
 		: name(name), renderer(renderer), camera(camera)
 	{
-		if (currentLayer == nullptr)
-		{
-			currentLayer = this;
-		}
+		currentLayer = this;
 	}
 
 	Layer::~Layer()

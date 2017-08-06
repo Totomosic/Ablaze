@@ -4,8 +4,8 @@
 #include "Types.h"
 #include "FileSystem.h"
 
-#include "Utils\Files\TextFile.h"
-#include "Utils\Funcs.h"
+#include "Utils/Files/TextFile.h"
+#include "Utils/Funcs.h"
 
 namespace Ablaze
 {

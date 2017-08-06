@@ -1,7 +1,7 @@
 #pragma once
 #include "Types.h"
 #include "Graphics/Shaders/Shader.h"
-#include "Graphics/Textures/Texture.h"
+#include "Graphics/Imaging/Textures/Texture.h"
 #include "Graphics/Shaders/Uniforms/UniformManager.h"
 
 namespace Ablaze

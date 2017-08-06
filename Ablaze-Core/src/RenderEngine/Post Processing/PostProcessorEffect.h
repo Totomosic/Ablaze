@@ -1,6 +1,6 @@
 #pragma once
-#include "Graphics\Shaders\Shader.h"
-#include "structs\Framebuffers\Framebuffer.h"
+#include "Graphics/Shaders/Shader.h"
+#include "structs/Framebuffers/Framebuffer.h"
 #include "Types.h"
 
 namespace Ablaze

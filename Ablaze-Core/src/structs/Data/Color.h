@@ -12,6 +12,8 @@ namespace Ablaze
 		Color(int color);
 		Color();
 
+		float GetBrightness() const;
+
 		float* ToFloat() const;
 		float* ToVertexBuffer(const long long& vertexCount) const;
 

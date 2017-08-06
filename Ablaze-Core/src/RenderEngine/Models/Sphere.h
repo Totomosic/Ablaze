@@ -1,6 +1,6 @@
 #pragma once
-#include "RenderEngine\structs\Model.h"
-#include "Maths\Maths.h"
+#include "RenderEngine/structs/Model.h"
+#include "Maths/Maths.h"
 #include <vector>
 
 namespace Ablaze

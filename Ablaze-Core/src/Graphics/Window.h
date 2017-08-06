@@ -1,9 +1,9 @@
 #pragma once
 #include "Viewport.h"
-#include "Maths\Maths.h"
+#include "Maths/Maths.h"
 #include "Types.h"
 #include "Enums.h"
-#include "structs\Framebuffers\Framebuffer.h"
+#include "structs/Framebuffers/Framebuffer.h"
 
 namespace Ablaze
 {

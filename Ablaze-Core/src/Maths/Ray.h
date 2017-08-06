@@ -1,5 +1,5 @@
 #pragma once
-#include "Maths\vec3.h"
+#include "Maths/vec3.h"
 
 namespace Ablaze
 {

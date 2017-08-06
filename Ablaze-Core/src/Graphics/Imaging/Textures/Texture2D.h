@@ -15,6 +15,7 @@ namespace Ablaze
 		friend class TextureFactory;
 		friend class Framebuffer;
 		friend class TextureManager;
+		friend class HeightmapFunction;
 
 	protected:
 		void Create() override;

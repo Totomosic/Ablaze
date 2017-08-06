@@ -117,7 +117,7 @@ namespace Ablaze
 
 	int TerrainData::To1DIndex(int x, int y) const
 	{
-		return x + y * vertexResolution;
+		return y + x * vertexResolution;
 	}
 
 	void TerrainData::ApplyToModel()
@@ -129,7 +129,7 @@ namespace Ablaze
 			{
 				ptr->position = maths::vec3(-size.x / 2.0f + i / (float)(vertexResolution - 1) * size.x, heightData[To1DIndex(i, j)], -size.y / 2.0f + j / (float)(vertexResolution - 1) * size.y);
 				ptr->normal = maths::vec3(0, 1, 0); // TODO: Change
-				ptr->texCoord = maths::vec2(i / (float)vertexResolution, j / (float)vertexResolution); // TODO: investigate
+				ptr->texCoord = maths::vec2(i / (float)(vertexResolution - 1), j / (float)(vertexResolution - 1)); // TODO: investigate
 				ptr->color = Color::White();
 				ptr->tangent = maths::vec3(0, 0, 1);
 				ptr++;
@@ -140,8 +140,9 @@ namespace Ablaze
 
 	void TerrainData::SetModelVertex(int x, int y, float value)
 	{
+		// Requires editing enabled
 		int index = To1DIndex(x, y);
-		int offset = index * terrain->vbo->GetLayout().GetStride() + sizeof(float);
+		int offset = index * terrain->vbo->GetLayout().GetStride() + terrain->vbo->GetLayout().GetOffsetOf("POSITION") + sizeof(float);
 		glBufferSubData(terrain->vbo->GetTarget(), offset, sizeof(float), &value);
 	}
 

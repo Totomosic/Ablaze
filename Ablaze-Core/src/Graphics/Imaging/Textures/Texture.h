@@ -1,6 +1,6 @@
 #pragma once
 #include "AblazeGL.h"
-#include "ImageLoader.h"
+#include "Graphics/Imaging/ImageLoader.h"
 
 namespace Ablaze
 {

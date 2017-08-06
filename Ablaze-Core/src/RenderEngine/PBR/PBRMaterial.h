@@ -1,5 +1,5 @@
 #pragma once
-#include "RenderEngine\structs\Material.h"
+#include "RenderEngine/structs/Material.h"
 
 namespace Ablaze
 {

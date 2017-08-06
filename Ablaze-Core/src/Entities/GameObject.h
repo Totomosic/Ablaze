@@ -1,7 +1,7 @@
 #pragma once
-#include "Components\ComponentSet.h"
-#include "RenderEngine\structs\Mesh.h"
-#include "Maths\Maths.h"
+#include "Components/ComponentSet.h"
+#include "RenderEngine/structs/Mesh.h"
+#include "Maths/Maths.h"
 
 #define GAME_OBJECT_ANCHOR 0
 

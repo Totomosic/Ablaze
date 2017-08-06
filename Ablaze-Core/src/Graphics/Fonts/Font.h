@@ -1,8 +1,8 @@
 #pragma once
-#include "structs\Structs.h"
-#include "RenderEngine\RenderEngine.h"
-#include "Graphics\Textures\Texture.h"
-#include "Utils\Files\FontFile.h"
+#include "structs/Structs.h"
+#include "RenderEngine/RenderEngine.h"
+#include "Graphics/Imaging/Textures/Texture.h"
+#include "Utils/Files/FontFile.h"
 #include "Types.h"
 
 namespace Ablaze

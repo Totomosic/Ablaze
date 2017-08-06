@@ -1,10 +1,10 @@
 #pragma once
 #include "Types.h"
 #include "Log.h"
-#include "Factories\TextureFactory.h"
-#include "structs\Data\Color.h"
-#include "RenderEngine\structs\Material.h"
-#include "RenderEngine\PBR\PBRMaterial.h"
+#include "Factories/TextureFactory.h"
+#include "structs/Data/Color.h"
+#include "RenderEngine/structs/Material.h"
+#include "RenderEngine/PBR/PBRMaterial.h"
 
 namespace Ablaze
 {

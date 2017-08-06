@@ -1,7 +1,7 @@
 #pragma once
-#include "RenderEngine\Interfaces\Renderer.h"
-#include "Graphics\Shaders\Shader.h"
-#include "Entities\GameObject.h"
+#include "RenderEngine/Interfaces/Renderer.h"
+#include "Graphics/Shaders/Shader.h"
+#include "Entities/GameObject.h"
 
 namespace Ablaze
 {

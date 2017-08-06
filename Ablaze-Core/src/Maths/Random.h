@@ -14,6 +14,7 @@ namespace Ablaze
 
 	public:
 		static void Initialise();
+		static void SetSeed(long long seed);
 
 		static int NextInt(int low, int high);
 		static float NextFloat(float low, float high);
