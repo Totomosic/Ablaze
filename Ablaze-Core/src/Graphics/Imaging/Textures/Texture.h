@@ -27,6 +27,7 @@ namespace Ablaze
 		virtual ~Texture();
 
 		const GLuint GetID() const;
+		const GLenum GetTarget() const;
 		const String& GetPath() const;
 		const String& GetName() const;
 		const GLint GetBindUnit() const;

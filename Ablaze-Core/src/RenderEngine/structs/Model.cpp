@@ -8,8 +8,6 @@ namespace Ablaze
 	{
 		vao = new VAO(Elements);
 		vao->AttachVBO(vbo);
-		BufferLayout layout;
-		vbo->ApplyLayout(BufferLayout::Vertex());
 		vao->AttachIndexBuffer(indexBuffer);
 	}
 
@@ -48,7 +46,6 @@ namespace Ablaze
 		delete this->vbo;
 		this->vbo = vbo;
 		vao->AttachVBO(vbo);
-		vbo->ApplyLayout(BufferLayout::Vertex());
 	}
 
 	void Model::SetIndexBuffer(IndexBuffer* ibo)

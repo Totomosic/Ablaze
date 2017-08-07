@@ -4,7 +4,7 @@
 namespace Ablaze
 {
 
-	Terrain::Terrain(const String& name, const maths::vec2& size, int vertexResolution) : Model(name, new VBO(vertexResolution * vertexResolution * sizeof(Vertex), 0), new IndexBuffer((int)((vertexResolution - 1) * (vertexResolution - 1) * 6 *sizeof(GLuint))), maths::vec3(size.x, 0, size.y))
+	Terrain::Terrain(const String& name, const maths::vec2& size, int vertexResolution) : Model(name, new VBO(vertexResolution * vertexResolution * sizeof(Vertex), BufferLayout::Vertex()), new IndexBuffer((int)((vertexResolution - 1) * (vertexResolution - 1) * 6 *sizeof(GLuint))), maths::vec3(size.x, 0, size.y))
 	{
 		terrainData = new TerrainData(this, size, vertexResolution);
 		CreateIndexBuffer();

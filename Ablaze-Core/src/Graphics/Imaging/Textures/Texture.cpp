@@ -26,6 +26,11 @@ namespace Ablaze
 		return id;
 	}
 
+	const GLenum Texture::GetTarget() const
+	{
+		return textureTarget;
+	}
+
 	const String& Texture::GetPath() const
 	{
 		return path;

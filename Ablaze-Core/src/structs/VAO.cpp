@@ -21,7 +21,7 @@ namespace Ablaze
 		}
 		for (auto attrib : attributes)
 		{
-			delete attrib.second;
+			delete attrib;
 		}
 	}
 
@@ -55,9 +55,9 @@ namespace Ablaze
 		return renderMode;
 	}
 
-	bool VAO::HasAttribute(GLint attribIndex) const
+	bool VAO::HasAttribute(int index) const
 	{
-		return attributes.find(attribIndex) != attributes.end();
+		return attributes.size() > index;
 	}
 
 	bool VAO::HasIndexBuffer() const
@@ -80,10 +80,10 @@ namespace Ablaze
 		this->renderMode = mode;
 		if (renderMode == Arrays)
 		{
-			if (HasAttribute(VERTEX_ATTRIB_INDEX))
+			if (HasAttribute(0))
 			{
-				const VBO* vbo = GetAttribute(VERTEX_ATTRIB_INDEX);
-				renderCount = vbo->GetSize() / sizeof(float) / vbo->GetDataDimension();
+				const VBO* vbo = GetAttribute(0);
+				renderCount = vbo->GetSize() / vbo->GetLayout().GetStride();
 			}
 			else
 			{
@@ -122,12 +122,13 @@ namespace Ablaze
 	{
 		Bind();
 		vbo->Bind();
-		attributes[vbo->GetAttribIndex()] = vbo;
+		vbo->ApplyLayout();
+		attributes.push_back(vbo);
 
-		if (vbo->GetAttribIndex() == VERTEX_ATTRIB_INDEX)
+		if (attributes.size() == 1)
 		{
 			SetMode(renderMode);
-			vertexCount = vbo->GetSize() / sizeof(float) / vbo->GetDataDimension();
+			vertexCount = vbo->GetSize() / vbo->GetLayout().GetStride();
 		}
 	}
 
@@ -143,20 +144,6 @@ namespace Ablaze
 	{
 		this->indexBuffer = indexBuffer;
 		SetMode(Elements);
-	}
-
-	VBO* VAO::CreateAttribute(GLint attribIndex, GLint dataDimension, float* data, int length, GLenum bufferUsage)
-	{
-		VBO* vbo = new VBO(length, attribIndex, dataDimension, data, bufferUsage);
-		AttachVBO(vbo);
-		return vbo;
-	}
-
-	VBO* VAO::CreateColorBuffer(GLint attribIndex, const Color& color, GLint vertexCount, GLenum bufferUsage)
-	{
-		VBO* vbo = new VBO(vertexCount * sizeof(float) * 4, attribIndex, 4, color.ToVertexBuffer(vertexCount), bufferUsage);
-		AttachVBO(vbo);
-		return vbo;
 	}
 
 	IndexBuffer* VAO::CreateIndexBuffer(GLuint* data, int length, GLenum bufferUsage)

@@ -3,7 +3,7 @@
 namespace Ablaze
 {
 
-	Sphere::Sphere(const String& name, float radius, const Color& color) : Model(name, new VBO((4 * (180 / 10 + 1) * ((360 - 10) / 10 + 1)) * sizeof(Vertex), 0), new IndexBuffer((4 * (180 / 10 + 1) * ((360 - 10) / 10 + 1)) * sizeof(GLuint)), maths::vec3(radius * 2))
+	Sphere::Sphere(const String& name, float radius, const Color& color) : Model(name, new VBO((4 * (180 / 10 + 1) * ((360 - 10) / 10 + 1)) * sizeof(Vertex), BufferLayout::Vertex()), new IndexBuffer((4 * (180 / 10 + 1) * ((360 - 10) / 10 + 1)) * sizeof(GLuint)), maths::vec3(radius * 2))
 	{
 		this->radius = radius;
 		Create(color);

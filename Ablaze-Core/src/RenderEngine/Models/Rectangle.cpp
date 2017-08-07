@@ -3,7 +3,7 @@
 namespace Ablaze
 {
 
-	Rectangle::Rectangle(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VBO(4 * sizeof(Vertex), 0, 3, nullptr), new IndexBuffer(6 * sizeof(GLuint)), maths::vec3(size.x, size.y, 0))
+	Rectangle::Rectangle(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VBO(4 * sizeof(Vertex), BufferLayout::Vertex()), new IndexBuffer(6 * sizeof(GLuint)), maths::vec3(size.x, size.y, 0))
 	{
 		Create(color);
 	}

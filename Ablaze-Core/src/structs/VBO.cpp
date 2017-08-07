@@ -4,46 +4,25 @@
 namespace Ablaze
 {
 
-	VBO::VBO(GLint bufferSize, GLint attributeIndex, GLint dataDimension, float* data, GLenum usageHint) : Buffer(bufferSize, GL_ARRAY_BUFFER, data, usageHint)
+	VBO::VBO(GLint bufferSize, const BufferLayout& layout, float* data, GLenum usageHint) : Buffer(bufferSize, GL_ARRAY_BUFFER, data, usageHint)
 	{
-		this->attributeIndex = attributeIndex;
-		this->dataDimension = dataDimension;
+		this->layout = layout; // Layout is applied when vbo is attached to VAO
 	}
 
-	VBO::VBO() : VBO::VBO(4, 0, 1)
+	VBO::VBO() : VBO::VBO(0, BufferLayout::Vertex())
 	{
 
 	}
 
-	GLint VBO::GetAttribIndex() const
-	{
-		return attributeIndex;
-	}
-
-	GLint VBO::GetDataDimension() const
-	{
-		return dataDimension;
-	}
 
 	const BufferLayout& VBO::GetLayout() const
 	{
 		return layout;
 	}
 
-	void VBO::EnableAttrib() const
+	void VBO::ApplyLayout()
 	{
-		glEnableVertexAttribArray(attributeIndex);
-	}
-
-	void VBO::DisableAttrib() const
-	{
-		glDisableVertexAttribArray(attributeIndex);
-	}
-
-	void VBO::Upload(Vertex* data, GLint byteLength)
-	{
-		Bind();
-		glBufferSubData(target, 0, byteLength, data);
+		ApplyLayout(layout);
 	}
 
 	void VBO::ApplyLayout(const BufferLayout& bufferLayout)

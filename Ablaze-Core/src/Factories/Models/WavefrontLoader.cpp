@@ -176,7 +176,7 @@ namespace Ablaze
 					AB_INFO(std::to_string((int)((i / (float)lines.size()) * 100.0f)) + "%");
 				)*/
 			}
-			VBO* vbo = new VBO(vertices.size() * sizeof(Vertex), 0);
+			VBO* vbo = new VBO(vertices.size() * sizeof(Vertex), BufferLayout::Vertex());
 			vbo->Bind();
 			vbo->Upload(&vertices[0], vertices.size() * sizeof(Vertex));
 

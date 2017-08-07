@@ -6,26 +6,17 @@
 namespace Ablaze
 {
 
-	class VBO : public Buffer<float>
+	class VBO : public Buffer
 	{
 	private:
-		GLint attributeIndex;
-		GLint dataDimension;
 		BufferLayout layout;
 
 	public:
-		VBO(GLint bufferSize, GLint attributeIndex, GLint dataDimension = 3, float* data = nullptr, GLenum bufferUsage = GL_STATIC_DRAW);
+		explicit VBO(GLint bufferSize, const BufferLayout& layout, float* data = nullptr, GLenum bufferUsage = GL_STATIC_DRAW);
 		VBO();
 
-		GLint GetAttribIndex() const;
-		GLint GetDataDimension() const;
 		const BufferLayout& GetLayout() const;
-
-		void EnableAttrib() const;
-		void DisableAttrib() const;
-
-		void Upload(Vertex* data, GLint byteLength);
-
+		void ApplyLayout();
 		void ApplyLayout(const BufferLayout& layout);
 
 	};

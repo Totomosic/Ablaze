@@ -19,7 +19,7 @@ namespace Ablaze
 		GLuint id;
 		GLint renderCount;
 		GLint vertexCount;
-		std::unordered_map<GLint, VBO*> attributes;
+		std::vector<VBO*> attributes;
 
 		RenderMode renderMode;
 		GLenum primitiveType;
@@ -36,7 +36,7 @@ namespace Ablaze
 		GLint GetVertexCount() const;
 		GLenum GetPrimitiveType() const;
 		const RenderMode& GetMode() const;
-		bool HasAttribute(GLint attribIndex) const;
+		bool HasAttribute(int index) const;
 		bool HasIndexBuffer() const;
 
 		void SetMode(const RenderMode& mode);
@@ -48,9 +48,7 @@ namespace Ablaze
 		void AttachVBO(VBO* vbo);
 		void AttachVBOs(VBO** const vbos, int length);
 		void AttachIndexBuffer(IndexBuffer* buffer);
-		
-		VBO* CreateAttribute(GLint attribIndex, GLint dataDimension, float* data, int byteLength, GLenum bufferUsage = GL_STATIC_DRAW);
-		VBO* CreateColorBuffer(GLint attribIndex, const Color& color, GLint vertexCount, GLenum bufferUsage = GL_STATIC_DRAW);
+
 		IndexBuffer* CreateIndexBuffer(GLuint* data, int byteLength, GLenum bufferUsage = GL_STATIC_DRAW);
 
 		static VAO* FromVertices(const Vertex* vertices, const GLsizei length);

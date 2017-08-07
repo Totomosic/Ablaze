@@ -235,6 +235,7 @@
     <ClCompile Include="src\Scene\Terrain\HeightFunctions\PerlinNoise.cpp" />
     <ClCompile Include="src\Scene\Terrain\Terrain.cpp" />
     <ClCompile Include="src\Scene\Terrain\TerrainData.cpp" />
+    <ClCompile Include="src\structs\Buffer.cpp" />
     <ClCompile Include="src\structs\BufferLayout.cpp" />
     <ClCompile Include="src\structs\Data\Color.cpp" />
     <ClCompile Include="src\structs\Data\Vertex.cpp" />
