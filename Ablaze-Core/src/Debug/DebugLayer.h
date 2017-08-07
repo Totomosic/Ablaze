@@ -1,22 +1,21 @@
 #pragma once
 #include "Scene/Layer.h"
 #include "Graphics/Imaging/Textures/Texture.h"
+#include "Graphics/Shaders/Shader.h"
+#include "RenderEngine/Models/Rectangle.h"
 
 namespace Ablaze
 {
 
-	static class DebugLayer
+	class DebugLayer
 	{
 	private:
-		static Layer* debugLayer;
-		static bool enabled;
+		static Shader* textureShader;
 
 	public:
 		DebugLayer() = delete;
 
-		static void Enable();
-		static void Disable();
-
+		static void Initialise();
 		static void RenderTexture(Texture* const texture, const maths::vec2& position, const maths::vec2& size);
 
 	};

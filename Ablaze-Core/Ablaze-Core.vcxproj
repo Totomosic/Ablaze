@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
+    <ClCompile Include="src\Debug\DebugLayer.cpp" />
     <ClCompile Include="src\Debug\Timer.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\Entities\Camera.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="src\AblazeGL.h" />
     <ClInclude Include="src\Application\Application.h" />
     <ClInclude Include="src\Debug\Debug.h" />
+    <ClInclude Include="src\Debug\DebugLayer.h" />
     <ClInclude Include="src\Debug\Timer.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Entities\Camera.h" />
@@ -378,6 +380,8 @@
     <ClInclude Include="src\Utils\Virtual File System\VFS.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\Debug\Shaders\DebugTexture_f.glsl" />
+    <None Include="src\Debug\Shaders\DebugTexture_v.glsl" />
     <None Include="src\Graphics\Shaders\Source\base_f.glsl" />
     <None Include="src\Graphics\Shaders\Source\base_v.glsl" />
     <None Include="src\Graphics\Shaders\Source\font_f.glsl" />

@@ -17,6 +17,8 @@ namespace Ablaze
 
 		static Texture2D* Request2D(const String& name);
 		static Texture2D* Request2D(Texture2D* texture);
+		static Texture2D* Request2DWeak(const String& name);
+		static Texture2D* Request2DWeak(Texture2D* texture);
 		static bool Release2D(const String& name);
 		static bool Release2D(Texture2D* texture);
 

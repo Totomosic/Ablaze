@@ -112,6 +112,10 @@ namespace Ablaze
 		{
 			scene->Render();
 		}
+	}
+
+	void Application::UpdateDisplay()
+	{
 		window->SwapBuffers();
 	}
 

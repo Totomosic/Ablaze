@@ -39,6 +39,8 @@ namespace Ablaze
 		virtual void Update(); // Called 60 times per second
 		virtual void Render(); // Called as often as possible
 
+		void UpdateDisplay();
+
 	private:
 		void Run();
 

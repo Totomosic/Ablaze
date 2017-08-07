@@ -15,6 +15,7 @@ namespace Ablaze
 
 	public:
 		friend class ModelFactory;
+		friend class DebugLayer;
 
 	private:
 		void Create(const Color& color);

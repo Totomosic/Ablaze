@@ -41,6 +41,18 @@ namespace Ablaze
 		return false;
 	}
 
+	Texture2D* TextureFactory::Request2DWeak(const String& name)
+	{
+		Texture2D* tex = Request2D(name);
+		Decrement(tex->GetName());
+		return tex;
+	}
+
+	Texture2D* TextureFactory::Request2DWeak(Texture2D* texture)
+	{
+		return Request2DWeak(texture->GetName());
+	}
+
 	bool TextureFactory::Release2D(Texture2D* texture)
 	{
 		return Release2D(texture->GetName());

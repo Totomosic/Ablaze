@@ -2,6 +2,7 @@
 #include "Log.h"
 #include "Entities/GameObject.h"
 #include "Graphics/Imaging/Textures/TextureManager.h"
+#include "Debug/DebugLayer.h"
 
 namespace Ablaze
 {
@@ -19,6 +20,7 @@ namespace Ablaze
 		Random::Initialise();
 		GameObject::Initialise();
 		TextureManager::Initialise();
+		DebugLayer::Initialise();
 	}
 
 	void AblazeEngine::Terminate()

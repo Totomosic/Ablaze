@@ -83,11 +83,11 @@ public:
 
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
-		floor->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
-		floor->AddComponent(new Components::Collider(BoundingBox(maths::vec3(500, 0, 500))));
 
 		GameObject* water = new GameObject(0, -5, 0);
 		water->SetMesh(MeshFactory::Build("Plane", ModelFactory::BuildTile("Plane", maths::vec2(500), Color(0, 0, 128, 180)), "Default"));
+		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
+		water->AddComponent(new Components::Collider(BoundingBox(maths::vec3(500, 0, 500))));
 
 		/*GameObject* plane = new GameObject(0, 20, 0);
 		plane->SetMesh("Learjet");
@@ -114,8 +114,6 @@ public:
 	void Tick() override
 	{
 		WindowHandle()->SetTitle("Ablaze: " + std::to_string(Time::AverageFPS()) + " FPS");
-
-		AB_INFO(Camera::Main()->ScreenPointToWorldRay(Input::NormalizedMousePosition()));
 	}
 
 	void Update() override
@@ -162,6 +160,13 @@ public:
 		}
 
 		Application::Update();
+	}
+
+	void Render() override
+	{
+		Application::Render();
+		//DebugLayer::RenderTexture(TextureFactory::Request2DWeak("Albedo"), maths::vec2(150, 150), maths::vec2(200, 200));
+		UpdateDisplay();
 	}
 
 	maths::vec3 CalculateVector(const maths::vec3& vector)
