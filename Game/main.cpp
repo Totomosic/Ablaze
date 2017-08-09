@@ -33,6 +33,12 @@ public:
 		TextureFactory::Order2D("OctoAO", VFS::RetrieveFile<ImageFile>("/res/octostoneAmbient_Occlusionc.png"));
 		TextureFactory::Order2D("OctoNormal", VFS::RetrieveFile<ImageFile>("/res/octostoneNormalc.png"));
 
+		TextureFactory::Order2D("GrassAlbedo", VFS::RetrieveFile<ImageFile>("/res/grass1-albedo3.png"));
+		TextureFactory::Order2D("GrassRoughness", VFS::RetrieveFile<ImageFile>("/res/grass1-rough.png"));
+		TextureFactory::Order2D("GrassMetallic", VFS::RetrieveFile<ImageFile>("/res/octostoneMetallic.png"));
+		TextureFactory::Order2D("GrassAO", VFS::RetrieveFile<ImageFile>("/res/grass1-ao.png"));
+		TextureFactory::Order2D("GrassNormal", VFS::RetrieveFile<ImageFile>("/res/grass1-normal2.png"));
+
 		//Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-metal.png"));
 		//Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-albedo.png"));
 		//Texture2D* roughness = TextureFactory::Build2D("Roughness", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-roughness.png"));
@@ -53,14 +59,14 @@ public:
 		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 500);
 		TerrainData* data = terrain->GetData();
 		data->EnableEditing();
-		//data->SetData(HeightmapFunction(VFS::RetrieveFile<ImageFile>("/res/heightmap1.jpg"), 50));
-		data->SetData(PerlinNoise(time(nullptr), 800, 48));
+		data->SetData(PerlinNoise(time(nullptr) * 1241740 % 129041947, 800, 48));
 		data->DisableEditing();
 
 		MaterialFactory::Order("Default", Color::White(), Shader::Default());
 		MaterialFactory::OrderPBR("RustedMaterial", Color::White(), Shader::PBR(), albedo, roughness, metallic, ao, normal);
 		MaterialFactory::OrderPBR("MetallicMaterial", Color::White(), Shader::PBR(), "GroundAlbedo", "GroundRoughness", "GroundMetallic", "AO", "GoldNormal");
 		MaterialFactory::OrderPBR("BrickMaterial", Color::White(), Shader::PBR(), "OctoAlbedo", "OctoRoughness", "OctoMetallic", "OctoAO", "OctoNormal");
+		MaterialFactory::OrderPBR("GrassMaterial", Color::White(), Shader::PBR(), "GrassAlbedo", "GrassRoughness", "GrassMetallic", "GrassAO", "GrassNormal");
 		ModelFactory::OrderCuboid("Wall", maths::vec3(25, 9.9f, 2), Color::White());
 		ModelFactory::OrderTile("Floor", maths::vec2(50, 50), Color::White()); 
 		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/Plane.obj"));
@@ -70,22 +76,21 @@ public:
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 		MeshFactory::Order("Cruiser", "Cruiser", "RustedMaterial", maths::mat4::Translation(maths::vec3(0, 0, -500)) * maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
-		MeshFactory::Order("Terrain", "Terrain", "Default");
+		MeshFactory::Order("Terrain", "Terrain", "GrassMaterial");
+		MaterialFactory::RequestPBR("GrassMaterial")->AddUniformFloat("tiling", 40);
 
 		scene = new Scene("Default");
-		PushScene(scene);
 		Layer* layer = new Layer("Scene", new Renderer());
 
 		Camera* camera = new Camera(Viewport(-window->GetWidth() / 2, -window->GetHeight() / 2, window->GetWidth(), window->GetHeight()), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 3.0, Angle::Radians, 1.0f, 3000.0f);
 		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
 		camera->AddComponent(new Components::Collider(BoundingBox(maths::vec3(2.5f, 3.0f, 2.5f))));
-		layer->SetCamera(camera);
 
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
 
 		GameObject* water = new GameObject(0, -5, 0);
-		water->SetMesh(MeshFactory::Build("Plane", ModelFactory::BuildTile("Plane", maths::vec2(5000), Color(0, 0, 128, 180)), "Default"));
+		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(5000), Color(0, 0, 128, 180)), "Default"));
 		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
 		water->AddComponent(new Components::Collider(BoundingBox(maths::vec3(5000, 0, 5000))));
 
@@ -104,8 +109,8 @@ public:
 		modelShip->AddComponent(Components::Collider::FromMeshComponent(modelShip, false));*/
 
 		Shader::PBR()->Enable();
-		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 100, 0));
-		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(10000));
+		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 1000, 0));
+		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(1e7));
 		//Shader::PBR()->SetUniformVec3("Lights[1].Position", maths::vec3(0, 100, 0));
 		//Shader::PBR()->SetUniformVec3("Lights[1].Color", maths::vec3(10));
 		Shader::PBR()->SetUniformInt("lightCount", 1);
@@ -165,7 +170,6 @@ public:
 	void Render() override
 	{
 		Application::Render();
-		//DebugLayer::RenderTexture(TextureFactory::Request2DWeak("Albedo"), maths::vec2(150, 150), maths::vec2(200, 200));
 		UpdateDisplay();
 	}
 

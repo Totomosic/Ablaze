@@ -16,6 +16,7 @@ namespace Ablaze
 	void PBRMaterial::ApplyMaterial() const
 	{
 		shader->Enable();
+		uniforms.UploadAll(shader);
 		if (depthState)
 		{
 			glEnable(GL_DEPTH_TEST);
@@ -33,10 +34,10 @@ namespace Ablaze
 		{
 			glDisable(GL_BLEND);
 		}
-		shader->SetTexture(*(textures[0]), "albedo");
-		shader->SetTexture(*(textures[1]), "roughness");
-		shader->SetTexture(*(textures[2]), "metallic");
-		shader->SetTexture(*(textures[3]), "ao");
+		shader->SetTexture(*(textures[0]), "albedoMap");
+		shader->SetTexture(*(textures[1]), "roughnessMap");
+		shader->SetTexture(*(textures[2]), "metallicMap");
+		shader->SetTexture(*(textures[3]), "aoMap");
 		shader->SetTexture(*(textures[4]), "normalMap");
 	}
 

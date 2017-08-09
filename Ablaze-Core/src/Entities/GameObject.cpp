@@ -8,20 +8,15 @@
 namespace Ablaze
 {
 
-	GameObject** GameObject::gameObjects = new GameObject*[AblazeEngine::maxEntities];
-	uint GameObject::highestID = 0;
-
-	GameObject* GameObject::anchorObject = nullptr;
-
 	GameObject::GameObject(bool anchor)
 	{
 		id = 0;
-		gameObjects[id] = this;
+		SceneManager::CurrentScene()->gameObjects[id] = this;
 		components = new ComponentSet(*this);
 
 		if (SceneManager::CurrentScene() != nullptr && SceneManager::CurrentScene()->CurrentLayer() != nullptr)
 		{
-			SetLayer(SceneManager::CurrentScene()->CurrentLayer());
+			SceneManager::CurrentScene()->CurrentLayer()->AddGameObject(this);
 		}
 
 		AddComponent(new Components::Transform());
@@ -30,19 +25,19 @@ namespace Ablaze
 
 	GameObject::GameObject(const maths::vec3& position, const maths::mat4& rotation, const maths::vec3& scale)
 	{
-		id = GetNextID();
-		gameObjects[id] = this;
+		id = SceneManager::CurrentScene()->GetNextID();
+		SceneManager::CurrentScene()->gameObjects[id] = this;
 		currentLayer = nullptr;
 		components = new ComponentSet(*this);
 
 		if (SceneManager::CurrentScene() != nullptr && SceneManager::CurrentScene()->CurrentLayer() != nullptr)
 		{
-			SetLayer(SceneManager::CurrentScene()->CurrentLayer());
+			SceneManager::CurrentScene()->CurrentLayer()->AddGameObject(this);
 		}
 
 		// Add Default Components
 		AddComponent(new Components::Transform(position, rotation, scale));
-		AddComponent(new Components::Parent(Anchor())); // All objects are a child of the Anchor Object
+		AddComponent(new Components::Parent(SceneManager::CurrentScene()->Anchor())); // All objects are a child of the Anchor Object
 		AddComponent(new Components::Identifier(Tags::None));
 		AddComponent(new Components::MeshComponent(MeshFactory::BuildCuboidUnnamed(maths::vec3(1, 1, 1), Color::White(), MaterialFactory::Build("_GAMEOBJECT_DEFAULT_", Color::White(), Shader::Default()))));
 	}
@@ -59,20 +54,19 @@ namespace Ablaze
 
 	GameObject::GameObject(const GameObject* parent, bool preserveCurrentPosition) : GameObject()
 	{
+		parent->GetLayer()->AddGameObject(this);
 		MakeChildOf(parent, preserveCurrentPosition);
-		SetLayer(parent->GetLayer());
 	}
 
 	GameObject::~GameObject()
 	{
 		delete components;
-		gameObjects[id] = nullptr;
+		SceneManager::CurrentScene()->gameObjects[id] = nullptr;
 	}
 
 	void GameObject::Destroy()
 	{
-		SetLayer(nullptr);
-		gameObjects[id] = nullptr;
+		currentLayer->RemoveGameObject(this);
 		delete this;
 	}
 
@@ -93,8 +87,7 @@ namespace Ablaze
 	}
 
 	void GameObject::MakeStandalone(bool preserveCurrentPosition)
-	{
-		
+	{		
 		if (components->HasComponent<Components::Parent>() && preserveCurrentPosition)
 		{
 			Components::Parent* parent = GetComponent<Components::Parent>();
@@ -108,22 +101,22 @@ namespace Ablaze
 		GetComponentSet().RemoveComponent<Components::Parent>();
 	}
 
+	Layer* GameObject::GetLayer() const
+	{
+		return currentLayer;
+	}
+
 	void GameObject::SetLayer(Layer* layer)
 	{
 		if (currentLayer != nullptr)
 		{
 			currentLayer->RemoveGameObject(this);
 		}
-		currentLayer = layer;		
-		if (currentLayer != nullptr)
+		currentLayer = layer;
+		if (layer != nullptr)
 		{
 			currentLayer->AddGameObject(this);
 		}
-	}
-
-	Layer* GameObject::GetLayer() const
-	{
-		return currentLayer;
 	}
 
 	uint GameObject::GetID() const
@@ -173,21 +166,6 @@ namespace Ablaze
 	}
 
 
-	bool GameObject::IsValid() const
-	{
-		return gameObjects[id] != nullptr;
-	}
-
-	GameObject* GameObject::Anchor()
-	{
-		return gameObjects[0];
-	}
-
-	GameObject* GameObject::GetAtID(uint ID)
-	{
-		return gameObjects[ID];
-	}
-
 	GameObject* GameObject::Empty()
 	{
 		GameObject* obj = new GameObject();
@@ -227,42 +205,6 @@ namespace Ablaze
 		obj->AddComponent(new Components::Parent(parent));
 		obj->SetLayer(parent->GetLayer());
 		return obj;
-	}
-
-	void GameObject::Initialise()
-	{		
-		for (uint i = 0; i < AblazeEngine::maxEntities; i++)
-		{
-			gameObjects[i] = nullptr;
-		}
-		anchorObject = new GameObject(true);
-	}
-
-	uint GameObject::GetHightestID()
-	{
-		return highestID;
-	}
-
-	bool GameObject::IsValid(uint id)
-	{
-		return gameObjects[id] != nullptr;
-	}
-
-	uint GameObject::GetNextID()
-	{
-		for (uint i = 0; i < highestID + 5; i++)
-		{
-			if (gameObjects[i] == nullptr)
-			{
-				if (i > highestID)
-				{
-					highestID = i;
-				}
-				return i;
-			}
-		}
-		AB_ERROR("Could not find available ID for GameObject");
-		return 0;
 	}
 
 }

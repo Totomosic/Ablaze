@@ -18,7 +18,6 @@ namespace Ablaze
 		}
 
 		Random::Initialise();
-		GameObject::Initialise();
 		TextureManager::Initialise();
 		DebugLayer::Initialise();
 	}

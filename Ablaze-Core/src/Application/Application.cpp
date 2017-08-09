@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Engine.h"
 #include "Log.h"
+#include "Scene/SceneManager.h"
 
 namespace Ablaze
 {
@@ -58,11 +59,6 @@ namespace Ablaze
 		SystemManager::PushSystem(system);
 	}
 
-	void Application::PushScene(Scene* scene)
-	{
-		scenes.push_front(scene);
-	}
-
 	void Application::Run()
 	{
 		Init();
@@ -100,7 +96,7 @@ namespace Ablaze
 	void Application::Update()
 	{
 		Time::OnUpdate();
-		if (GameObject::GetHightestID() > 0)
+		if (SceneManager::CurrentScene()->GetHightestID() > 0)
 			SystemManager::Run();
 	}
 
@@ -108,10 +104,7 @@ namespace Ablaze
 	{
 		window->Update();
 		Time::OnRender();
-		for (auto scene : scenes)
-		{
-			scene->Render();
-		}
+		SceneManager::CurrentScene()->Render();
 	}
 
 	void Application::UpdateDisplay()

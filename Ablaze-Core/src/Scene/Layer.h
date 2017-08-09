@@ -21,7 +21,9 @@ namespace Ablaze
 		Renderer* GetRenderer() const;
 		GameObject* GetCamera() const;
 		const String& GetName() const;
+		bool HasCamera() const;
 
+		void SetAsCurrent();
 		void SetCamera(GameObject* camera);
 		void SetRenderer(Renderer* renderer);
 		void SetName(const String& name);

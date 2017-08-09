@@ -9,6 +9,7 @@ layout(location = 4) in vec3 tangent;
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
+uniform float tiling = 1;
 
 out vec2 f_TexCoord;
 out vec4 f_Color;
@@ -29,10 +30,10 @@ void main()
 	vec3 B = cross(T, N);
 	mat3 TBN = transpose(mat3(T, B, N));
 
-	f_TexCoord = texCoord;
+	f_TexCoord = texCoord * tiling;
 	f_Color = color;
 	f_WorldPosition = worldPosition.xyz;
 	f_WorldNormal = N;
-	f_CameraPosition = (inverse(viewMatrix) * vec4(0.0,0.0,0.0,1.0)).xyz;
+	f_CameraPosition = inverse(viewMatrix)[3].xyz;
 	f_TBN = TBN;
 })"

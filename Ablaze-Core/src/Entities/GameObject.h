@@ -18,13 +18,7 @@ namespace Ablaze
 
 	class GameObject
 	{
-	private:
-		static GameObject** gameObjects;
-		static uint highestID;
-
 	protected:
-		static GameObject* anchorObject; // All GameObjects are children of anchor, most of the time will be positioned at (0, 0, 0)
-
 		uint id;
 		Layer* currentLayer;
 		ComponentSet* components;
@@ -43,12 +37,11 @@ namespace Ablaze
 		GameObject* Clone() const;
 		void MakeChildOf(const GameObject* parent, bool preserveCurrentPosition = false);
 		void MakeStandalone(bool preserveCurrentPosition = true);
-		void SetLayer(Layer* layer);
 		Layer* GetLayer() const;
+		void SetLayer(Layer* layer);
 
 		uint GetID() const;
 		ComponentSet& GetComponentSet() const;
-		bool IsValid() const;
 
 		template<class T> T* GetComponent() const
 		{
@@ -79,15 +72,8 @@ namespace Ablaze
 		static GameObject* Instantiate(const GameObject* prefab, const maths::vec3& worldPosition);
 		static GameObject* Instantiate(const GameObject* prefab, const GameObject* parent);
 		static GameObject* Instantiate(const GameObject* prefab, const GameObject* parent, const maths::vec3& worldPosition);
-		
-		static GameObject* Anchor();
-		static GameObject* GetAtID(uint ID);
-		static bool IsValid(uint id);
-		static uint GetHightestID();
-		static void Initialise();
 
-	private:
-		static uint GetNextID();
+		friend class Scene;
 
 	};
 

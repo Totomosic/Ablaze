@@ -19,7 +19,6 @@ namespace Ablaze
 
 	protected:
 		Window* window;
-		std::deque<Scene*> scenes;
 
 	public:
 		Application();
@@ -32,7 +31,6 @@ namespace Ablaze
 
 		void Start();
 		void PushSystem(System* system);
-		void PushScene(Scene* scene);
 
 		virtual void Init() = 0; // Called once
 		virtual void Tick(); // Called once per second

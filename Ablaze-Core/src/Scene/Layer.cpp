@@ -34,6 +34,16 @@ namespace Ablaze
 		return name;
 	}
 
+	bool Layer::HasCamera() const
+	{
+		return camera != nullptr;
+	}
+
+	void Layer::SetAsCurrent()
+	{
+		SceneManager::CurrentScene()->SetCurrentLayer(this);
+	}
+
 	void Layer::SetCamera(GameObject* camera)
 	{
 		this->camera = camera;

@@ -5,6 +5,7 @@
 #include "Components/Motion/Transform.h"
 #include "Graphics/Context.h"
 #include "Tags.h"
+#include "Scene/SceneManager.h"
 
 namespace Ablaze
 {
@@ -19,6 +20,11 @@ namespace Ablaze
 			firstCamera = false;
 			AddComponent(new Components::Identifier(Tags::MainCamera));
 		}
+		if (!SceneManager::CurrentScene()->CurrentLayer()->HasCamera())
+		{
+			SceneManager::CurrentScene()->CurrentLayer()->SetCamera(this);
+		}
+		components->RemoveComponent<Components::MeshComponent>();
 	}
 
 	Camera::Camera() : Camera(Viewport(), maths::vec3(0, 0, 0))

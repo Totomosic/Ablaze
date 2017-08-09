@@ -1,13 +1,5 @@
 R"(#version 330 core
 
-struct Material
-{
-	vec3 Albedo;
-	float Metallic;
-	float Roughness;
-	float AmbientOcclusion;
-};
-
 struct Light
 {
 	vec3 Color;
@@ -21,15 +13,13 @@ in vec3 f_WorldNormal;
 in vec3 f_CameraPosition;
 in mat3 f_TBN;
 
-uniform Material material;
 uniform Light Lights[10];
-uniform vec4 color;
 uniform int lightCount;
 
-uniform sampler2D albedo;
-uniform sampler2D roughness;
-uniform sampler2D metallic;
-uniform sampler2D ao;
+uniform sampler2D albedoMap;
+uniform sampler2D roughnessMap;
+uniform sampler2D metallicMap;
+uniform sampler2D aoMap;
 uniform sampler2D normalMap;
 
 const float PI = 3.14159265359;
@@ -87,14 +77,14 @@ float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
 
 void main()
 {		
-
-	vec3 albedo = texture(albedo, f_TexCoord).xyz * color.xyz * f_Color.xyz;
+	vec3 albedo = texture(albedoMap, f_TexCoord).xyz * f_Color.xyz;
 	albedo = pow(albedo, vec3(2.2));
-	float roughness = texture(roughness, f_TexCoord).r;
-	float metallic = texture(metallic, f_TexCoord).r;
-	float ambientOcclusion = texture(ao, f_TexCoord).r;
+	//float roughness = texture(roughnessMap, f_TexCoord).r;
+	float roughness = 0.0;
+	float metallic = texture(metallicMap, f_TexCoord).r;
+	float ambientOcclusion = texture(aoMap, f_TexCoord).r;
 
-	vec3 N = GetNormalFromNormalMap();
+    vec3 N = normalize(f_WorldNormal);
     vec3 V = normalize(f_CameraPosition - f_WorldPosition);
 
     vec3 F0 = vec3(0.04); 
@@ -102,24 +92,23 @@ void main()
 	           
     // reflectance equation
     vec3 Lo = vec3(0.0);
-    for(int i = 0; i < lightCount; i++) 
+    for(int i = 0; i < lightCount; ++i) 
     {
         // calculate per-light radiance
         vec3 L = normalize(Lights[i].Position - f_WorldPosition);
         vec3 H = normalize(V + L);
         float distance    = length(Lights[i].Position - f_WorldPosition);
         float attenuation = 1.0 / (distance * distance);
-		//float attenuation = 1.0;
         vec3 radiance     = Lights[i].Color * attenuation;        
         
         // cook-torrance brdf
-        float NDF = DistributionGGX(N, H, clamp(roughness, 0.03, 1.0));        
-        float G   = GeometrySmith(N, V, L, clamp(roughness, 0.03, 1.0));      
-        vec3 F    = fresnelSchlick(max(dot(H, V), 0.1), F0);       
+        float NDF = DistributionGGX(N, H, roughness); // TODO: INVESTIGATE THESE 2 FUNCTIONS, ANY VALUE OTHER THAN 0.0 FOR ROUGHNESS CREATES WEIRD RESULTS        
+        float G   = GeometrySmith(N, V, L, roughness);      
+        vec3 F    = fresnelSchlick(max(dot(H, V), 0.0), F0);       
         
         vec3 kS = F;
         vec3 kD = vec3(1.0) - kS;
-        kD *= 1.0 - metallic;	  
+        kD *= 1.0 - metallic;	
         
         vec3 nominator    = NDF * G * F;
         float denominator = lightCount * max(dot(N, V), 0.0) * max(dot(N, L), 0.0) + 0.001; 
@@ -128,9 +117,10 @@ void main()
         // add to outgoing radiance Lo
         float NdotL = max(dot(N, L), 0.0);                
         Lo += (kD * albedo / PI + specular) * radiance * NdotL; 
-    }
+		//Lo += kD * albedo * radiance * NdotL;
+    }   
   
-    vec3 ambient = vec3(0.05) * albedo * ambientOcclusion;
+    vec3 ambient = vec3(0.03) * albedo * ambientOcclusion;
     vec3 color = ambient + Lo;
 	
     color = color / (color + vec3(1.0));

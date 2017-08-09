@@ -1,6 +1,7 @@
 #include "GameObjects.h"
 #include "Components/Misc/Identifier.h"
 #include "Components/Motion/Transform.h"
+#include "Scene/SceneManager.h"
 
 namespace Ablaze
 {
@@ -8,11 +9,11 @@ namespace Ablaze
 	std::vector<GameObject*> GameObjects::GetAll()
 	{
 		std::vector<GameObject*> v;
-		for (int i = 0; i < GameObject::GetHightestID() + 1; i++)
+		for (int i = 0; i < SceneManager::CurrentScene()->GetHightestID() + 1; i++)
 		{
-			if (GameObject::IsValid(i))
+			if (SceneManager::CurrentScene()->IsValid(i))
 			{
-				v.push_back(GameObject::GetAtID(i));
+				v.push_back(SceneManager::CurrentScene()->GetAtID(i));
 			}
 		}
 		return v;
@@ -21,14 +22,14 @@ namespace Ablaze
 	std::vector<GameObject*> GameObjects::GetAllWith(const std::type_index* types, int length)
 	{
 		std::vector<GameObject*> v;
-		for (int i = 0; i < GameObject::GetHightestID() + 1; i++)
+		for (int i = 0; i < SceneManager::CurrentScene()->GetHightestID() + 1; i++)
 		{
-			if (!GameObject::IsValid(i))
+			if (!SceneManager::CurrentScene()->IsValid(i))
 			{
 				// If current GameObject is not valid, move on to the next
 				continue;
 			}
-			GameObject* g = GameObject::GetAtID(i);
+			GameObject* g = SceneManager::CurrentScene()->GetAtID(i);
 			bool passed = true;
 			for (int j = 0; j < length; j++)
 			{
@@ -42,7 +43,7 @@ namespace Ablaze
 			// If all tests pass, add it to vector
 			if (passed)
 			{
-				v.push_back(GameObject::GetAtID(i));
+				v.push_back(SceneManager::CurrentScene()->GetAtID(i));
 			}
 		}
 		// Delete array pointer
@@ -58,13 +59,13 @@ namespace Ablaze
 	std::vector<GameObject*> GameObjects::FindAllNearTo(const maths::vec3& position, float maxDistance)
 	{
 		std::vector<GameObject*> objects;
-		for (uint i = 1; i < GameObject::GetHightestID() + 1; i++)
+		for (uint i = 1; i < SceneManager::CurrentScene()->GetHightestID() + 1; i++)
 		{
-			if (!GameObject::IsValid(i))
+			if (!SceneManager::CurrentScene()->IsValid(i))
 			{
 				continue;
 			}
-			GameObject* object = GameObject::GetAtID(i);
+			GameObject* object = SceneManager::CurrentScene()->GetAtID(i);
 			Components::Transform* transform = nullptr;
 			if (object->GetComponentSet().GetComponent(transform))
 			{
@@ -85,13 +86,13 @@ namespace Ablaze
 	std::vector<GameObject*> GameObjects::FindAllNearTo(const Components::Transform* const transform, float maxDistance)
 	{
 		std::vector<GameObject*> objects;
-		for (uint i = 1; i < GameObject::GetHightestID() + 1; i++)
+		for (uint i = 1; i < SceneManager::CurrentScene()->GetHightestID() + 1; i++)
 		{
-			if (i == transform->GetOwner().GetID() || !GameObject::IsValid(i))
+			if (i == transform->GetOwner().GetID() || !SceneManager::CurrentScene()->IsValid(i))
 			{
 				continue;
 			}
-			GameObject* object = GameObject::GetAtID(i);
+			GameObject* object = SceneManager::CurrentScene()->GetAtID(i);
 			Components::Transform* transform = nullptr;
 			if (object->GetComponentSet().GetComponent(transform))
 			{
@@ -108,13 +109,13 @@ namespace Ablaze
 	{
 		GameObject* obj = nullptr;
 		float dist = maxDistance + 1;
-		for (uint i = 1; i < GameObject::GetHightestID() + 1; i++)
+		for (uint i = 1; i < SceneManager::CurrentScene()->GetHightestID() + 1; i++)
 		{
-			if (!GameObject::IsValid(i))
+			if (!SceneManager::CurrentScene()->IsValid(i))
 			{
 				continue;
 			}
-			GameObject* object = GameObject::GetAtID(i);
+			GameObject* object = SceneManager::CurrentScene()->GetAtID(i);
 			Components::Transform* transform = nullptr;
 			if (object->GetComponentSet().GetComponent(transform))
 			{
@@ -139,13 +140,13 @@ namespace Ablaze
 		GameObject* obj = nullptr;
 		float dist = maxDistance + 1;
 		// Start at 1 to ignore anchor
-		for (uint i = 1; i < GameObject::GetHightestID() + 1; i++)
+		for (uint i = 1; i < SceneManager::CurrentScene()->GetHightestID() + 1; i++)
 		{
-			if (i == transform->GetOwner().GetID() && !GameObject::IsValid(i))
+			if (i == transform->GetOwner().GetID() && !SceneManager::CurrentScene()->IsValid(i))
 			{
 				continue;
 			}
-			GameObject* object = GameObject::GetAtID(i);
+			GameObject* object = SceneManager::CurrentScene()->GetAtID(i);
 			Components::Transform* transform = nullptr;
 			if (object->GetComponentSet().GetComponent(transform))
 			{
@@ -163,13 +164,13 @@ namespace Ablaze
 	std::vector<GameObject*> GameObjects::GetAllWithName(const String& name)
 	{
 		std::vector<GameObject*> v;
-		for (int i = 0; i < GameObject::GetHightestID() + 1; i++)
+		for (int i = 0; i < SceneManager::CurrentScene()->GetHightestID() + 1; i++)
 		{
-			if (!GameObject::IsValid(i))
+			if (!SceneManager::CurrentScene()->IsValid(i))
 			{
 				continue;
 			}
-			GameObject* obj = GameObject::GetAtID(i);
+			GameObject* obj = SceneManager::CurrentScene()->GetAtID(i);
 			if (!obj->HasComponent<Components::Identifier>())
 			{
 				continue;
@@ -184,13 +185,13 @@ namespace Ablaze
 
 	GameObject* GameObjects::GetWithName(const String& name)
 	{
-		for (int i = 0; i < GameObject::GetHightestID() + 1; i++)
+		for (int i = 0; i < SceneManager::CurrentScene()->GetHightestID() + 1; i++)
 		{
-			if (!GameObject::IsValid(i))
+			if (!SceneManager::CurrentScene()->IsValid(i))
 			{
 				continue;
 			}
-			GameObject* obj = GameObject::GetAtID(i);
+			GameObject* obj = SceneManager::CurrentScene()->GetAtID(i);
 			if (obj->HasComponent<Components::Identifier>())
 			{
 				if (obj->GetComponent<Components::Identifier>()->GetName() == name)
