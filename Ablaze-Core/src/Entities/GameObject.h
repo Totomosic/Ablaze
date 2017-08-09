@@ -3,8 +3,6 @@
 #include "RenderEngine/structs/Mesh.h"
 #include "Maths/Maths.h"
 
-#define GAME_OBJECT_ANCHOR 0
-
 namespace Ablaze
 {
 

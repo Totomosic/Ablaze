@@ -6,7 +6,7 @@ namespace Ablaze
 	Image::Image(int width, int height, uint bpp, byte* pixels)
 		: width(width), height(height), bpp(bpp), pixels(pixels)
 	{
-	
+
 	}
 
 	Image::Image(const String& path)

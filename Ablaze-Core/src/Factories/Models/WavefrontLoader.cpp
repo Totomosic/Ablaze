@@ -89,7 +89,7 @@ namespace Ablaze
 					{
 						maths::vec2 uv;
 						int result = sscanf(cstr, "%*s %f %f", &uv.x, &uv.y);
-						if (result == 0)
+						if (result != 2)
 							continue;
 						inputVertices.uvs.push_back(uv);
 					}
@@ -97,7 +97,7 @@ namespace Ablaze
 					{
 						maths::vec3 normal;
 						int result = sscanf(cstr, "%*s %f %f %f", &normal.x, &normal.y, &normal.z);
-						if (result == 0)
+						if (result != 3)
 							continue;
 						inputVertices.normals.push_back(normal);
 					}
@@ -106,7 +106,7 @@ namespace Ablaze
 						maths::vec3 position;
 						int result = sscanf(cstr, "%*s %f %f %f", &position.x, &position.y, &position.z);
 						UpdateMinMax(position.x, position.y, position.z, &minX, &maxX, &minY, &maxY, &minZ, &maxZ);
-						if (result == 0)
+						if (result != 3)
 							continue;
 						inputVertices.positions.push_back(position);
 					}
@@ -164,17 +164,13 @@ namespace Ablaze
 								}
 								else
 								{
-									AB_ERROR("Skipped face");
+									AB_ERROR("Skipped Loading Model Face");
 									continue;
 								}
 							}
 						}
 					}
 				}
-				/*if (i++ % 1000 == 0)
-				{
-					AB_INFO(std::to_string((int)((i / (float)lines.size()) * 100.0f)) + "%");
-				)*/
 			}
 			VBO* vbo = new VBO(vertices.size() * sizeof(Vertex), BufferLayout::Vertex());
 			vbo->Bind();

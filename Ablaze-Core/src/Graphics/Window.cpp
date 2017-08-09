@@ -109,8 +109,8 @@ namespace Ablaze
 	void Window::Update()
 	{
 		Input::PollEvents();
-		GLenum error = glGetError();
 #ifdef _GL_ERRORS
+		GLenum error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
 			AB_FATAL(String("OpenGL Error: ") + String((const char*)glewGetErrorString(error)) + String(" (") + std::to_string(error) + String(") "));

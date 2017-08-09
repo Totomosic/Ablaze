@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "SceneManager.h"
 
 namespace Ablaze
 {
@@ -6,7 +7,7 @@ namespace Ablaze
 	Scene::Scene(const String& name)
 		: name(name)
 	{
-	
+		SceneManager::SetCurrentScene(this);
 	}
 
 	Scene::~Scene()
@@ -15,6 +16,11 @@ namespace Ablaze
 		{
 			delete layer;
 		}
+	}
+
+	Layer* Scene::CurrentLayer() const
+	{
+		return currentLayer;
 	}
 
 	Layer* Scene::GetLayer(int index) const
@@ -35,7 +41,7 @@ namespace Ablaze
 	void Scene::PushLayer(Layer* layer)
 	{
 		layers.push_back(layer);
-		Layer::SetCurrentLayer(layer);
+		SetCurrentLayer(layer);
 	}
 
 	void Scene::RemoveLayer(Layer* layer)
@@ -51,9 +57,14 @@ namespace Ablaze
 		return l;
 	}
 
-	void Scene::SetCurrentLayer(int index) const
+	void Scene::SetCurrentLayer(int index)
 	{
-		Layer::SetCurrentLayer(layers[index]);
+		SetCurrentLayer(layers[index]);
+	}
+
+	void Scene::SetCurrentLayer(Layer* layer)
+	{
+		currentLayer = layer;
 	}
 
 	void Scene::Render() const

@@ -34,7 +34,6 @@ namespace Ablaze
 			size_t size = *((size_t*)memory);
 
 			MemoryManager::Free(size);
-
 			AB_FREE(memory);
 		}
 	}

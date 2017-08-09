@@ -3,16 +3,15 @@
 #include "Entities/Camera.h"
 #include "RenderEngine/structs/Commands/Commands.h"
 #include "Graphics/Context.h"
+#include "SceneManager.h"
 
 namespace Ablaze
 {
 
-	Layer* Layer::currentLayer = nullptr;
-
-	Layer::Layer(String name, Renderer* renderer, GameObject* camera)
-		: name(name), renderer(renderer), camera(camera)
+	Layer::Layer(String name, Renderer* renderer)
+		: name(name), renderer(renderer), camera(nullptr)
 	{
-		currentLayer = this;
+		SceneManager::CurrentScene()->PushLayer(this);
 	}
 
 	Layer::~Layer()
@@ -30,7 +29,7 @@ namespace Ablaze
 		return camera;
 	}
 
-	String Layer::GetName() const
+	const String& Layer::GetName() const
 	{
 		return name;
 	}
@@ -40,7 +39,7 @@ namespace Ablaze
 		this->camera = camera;
 	}
 
-	void Layer::SetName(String name)
+	void Layer::SetName(const String& name)
 	{
 		this->name = name;
 	}
@@ -96,16 +95,6 @@ namespace Ablaze
 		{
 			delete renderable;
 		}
-	}
-
-	Layer* Layer::GetCurrentLayer()
-	{
-		return currentLayer;
-	}
-
-	void Layer::SetCurrentLayer(Layer* layer)
-	{
-		currentLayer = layer;
 	}
 
 }

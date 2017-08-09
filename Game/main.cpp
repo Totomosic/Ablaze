@@ -50,11 +50,11 @@ public:
 		//Texture2D* roughness = TextureFactory::Build2D("gold-scuffed_roughness.png");
 		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/res/gold-scuffed_normal.png"));
 
-		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(500), 200);
+		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 500);
 		TerrainData* data = terrain->GetData();
 		data->EnableEditing();
 		//data->SetData(HeightmapFunction(VFS::RetrieveFile<ImageFile>("/res/heightmap1.jpg"), 50));
-		data->SetData(PerlinNoise(19421, 50, 16));
+		data->SetData(PerlinNoise(time(nullptr), 800, 48));
 		data->DisableEditing();
 
 		MaterialFactory::Order("Default", Color::White(), Shader::Default());
@@ -70,24 +70,24 @@ public:
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 		MeshFactory::Order("Cruiser", "Cruiser", "RustedMaterial", maths::mat4::Translation(maths::vec3(0, 0, -500)) * maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
-		MeshFactory::Order("Terrain", "Terrain", "BrickMaterial");
+		MeshFactory::Order("Terrain", "Terrain", "Default");
 
-		Camera* camera = new Camera(Viewport(-window->GetWidth() / 2, -window->GetHeight() / 2, window->GetWidth(), window->GetHeight()), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective);
-		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
-		camera->AddComponent(new Components::Collider(BoundingBox(maths::vec3(2.5f, 3.0f, 2.5f))));
-		
 		scene = new Scene("Default");
 		PushScene(scene);
-		Layer* layer = new Layer("Scene", new Renderer(), camera);
-		scene->PushLayer(layer);
+		Layer* layer = new Layer("Scene", new Renderer());
+
+		Camera* camera = new Camera(Viewport(-window->GetWidth() / 2, -window->GetHeight() / 2, window->GetWidth(), window->GetHeight()), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 3.0, Angle::Radians, 1.0f, 3000.0f);
+		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
+		camera->AddComponent(new Components::Collider(BoundingBox(maths::vec3(2.5f, 3.0f, 2.5f))));
+		layer->SetCamera(camera);
 
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
 
 		GameObject* water = new GameObject(0, -5, 0);
-		water->SetMesh(MeshFactory::Build("Plane", ModelFactory::BuildTile("Plane", maths::vec2(500), Color(0, 0, 128, 180)), "Default"));
+		water->SetMesh(MeshFactory::Build("Plane", ModelFactory::BuildTile("Plane", maths::vec2(5000), Color(0, 0, 128, 180)), "Default"));
 		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
-		water->AddComponent(new Components::Collider(BoundingBox(maths::vec3(500, 0, 500))));
+		water->AddComponent(new Components::Collider(BoundingBox(maths::vec3(5000, 0, 5000))));
 
 		/*GameObject* plane = new GameObject(0, 20, 0);
 		plane->SetMesh("Learjet");
@@ -123,19 +123,19 @@ public:
 		Components::RigidBody* r = cam->GetComponent<Components::RigidBody>();
 		if (Input::KeyDown(GLFW_KEY_W))
 		{
-			r->Acceleration() += CalculateVector(t->Forward()) * 50.0f;
+			r->Acceleration() += CalculateVector(t->Forward()) * 250.0f;
 		}
 		if (Input::KeyDown(GLFW_KEY_S))
 		{
-			r->Acceleration() += CalculateVector(t->Forward()) * -50.0f;
+			r->Acceleration() += CalculateVector(t->Forward()) * -250.0f;
 		}
 		if (Input::KeyDown(GLFW_KEY_D))
 		{
-			r->Acceleration() += CalculateVector(t->Right()) * 50.0f;
+			r->Acceleration() += CalculateVector(t->Right()) * 250.0f;
 		}
 		if (Input::KeyDown(GLFW_KEY_A))
 		{
-			r->Acceleration() += CalculateVector(t->Right()) * -50.0f;
+			r->Acceleration() += CalculateVector(t->Right()) * -250.0f;
 		}
 		if (Input::KeyDown(GLFW_KEY_LEFT))
 		{
@@ -155,7 +155,7 @@ public:
 		}
 		if (Input::KeyDown(GLFW_KEY_SPACE))
 		{
-			r->Velocity().y = 10.0f;
+			r->Velocity().y = 50.0f;
 			r->Acceleration().y = 0.0f;
 		}
 

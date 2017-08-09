@@ -15,16 +15,19 @@ namespace Ablaze
 	private:
 		String name;
 		std::vector<Layer*> layers;
+		Layer* currentLayer;
 
 	public:
 		Scene(const String& name);
 		~Scene();
 
+		Layer* CurrentLayer() const;
 		Layer* GetLayer(int index = 0) const;
 		const String& GetName() const;
 		int GetLayerCount() const;
 
-		void SetCurrentLayer(int index) const;
+		void SetCurrentLayer(int index);
+		void SetCurrentLayer(Layer* layer);
 		void PushLayer(Layer* layer);
 		void RemoveLayer(Layer* layer);
 		Layer* PopLayer();

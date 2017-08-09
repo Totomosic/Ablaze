@@ -2,7 +2,7 @@
 #include "Engine.h"
 #include "Tags.h"
 #include "Components/Components.h"
-#include "Scene/Layer.h"
+#include "Scene/SceneManager.h"
 #include "Factories/MeshFactory.h"
 
 namespace Ablaze
@@ -15,13 +15,13 @@ namespace Ablaze
 
 	GameObject::GameObject(bool anchor)
 	{
-		id = GAME_OBJECT_ANCHOR;
+		id = 0;
 		gameObjects[id] = this;
 		components = new ComponentSet(*this);
 
-		if (Layer::GetCurrentLayer() != nullptr)
+		if (SceneManager::CurrentScene() != nullptr && SceneManager::CurrentScene()->CurrentLayer() != nullptr)
 		{
-			SetLayer(Layer::GetCurrentLayer());
+			SetLayer(SceneManager::CurrentScene()->CurrentLayer());
 		}
 
 		AddComponent(new Components::Transform());
@@ -35,9 +35,9 @@ namespace Ablaze
 		currentLayer = nullptr;
 		components = new ComponentSet(*this);
 
-		if (Layer::GetCurrentLayer() != nullptr)
+		if (SceneManager::CurrentScene() != nullptr && SceneManager::CurrentScene()->CurrentLayer() != nullptr)
 		{
-			SetLayer(Layer::GetCurrentLayer());
+			SetLayer(SceneManager::CurrentScene()->CurrentLayer());
 		}
 
 		// Add Default Components
@@ -180,7 +180,7 @@ namespace Ablaze
 
 	GameObject* GameObject::Anchor()
 	{
-		return gameObjects[GAME_OBJECT_ANCHOR];
+		return gameObjects[0];
 	}
 
 	GameObject* GameObject::GetAtID(uint ID)
