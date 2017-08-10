@@ -1,6 +1,6 @@
 #pragma once
 #include "Command.h"
-#include "structs/Framebuffers/Framebuffer.h"
+#include "Graphics/Imaging/Framebuffers/Framebuffer.h"
 
 namespace Ablaze
 {

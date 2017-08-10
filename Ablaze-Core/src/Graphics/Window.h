@@ -3,7 +3,7 @@
 #include "Maths/Maths.h"
 #include "Types.h"
 #include "Enums.h"
-#include "structs/Framebuffers/Framebuffer.h"
+#include "Imaging/Framebuffers/Framebuffer.h"
 
 namespace Ablaze
 {

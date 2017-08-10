@@ -190,6 +190,7 @@
     <ClCompile Include="src\Graphics\Fonts\Font.cpp" />
     <ClCompile Include="src\Graphics\Imaging\Bitmap.cpp" />
     <ClCompile Include="src\Graphics\Imaging\Image.cpp" />
+    <ClCompile Include="src\Graphics\Imaging\Textures\DynamicTexture.cpp" />
     <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="src\Graphics\Shaders\ShaderManager.cpp" />
     <ClCompile Include="src\Graphics\Shaders\Uniforms\UniformManager.cpp" />
@@ -243,8 +244,8 @@
     <ClCompile Include="src\structs\BufferLayout.cpp" />
     <ClCompile Include="src\structs\Data\Color.cpp" />
     <ClCompile Include="src\structs\Data\Vertex.cpp" />
-    <ClCompile Include="src\structs\Framebuffers\Framebuffer.cpp" />
-    <ClCompile Include="src\structs\Framebuffers\GBuffer.cpp" />
+    <ClCompile Include="src\Graphics\Imaging\Framebuffers\Framebuffer.cpp" />
+    <ClCompile Include="src\Graphics\Imaging\Framebuffers\GBuffer.cpp" />
     <ClCompile Include="src\structs\IndexBuffer.cpp" />
     <ClCompile Include="src\structs\VAO.cpp" />
     <ClCompile Include="src\structs\VBO.cpp" />
@@ -306,6 +307,7 @@
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\Imaging\Bitmap.h" />
     <ClInclude Include="src\Graphics\Imaging\Image.h" />
+    <ClInclude Include="src\Graphics\Imaging\Textures\DynamicTexture.h" />
     <ClInclude Include="src\Graphics\Shaders\Shader.h" />
     <ClInclude Include="src\Graphics\Shaders\ShaderManager.h" />
     <ClInclude Include="src\Graphics\Shaders\Uniforms\UniformManager.h" />
@@ -366,8 +368,8 @@
     <ClInclude Include="src\structs\BufferLayout.h" />
     <ClInclude Include="src\structs\Data\Color.h" />
     <ClInclude Include="src\structs\Data\Vertex.h" />
-    <ClInclude Include="src\structs\Framebuffers\Framebuffer.h" />
-    <ClInclude Include="src\structs\Framebuffers\GBuffer.h" />
+    <ClInclude Include="src\Graphics\Imaging\Framebuffers\Framebuffer.h" />
+    <ClInclude Include="src\Graphics\Imaging\Framebuffers\GBuffer.h" />
     <ClInclude Include="src\structs\IndexBuffer.h" />
     <ClInclude Include="src\structs\Structs.h" />
     <ClInclude Include="src\structs\VAO.h" />

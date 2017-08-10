@@ -32,8 +32,8 @@ namespace Ablaze
 		const String& GetName() const;
 		const GLint GetBindUnit() const;
 
-		GLint Bind();
-		GLint Unbind();
+		virtual GLint Bind();
+		virtual GLint Unbind();
 
 		void SetTextureParameter(GLenum parameter, GLint value) const;
 

@@ -11,7 +11,7 @@ namespace Ablaze
 	}
 
 	Texture::Texture(const String& name, GLenum target, int width, int height)
-		: name(name), textureTarget(target), width(width), height(height)
+		: name(name), textureTarget(target), width(width), height(height), bindUnit(-1)
 	{
 		
 	}

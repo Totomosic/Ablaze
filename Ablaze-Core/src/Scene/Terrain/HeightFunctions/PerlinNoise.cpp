@@ -4,8 +4,8 @@
 namespace Ablaze
 {
 
-	PerlinNoise::PerlinNoise(int seed, float amplitude, float smoothness)
-		: seed(seed), amplitude(amplitude), smoothness(smoothness)
+	PerlinNoise::PerlinNoise(int seed, float amplitude, float smoothness, int iterations)
+		: seed(seed), amplitude(amplitude), smoothness(smoothness), iterations(iterations)
 	{
 		
 	}
@@ -54,7 +54,11 @@ namespace Ablaze
 		{
 			for (int j = 0; j < yVerts; j++)
 			{
-				float height = GetInterpolatedNoise(i / smoothness, j / smoothness) * amplitude;
+				float height = 0;
+				for (int k = 0; k < iterations; k++)
+				{
+					height += GetInterpolatedNoise(i / smoothness / (float)pow(2, k), j / smoothness / (float)pow(2, k)) * amplitude / ((float)pow(2, k) / 2.0f);
+				}
 				heights.push_back(height);
 			}
 		}

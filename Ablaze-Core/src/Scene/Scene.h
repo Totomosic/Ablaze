@@ -35,7 +35,12 @@ namespace Ablaze
 		Layer* CurrentLayer() const;
 		Layer* GetLayer(int index = 0) const;
 		const String& GetName() const;
+		int IndexOf(const String& layerName) const;
+		int IndexOf(Layer* layer) const;
+		int64 MaskOf(const String& layerName) const;
+		int64 MaskOf(Layer* layer) const;
 		int GetLayerCount() const;
+		std::vector<Layer*> GetLayers(int64 mask) const;
 
 		void SetCurrentLayer(int index);
 		void SetCurrentLayer(Layer* layer);

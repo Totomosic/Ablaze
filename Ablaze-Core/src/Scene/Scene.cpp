@@ -55,9 +55,52 @@ namespace Ablaze
 		return name;
 	}
 
+	int Scene::IndexOf(const String& layerName) const
+	{
+		for (int i = 0; i < GetLayerCount(); i++)
+		{
+			if (layers[i]->GetName() == layerName)
+				return i;
+		}
+		return -1;
+	}
+
+	int Scene::IndexOf(Layer* layer) const
+	{
+		return std::distance(layers.begin(), std::find(layers.begin(), layers.end(), layer));
+	}
+
+	int64 Scene::MaskOf(const String& layerName) const
+	{
+		return (int64)pow(2, IndexOf(layerName));
+	}
+
+	int64 Scene::MaskOf(Layer* layer) const
+	{
+		return (int64)pow(2, IndexOf(layer));
+	}
+
 	int Scene::GetLayerCount() const
 	{
 		return layers.size();
+	}
+
+	std::vector<Layer*> Scene::GetLayers(int64 mask) const
+	{
+		std::vector<Layer*> layers;
+		if (mask == 0)
+		{
+			return layers;
+		}
+		for (int i = 0; i < GetLayerCount(); i++)
+		{
+			int64 m = (int64)pow(2, i);
+			if (mask & m == m)
+			{
+				layers.push_back(this->layers[i]);
+			}
+		}
+		return layers;
 	}
 
 	void Scene::PushLayer(Layer* layer)

@@ -11,7 +11,7 @@ public:
 
 	void Init() override
 	{
-		Window::SetHint(GLFW_SAMPLES, 4);
+		//Window::SetHint(GLFW_SAMPLES, 4);
 		BuildWindow(1280, 720, "Ablaze: ", Color(100, 200, 255));
 		VFS::Mount("shader", "");
 		VFS::Mount("textures", "");
@@ -59,7 +59,7 @@ public:
 		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 500);
 		TerrainData* data = terrain->GetData();
 		data->EnableEditing();
-		data->SetData(PerlinNoise(time(nullptr) * 1241740 % 129041947, 800, 48));
+		data->SetData(PerlinNoise(time(nullptr) * 1241740 % 129041947, 500, 48, 4));
 		data->DisableEditing();
 
 		MaterialFactory::Order("Default", Color::White(), Shader::Default());
@@ -89,7 +89,7 @@ public:
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
 
-		GameObject* water = new GameObject(0, -5, 0);
+		GameObject* water = new GameObject(0, 0, 0);
 		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(5000), Color(0, 0, 128, 180)), "Default"));
 		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
 		water->AddComponent(new Components::Collider(BoundingBox(maths::vec3(5000, 0, 5000))));

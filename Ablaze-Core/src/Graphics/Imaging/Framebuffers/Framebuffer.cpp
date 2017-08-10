@@ -10,12 +10,15 @@ namespace Ablaze
 		id = 0;
 	}
 
-	Framebuffer::Framebuffer(int width, int height, const Color& clearColor)
+	Framebuffer::Framebuffer(int width, int height, const Color& clearColor, bool create)
 		: viewport(Viewport(0, 0, width, height)), clearColor(clearColor)
 	{
 		Create();
-		CreateColorBufferTexture(Attachment::Color0);
-		CreateDepthBufferTexture();
+		if (create)
+		{
+			CreateColorBufferTexture(Attachment::Color0);
+			CreateDepthBufferTexture();
+		}
 	}
 
 	Framebuffer::~Framebuffer()
@@ -95,33 +98,41 @@ namespace Ablaze
 
 	Texture2D* Framebuffer::CreateColorBufferTexture(Attachment attachment)
 	{
+		return CreateColorBufferTexture(new Texture2D("_FRAMEBUFFER_COLOR_BUFFER_TEXTURE_ATTACH_", GetWidth(), GetHeight()), attachment);		
+	}
+
+	Texture2D* Framebuffer::CreateColorBufferTexture(Texture2D* texture, Attachment attachment)
+	{
 		Bind();
-		Texture2D* tex = new Texture2D("_FRAMEBUFFER_COLOR_BUFFER_TEXTURE_ATTACH_", GetWidth(), GetHeight());
-		tex->Bind();
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, GetWidth(), GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-		tex->SetTextureParameter(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		tex->SetTextureParameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		tex->SetTextureParameter(GL_TEXTURE_WRAP_S, GL_CLAMP);
-		tex->SetTextureParameter(GL_TEXTURE_WRAP_T, GL_CLAMP);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, (GLenum)attachment, GL_TEXTURE_2D, tex->GetID(), 0);
+		texture->Bind();
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texture->GetWidth(), texture->GetHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+		texture->SetTextureParameter(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		texture->SetTextureParameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		texture->SetTextureParameter(GL_TEXTURE_WRAP_S, GL_CLAMP);
+		texture->SetTextureParameter(GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, (GLenum)attachment, GL_TEXTURE_2D, texture->GetID(), 0);
 		glDrawBuffer((GLenum)attachment);
-		textures[attachment] = tex;
-		return tex;
+		textures[attachment] = texture;
+		return texture;
 	}
 
 	Texture2D* Framebuffer::CreateDepthBufferTexture()
 	{
+		return CreateDepthBufferTexture(new Texture2D("_FRAMEBUFFER_DEPTH_BUFFER_TEXTURE_ATTACH_", GetWidth(), GetHeight()));		
+	}
+
+	Texture2D* Framebuffer::CreateDepthBufferTexture(Texture2D* texture)
+	{
 		Bind();
-		Texture2D* tex = new Texture2D("_FRAMEBUFFER_DEPTH_BUFFER_TEXTURE_ATTACH_", GetWidth(), GetHeight());
-		tex->Bind();
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, GetWidth(), GetHeight(), 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-		tex->SetTextureParameter(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		tex->SetTextureParameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		tex->SetTextureParameter(GL_TEXTURE_WRAP_S, GL_CLAMP);
-		tex->SetTextureParameter(GL_TEXTURE_WRAP_T, GL_CLAMP);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, tex->GetID(), 0);
-		textures[Attachment::Depth0] = tex;
-		return tex;
+		texture->Bind();
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, texture->GetWidth(), texture->GetHeight(), 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+		texture->SetTextureParameter(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		texture->SetTextureParameter(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		texture->SetTextureParameter(GL_TEXTURE_WRAP_S, GL_CLAMP);
+		texture->SetTextureParameter(GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, texture->GetID(), 0);
+		textures[Attachment::Depth0] = texture;
+		return texture;
 	}
 
 	Texture2D* Framebuffer::GetTextureAttachment(Attachment attachment)

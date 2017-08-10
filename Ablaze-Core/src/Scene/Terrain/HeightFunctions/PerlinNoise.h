@@ -11,9 +11,10 @@ namespace Ablaze
 		int seed;
 		float amplitude;
 		float smoothness;
+		int iterations;
 
 	public:
-		PerlinNoise(int seed, float amplitude, float smoothness);
+		PerlinNoise(int seed, float amplitude, float smoothness, int iterations = 1);
 
 		std::vector<float> Generate(int xVerts, int yVerts) const override;
 
