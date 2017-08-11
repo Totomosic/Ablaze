@@ -1,5 +1,6 @@
 #pragma once
 #include "Types.h"
+#include "Layer.h"
 
 namespace Ablaze
 {
@@ -18,8 +19,6 @@ namespace Ablaze
 
 		void AddLayer(const String& layer);
 		void AddLayer(Layer* layer);
-		void RemoveLayer(const String& layer);
-		void RemoveLayer(Layer* layer);
 
 		static LayerMask All();
 	};

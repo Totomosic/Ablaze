@@ -4,7 +4,7 @@
 namespace Ablaze
 {
 
-	DynamicTexture::DynamicTexture(const String& name, int width, int height, UpdateMode creationMethod, GameObject* camera, LayerMask layers, TextureBuffer textureType) : Texture2D(name, width, height),
+	DynamicTexture::DynamicTexture(const String& name, int width, int height, UpdateMode creationMethod, LayerMask layers, GameObject* camera, TextureBuffer textureType) : Texture2D(name, width, height),
 		mode(creationMethod), camera(camera), layers(layers), textureType(textureType)
 	{
 		hasBeenCreated = false;
@@ -70,14 +70,22 @@ namespace Ablaze
 	{
 		if ((mode == UpdateMode::CreateOnce && !hasBeenCreated) || mode == UpdateMode::CreateEachFrame)
 		{
+			hasBeenCreated = true;
 			BindFBO();
 			std::vector<Layer*> layerVector = SceneManager::CurrentScene()->GetLayers(layers.mask);
 			for (Layer* layer : layerVector)
 			{
-				GameObject* originalCamera = layer->GetCamera();
-				layer->SetCamera(camera);
-				layer->Render();
-				layer->SetCamera(originalCamera);
+				if (camera != nullptr)
+				{
+					GameObject* originalCamera = layer->GetCamera();
+					layer->SetCamera(camera);
+					layer->Render();
+					layer->SetCamera(originalCamera);
+				}
+				else
+				{
+					layer->Render();
+				}
 			}
 		}
 	}

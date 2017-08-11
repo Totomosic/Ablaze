@@ -6,6 +6,7 @@ class Game : public Application
 {
 private:
 	Scene* scene;
+	DynamicTexture* texture;
 
 public:
 
@@ -16,6 +17,11 @@ public:
 		VFS::Mount("shader", "");
 		VFS::Mount("textures", "");
 		VFS::Mount("res", "res/");
+
+		scene = new Scene("Default");
+		Layer* layer = new Layer("Scene", new Renderer());
+
+		texture = new DynamicTexture("Test", 1024, 1024, UpdateMode::CreateEachFrame, LayerMask(3));
 
 		Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/res/rustediron2_metallic.png"));
 		Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/res/rustediron2_basecolor.png"));
@@ -56,13 +62,14 @@ public:
 		//Texture2D* roughness = TextureFactory::Build2D("gold-scuffed_roughness.png");
 		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/res/gold-scuffed_normal.png"));
 
-		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 500);
+		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 100);
 		TerrainData* data = terrain->GetData();
 		data->EnableEditing();
-		data->SetData(PerlinNoise(time(nullptr) * 1241740 % 129041947, 500, 48, 4));
+		data->SetData(PerlinNoise(time(nullptr) * 1241740 % 129041947, 100, 24, 8));
 		data->DisableEditing();
 
 		MaterialFactory::Order("Default", Color::White(), Shader::Default());
+		MaterialFactory::Order("Dynamic", Color::White(), Shader::Texture(), texture);
 		MaterialFactory::OrderPBR("RustedMaterial", Color::White(), Shader::PBR(), albedo, roughness, metallic, ao, normal);
 		MaterialFactory::OrderPBR("MetallicMaterial", Color::White(), Shader::PBR(), "GroundAlbedo", "GroundRoughness", "GroundMetallic", "AO", "GoldNormal");
 		MaterialFactory::OrderPBR("BrickMaterial", Color::White(), Shader::PBR(), "OctoAlbedo", "OctoRoughness", "OctoMetallic", "OctoAO", "OctoNormal");
@@ -79,9 +86,6 @@ public:
 		MeshFactory::Order("Terrain", "Terrain", "GrassMaterial");
 		MaterialFactory::RequestPBR("GrassMaterial")->AddUniformFloat("tiling", 40);
 
-		scene = new Scene("Default");
-		Layer* layer = new Layer("Scene", new Renderer());
-
 		Camera* camera = new Camera(Viewport(-window->GetWidth() / 2, -window->GetHeight() / 2, window->GetWidth(), window->GetHeight()), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 3.0, Angle::Radians, 1.0f, 3000.0f);
 		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
 		camera->AddComponent(new Components::Collider(BoundingBox(maths::vec3(2.5f, 3.0f, 2.5f))));
@@ -89,30 +93,17 @@ public:
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
 
+		Layer* waterLayer = new Layer("Water", new Renderer());
+		waterLayer->SetCamera(camera);
+
 		GameObject* water = new GameObject(0, 0, 0);
-		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(5000), Color(0, 0, 128, 180)), "Default"));
+		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(10000), Color(50, 100, 150, 180)), "Default"));
 		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
-		water->AddComponent(new Components::Collider(BoundingBox(maths::vec3(5000, 0, 5000))));
-
-		/*GameObject* plane = new GameObject(0, 20, 0);
-		plane->SetMesh("Learjet");
-		plane->AddComponent(new Components::RigidBody(1, true, 0.0f, 0.0f, false));
-		Components::Collider* c = new Components::Collider(maths::vec3(4, 4, 40), maths::vec3(0, -2, 0));
-		c->AddBoundingBox(BoundingBox(maths::vec3(30, 1, 5)), maths::vec3(0, -3, -1));
-		plane->AddComponent(c);
-		plane->Identifier()->SetName("Plane");
-
-		GameObject* modelShip = new GameObject(0, 0, 0);
-		modelShip->Transform()->SetScale(0.02f);
-		modelShip->SetMesh("Cruiser");
-		modelShip->AddComponent(new Components::RigidBody(1, true, 0.0f, 0.0f, false));
-		modelShip->AddComponent(Components::Collider::FromMeshComponent(modelShip, false));*/
+		water->AddComponent(new Components::Collider(BoundingBox(maths::vec3(10000, 0, 10000))));
 
 		Shader::PBR()->Enable();
-		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 1000, 0));
-		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(1e7));
-		//Shader::PBR()->SetUniformVec3("Lights[1].Position", maths::vec3(0, 100, 0));
-		//Shader::PBR()->SetUniformVec3("Lights[1].Color", maths::vec3(10));
+		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
+		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(1e9));
 		Shader::PBR()->SetUniformInt("lightCount", 1);
 	}
 
@@ -169,7 +160,9 @@ public:
 
 	void Render() override
 	{
+		texture->Create();
 		Application::Render();
+		DebugLayer::RenderTexture(texture, maths::vec2(100), maths::vec2(200));
 		UpdateDisplay();
 	}
 

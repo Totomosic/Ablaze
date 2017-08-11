@@ -399,6 +399,8 @@
     <None Include="src\Graphics\Shaders\Source\font_v.glsl" />
     <None Include="src\Graphics\Shaders\Source\pbr_f.glsl" />
     <None Include="src\Graphics\Shaders\Source\pbr_v.glsl" />
+    <None Include="src\Graphics\Shaders\Source\texture_f.glsl" />
+    <None Include="src\Graphics\Shaders\Source\texture_v.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

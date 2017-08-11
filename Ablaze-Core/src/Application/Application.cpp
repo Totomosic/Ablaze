@@ -102,6 +102,7 @@ namespace Ablaze
 
 	void Application::Render()
 	{
+		window->Clear();
 		window->Update();
 		Time::OnRender();
 		SceneManager::CurrentScene()->Render();

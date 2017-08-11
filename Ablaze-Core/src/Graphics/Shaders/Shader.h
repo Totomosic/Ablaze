@@ -14,6 +14,7 @@ namespace Ablaze
 	{			
 	private:
 		static Shader* defaultShader;
+		static Shader* textureShader;
 		static Shader* fontShader;
 		static Shader* pbrShader;
 
@@ -40,11 +41,12 @@ namespace Ablaze
 		void SetUniformMat4(String varname, const maths::mat4& matrix) const;
 		void SetUniformColor(String varname, const Color& color) const;
 
-		void SetTexture(Texture& texture, String samplerName) const;
+		void SetTexture(Ablaze::Texture& texture, String samplerName) const;
 
 		static Shader* FromSource(const String& name, const String& vertexData, const String& fragData);
 		static Shader* FromFile(const String& name, GLSLFile* vertexFile, GLSLFile* fragFile);
 		static const Shader* const Default();
+		static const Shader* const Texture();
 		static const Shader* const Font();
 		static const Shader* const PBR();
 
@@ -53,8 +55,10 @@ namespace Ablaze
 		GLuint LoadShader(const String& shaderData, GLenum shaderType);
 		GLint GetUniformLocation(String varname) const;
 		static Shader* CreateDefault();
+		static Shader* CreateTextureShader();
 		static Shader* CreateFontShader();
 		static Shader* CreatePBRShader();
+		
 	};
 
 }

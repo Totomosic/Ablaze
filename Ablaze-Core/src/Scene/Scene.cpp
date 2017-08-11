@@ -1,6 +1,8 @@
 #include "Scene.h"
 #include "SceneManager.h"
 #include "Engine.h"
+#include "RenderEngine/structs/Commands/Commands.h"
+#include "Graphics/Context.h"
 
 namespace Ablaze
 {
@@ -10,6 +12,7 @@ namespace Ablaze
 	{
 		gameObjects = new GameObject*[AblazeEngine::maxEntities];
 		SceneManager::SetCurrentScene(this);
+		renderer = new Renderer();
 	}
 
 	Scene::~Scene()
@@ -87,20 +90,20 @@ namespace Ablaze
 
 	std::vector<Layer*> Scene::GetLayers(int64 mask) const
 	{
-		std::vector<Layer*> layers;
-		if (mask == 0)
-		{
-			return layers;
-		}
+		std::vector<Layer*> layersFound;
 		for (int i = 0; i < GetLayerCount(); i++)
 		{
 			int64 m = (int64)pow(2, i);
-			if (mask & m == m)
+			if ((mask & m) == m)
 			{
-				layers.push_back(this->layers[i]);
+				layersFound.push_back(layers[i]);
 			}
 		}
-		return layers;
+		if (layersFound.size() == 0)
+		{
+			AB_ERROR("No layers found");
+		}
+		return layersFound;
 	}
 
 	void Scene::PushLayer(Layer* layer)
@@ -138,6 +141,8 @@ namespace Ablaze
 
 	void Scene::Render() const
 	{
+		renderer->PushCommand(new RTSwapCommand(Context::Window()->GetFramebuffer()));
+		renderer->Execute(maths::mat4::Identity(), maths::mat4::Identity());
 		for (int i = 0; i < GetLayerCount(); i++)
 		{
 			RenderLayer(i);

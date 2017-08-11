@@ -40,6 +40,11 @@ namespace Ablaze
 			return maths::vec4(row + 0 * 4, row + 1 * 4, row + 2 * 4, row + 3 * 4);
 		}
 
+		float mat4::GetElement(int row, int col) const
+		{
+			return values[row + col * 4];
+		}
+
 		mat4 mat4::Identity()
 		{
 			return mat4(1.0f);

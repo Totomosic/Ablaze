@@ -6,6 +6,7 @@ namespace Ablaze
 {
 
 	Shader* Shader::defaultShader = nullptr;
+	Shader* Shader::textureShader = nullptr;
 	Shader* Shader::fontShader = nullptr;
 	Shader* Shader::pbrShader = nullptr;
 
@@ -76,7 +77,7 @@ namespace Ablaze
 		glUniform4f(GetUniformLocation(varname), color.r, color.g, color.b, color.a);
 	}
 
-	void Shader::SetTexture(Texture& texture, String textureBank) const
+	void Shader::SetTexture(Ablaze::Texture& texture, String textureBank) const
 	{
 		int bank = texture.GetBindUnit();
 		if (bank == -1)
@@ -108,6 +109,15 @@ namespace Ablaze
 			defaultShader = CreateDefault();
 		}
 		return defaultShader;
+	}
+
+	const Shader* const Shader::Texture()
+	{
+		if (textureShader == nullptr)
+		{
+			textureShader = CreateTextureShader();
+		}
+		return textureShader;
 	}
 
 	const Shader* const Shader::Font()
@@ -232,6 +242,18 @@ namespace Ablaze
 			;
 		
 		return Shader::FromSource("_PBR", vData, fData);
+	}
+
+	Shader* Shader::CreateTextureShader()
+	{
+		String vData =
+#include "Source/texture_v.glsl"
+			;
+		String fData =
+#include "Source/texture_f.glsl"
+			;
+
+		return Shader::FromSource("_Texture", vData, fData);
 	}
 
 }

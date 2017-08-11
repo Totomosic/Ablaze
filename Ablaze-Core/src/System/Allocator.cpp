@@ -14,7 +14,7 @@ namespace Ablaze
 		size_t actualSize = size + sizeof(size_t);
 		if (size >= 1024 * 1024)
 		{
-			AB_WARN("Large allocation (>1mb) made: " + std::to_string((int)(size / 1024.0f)) + "KB");
+			AB_WARN("Large allocation (>1mb) made: " + std::to_string((int)(size / 1024.0f)) + " KB");
 		}
 		byte* result = (byte*)AB_ALLOC(actualSize);
 		memcpy(result, &size, sizeof(size_t));

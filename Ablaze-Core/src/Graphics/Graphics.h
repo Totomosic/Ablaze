@@ -6,6 +6,7 @@
 #include "Shaders/Shader.h"
 
 #include "Imaging/Textures/Texture2D.h"
+#include "Imaging/Textures/DynamicTexture.h"
 #include "Imaging/Framebuffers/Framebuffer.h"
 #include "Imaging/Framebuffers/GBuffer.h"
 #include "Fonts/Font.h"

@@ -28,11 +28,11 @@ layout(location = 0) out vec4 finalColor;
 
 vec3 GetNormalFromNormalMap()
 {
-	//vec3 normal = texture(normalMap, f_TexCoord).rgb;
-	//normal = normalize(normal * 2.0 - 1.0);
-	//normal = normalize(f_TBN * normal);
-	//return normal;
-	return f_WorldNormal;
+	vec3 normal = texture(normalMap, f_TexCoord).rgb;
+	normal = normalize(normal * 2.0 - 1.0);
+	normal = normalize(f_TBN * normal);
+	return normal;
+	//return f_WorldNormal;
 }
 
 vec3 fresnelSchlick(float cosTheta, vec3 F0)

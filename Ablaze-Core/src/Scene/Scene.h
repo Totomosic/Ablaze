@@ -1,7 +1,6 @@
 #pragma once
 #include "Layer.h"
 #include "Types.h"
-
 #include "Scene/Physics/Physics.h"
 #include "Terrain/Terrain.h"
 #include "Terrain/HeightFunctions/PerlinNoise.h"
@@ -21,6 +20,7 @@ namespace Ablaze
 		String name;
 		std::vector<Layer*> layers;
 		Layer* currentLayer;
+		Renderer* renderer;
 
 	public:
 		Scene(const String& name);

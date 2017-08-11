@@ -78,7 +78,7 @@ namespace Ablaze
 		std::vector<Renderable*> renderables;
 		Components::Camera* cam = camera->GetComponent<Components::Camera>();
 		Components::Transform* t = camera->Transform();
-		renderer->PushCommand(new ClearCommand(Context::Window()->GetFramebuffer()));
+		//renderer->PushCommand(new ClearCommand(Context::Window()->GetFramebuffer()));
 
 		// Sort gameObjects
 		std::sort(gameObjects.begin(), gameObjects.end(), [t](GameObject* a, GameObject* b) {
@@ -98,7 +98,7 @@ namespace Ablaze
 			renderer->PushCommand(new RenderCommand(renderable));
 			renderables.push_back(renderable);
 		}
-		renderer->PushCommand(new RTSwapCommand(Context::Window()->GetFramebuffer()));
+		//renderer->PushCommand(new RTSwapCommand(Context::Window()->GetFramebuffer()));
 		renderer->Execute(cam->GetViewMatrix(), cam->GetProjectionMatrix());
 
 		for (auto renderable : renderables)

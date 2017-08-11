@@ -20,25 +20,25 @@ namespace Ablaze
 
 		ptr->position = maths::vec3(-x, y, 0);
 		ptr->normal = n;
-		ptr->texCoord = maths::vec2(0, 1);
+		ptr->texCoord = maths::vec2(0, 0);
 		ptr->color = color;
 		ptr++;
 
 		ptr->position = maths::vec3(-x, -y, 0);
 		ptr->normal = n;
-		ptr->texCoord = maths::vec2(0, 0);
+		ptr->texCoord = maths::vec2(0, 1);
 		ptr->color = color;
 		ptr++;
 
 		ptr->position = maths::vec3(x, -y, 0);
 		ptr->normal = n;
-		ptr->texCoord = maths::vec2(1, 0);
+		ptr->texCoord = maths::vec2(1, 1);
 		ptr->color = color;
 		ptr++;
 
 		ptr->position = maths::vec3(x, y, 0);
 		ptr->normal = n;
-		ptr->texCoord = maths::vec2(1, 1);
+		ptr->texCoord = maths::vec2(1, 0);
 		ptr->color = color;
 
 		auto val = vbo->UnmapBuffer();

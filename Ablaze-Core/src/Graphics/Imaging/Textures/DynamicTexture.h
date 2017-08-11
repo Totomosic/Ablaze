@@ -28,7 +28,7 @@ namespace Ablaze
 		bool hasBeenCreated;
 
 	public:
-		explicit DynamicTexture(const String& name, int width, int height, UpdateMode creationMethod, GameObject* camera, LayerMask layers, TextureBuffer textureType = TextureBuffer::Color);
+		explicit DynamicTexture(const String& name, int width, int height, UpdateMode creationMethod, LayerMask layers, GameObject* camera = nullptr, TextureBuffer textureType = TextureBuffer::Color);
 		~DynamicTexture();
 
 		GLint Bind() override;

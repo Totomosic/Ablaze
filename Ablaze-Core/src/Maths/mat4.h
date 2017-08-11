@@ -24,6 +24,7 @@ namespace Ablaze
 
 			vec4 GetColumn(int col) const;
 			vec4 GetRow(int row) const;
+			float GetElement(int row, int col) const;
 
 			mat4 Multiply(const mat4& other) const;
 			vec4 Multiply(const vec4& other) const;

@@ -38,6 +38,22 @@ namespace Ablaze
 
 	float TerrainData::GetVertexHeight(int x, int y) const
 	{
+		if (x < 0)
+		{
+			return GetVertexHeight(0, y);
+		}
+		if (x >= vertexResolution)
+		{
+			return GetVertexHeight(vertexResolution - 1, y);
+		}
+		if (y < 0)
+		{
+			return GetVertexHeight(x, 0);
+		}
+		if (y >= vertexResolution)
+		{
+			return GetVertexHeight(x, vertexResolution - 1);
+		}
 		return heightData[To1DIndex(x, y)];
 	}
 
@@ -128,7 +144,7 @@ namespace Ablaze
 			for (int j = 0; j < vertexResolution; j++)
 			{
 				ptr->position = maths::vec3(-size.x / 2.0f + i / (float)(vertexResolution - 1) * size.x, heightData[To1DIndex(i, j)], -size.y / 2.0f + j / (float)(vertexResolution - 1) * size.y);
-				ptr->normal = maths::vec3(0, 1, 0); // TODO: Change
+				ptr->normal = CalculateNormal(i, j);
 				ptr->texCoord = maths::vec2(i / (float)(vertexResolution - 1), j / (float)(vertexResolution - 1)); // TODO: investigate
 				ptr->color = Color::White();
 				ptr->tangent = maths::vec3(0, 0, 1);
@@ -144,6 +160,15 @@ namespace Ablaze
 		int index = To1DIndex(x, y);
 		int offset = index * terrain->vbo->GetLayout().GetStride() + terrain->vbo->GetLayout().GetOffsetOf("POSITION") + sizeof(float);
 		glBufferSubData(terrain->vbo->GetTarget(), offset, sizeof(float), &value);
+	}
+
+	maths::vec3 TerrainData::CalculateNormal(int x, int y)
+	{
+		float heightL = GetVertexHeight(x - 1, y);
+		float heightR = GetVertexHeight(x + 1, y);
+		float heightD = GetVertexHeight(x, y - 1);
+		float heightU = GetVertexHeight(x, y + 1);
+		return (maths::vec3(heightL - heightR, 2.0, heightU - heightD).Normalize());
 	}
 
 }

@@ -98,6 +98,7 @@ namespace Ablaze
 
 	void Window::Clear(GLbitfield mask) const
 	{
+		framebuffer->Bind();
 		framebuffer->Clear(mask);
 	}
 
