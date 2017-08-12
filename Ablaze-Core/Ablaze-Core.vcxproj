@@ -191,6 +191,7 @@
     <ClCompile Include="src\Graphics\Imaging\Bitmap.cpp" />
     <ClCompile Include="src\Graphics\Imaging\Image.cpp" />
     <ClCompile Include="src\Graphics\Imaging\Textures\DynamicTexture.cpp" />
+    <ClCompile Include="src\Graphics\Imaging\Textures\TextureSet.cpp" />
     <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="src\Graphics\Shaders\ShaderManager.cpp" />
     <ClCompile Include="src\Graphics\Shaders\Uniforms\UniformManager.cpp" />
@@ -308,6 +309,7 @@
     <ClInclude Include="src\Graphics\Imaging\Bitmap.h" />
     <ClInclude Include="src\Graphics\Imaging\Image.h" />
     <ClInclude Include="src\Graphics\Imaging\Textures\DynamicTexture.h" />
+    <ClInclude Include="src\Graphics\Imaging\Textures\TextureSet.h" />
     <ClInclude Include="src\Graphics\Shaders\Shader.h" />
     <ClInclude Include="src\Graphics\Shaders\ShaderManager.h" />
     <ClInclude Include="src\Graphics\Shaders\Uniforms\UniformManager.h" />

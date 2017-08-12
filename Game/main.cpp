@@ -6,44 +6,45 @@ class Game : public Application
 {
 private:
 	Scene* scene;
-	DynamicTexture* texture;
+	bool firstPersonMode;
+	float camSpeed = 500;
 
 public:
 
 	void Init() override
 	{
-		//Window::SetHint(GLFW_SAMPLES, 4);
+		Window::SetHint(GLFW_SAMPLES, 4);
 		BuildWindow(1280, 720, "Ablaze: ", Color(100, 200, 255));
 		VFS::Mount("shader", "");
-		VFS::Mount("textures", "");
+		VFS::Mount("textures", "res/Textures/");
 		VFS::Mount("res", "res/");
+		
+		firstPersonMode = false;
 
 		scene = new Scene("Default");
 		Layer* layer = new Layer("Scene", new Renderer());
 
-		texture = new DynamicTexture("Test", 1024, 1024, UpdateMode::CreateEachFrame, LayerMask(3));
+		Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_metallic.png"));
+		Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_basecolor.png"));
+		Texture2D* roughness = TextureFactory::Build2D("Roughness", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_roughness.png"));
+		Texture2D* normal = TextureFactory::Build2D("Normal", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_normal.png"));
+		Texture2D* ao = TextureFactory::Build2D("AO", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_ao.png"));
 
-		Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/res/rustediron2_metallic.png"));
-		Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/res/rustediron2_basecolor.png"));
-		Texture2D* roughness = TextureFactory::Build2D("Roughness", VFS::RetrieveFile<ImageFile>("/res/rustediron2_roughness.png"));
-		Texture2D* normal = TextureFactory::Build2D("Normal", VFS::RetrieveFile<ImageFile>("/res/rustediron2_normal.png"));
-		Texture2D* ao = TextureFactory::Build2D("AO", VFS::RetrieveFile<ImageFile>("/res/rustediron2_ao.png"));
+		TextureFactory::Order2D("GroundAlbedo", VFS::RetrieveFile<ImageFile>("/textures/streakedmetal-albedo.png"));
+		TextureFactory::Order2D("GroundRoughness", VFS::RetrieveFile<ImageFile>("/textures/streakedmetal-roughness.png"));
+		TextureFactory::Order2D("GroundMetallic", VFS::RetrieveFile<ImageFile>("/textures/streakedmetal-metalness.png"));
 
-		TextureFactory::Order2D("GroundAlbedo", VFS::RetrieveFile<ImageFile>("/res/streakedmetal-albedo.png"));
-		TextureFactory::Order2D("GroundRoughness", VFS::RetrieveFile<ImageFile>("/res/streakedmetal-roughness.png"));
-		TextureFactory::Order2D("GroundMetallic", VFS::RetrieveFile<ImageFile>("/res/streakedmetal-metalness.png"));
+		TextureFactory::Order2D("OctoAlbedo", VFS::RetrieveFile<ImageFile>("/textures/octostoneAlbedo.png"));
+		TextureFactory::Order2D("OctoRoughness", VFS::RetrieveFile<ImageFile>("/textures/octostoneRoughness2.png"));
+		TextureFactory::Order2D("OctoMetallic", VFS::RetrieveFile<ImageFile>("/textures/octostoneMetallic.png"));
+		TextureFactory::Order2D("OctoAO", VFS::RetrieveFile<ImageFile>("/textures/octostoneAmbient_Occlusionc.png"));
+		TextureFactory::Order2D("OctoNormal", VFS::RetrieveFile<ImageFile>("/textures/octostoneNormalc.png"));
 
-		TextureFactory::Order2D("OctoAlbedo", VFS::RetrieveFile<ImageFile>("/res/octostoneAlbedo.png"));
-		TextureFactory::Order2D("OctoRoughness", VFS::RetrieveFile<ImageFile>("/res/octostoneRoughness2.png"));
-		TextureFactory::Order2D("OctoMetallic", VFS::RetrieveFile<ImageFile>("/res/octostoneMetallic.png"));
-		TextureFactory::Order2D("OctoAO", VFS::RetrieveFile<ImageFile>("/res/octostoneAmbient_Occlusionc.png"));
-		TextureFactory::Order2D("OctoNormal", VFS::RetrieveFile<ImageFile>("/res/octostoneNormalc.png"));
-
-		TextureFactory::Order2D("GrassAlbedo", VFS::RetrieveFile<ImageFile>("/res/grass1-albedo3.png"));
-		TextureFactory::Order2D("GrassRoughness", VFS::RetrieveFile<ImageFile>("/res/grass1-rough.png"));
-		TextureFactory::Order2D("GrassMetallic", VFS::RetrieveFile<ImageFile>("/res/octostoneMetallic.png"));
-		TextureFactory::Order2D("GrassAO", VFS::RetrieveFile<ImageFile>("/res/grass1-ao.png"));
-		TextureFactory::Order2D("GrassNormal", VFS::RetrieveFile<ImageFile>("/res/grass1-normal2.png"));
+		TextureFactory::Order2D("GrassAlbedo", VFS::RetrieveFile<ImageFile>("/textures/grass1-albedo3.png"));
+		TextureFactory::Order2D("GrassRoughness", VFS::RetrieveFile<ImageFile>("/textures/grass1-rough.png"));
+		TextureFactory::Order2D("GrassMetallic", VFS::RetrieveFile<ImageFile>("/textures/octostoneMetallic.png"));
+		TextureFactory::Order2D("GrassAO", VFS::RetrieveFile<ImageFile>("/textures/grass1-ao.png"));
+		TextureFactory::Order2D("GrassNormal", VFS::RetrieveFile<ImageFile>("/textures/grass1-normal2.png"));
 
 		//Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-metal.png"));
 		//Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-albedo.png"));
@@ -60,16 +61,15 @@ public:
 		//Texture2D* metallic = TextureFactory::Build2D("gold-scuffed_metallic.png");
 		//Texture2D* albedo = TextureFactory::Build2D("gold-scuffed_basecolor-boosted.png");
 		//Texture2D* roughness = TextureFactory::Build2D("gold-scuffed_roughness.png");
-		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/res/gold-scuffed_normal.png"));
+		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/textures/gold-scuffed_normal.png"));
 
-		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 100);
+		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 200);
 		TerrainData* data = terrain->GetData();
 		data->EnableEditing();
-		data->SetData(PerlinNoise(time(nullptr) * 1241740 % 129041947, 100, 24, 8));
+		data->SetData(PerlinNoise(688246124, 100, 16, 8));
 		data->DisableEditing();
 
-		MaterialFactory::Order("Default", Color::White(), Shader::Default());
-		MaterialFactory::Order("Dynamic", Color::White(), Shader::Texture(), texture);
+		MaterialFactory::Order("Default", Color::White(), Shader::Default(), "");
 		MaterialFactory::OrderPBR("RustedMaterial", Color::White(), Shader::PBR(), albedo, roughness, metallic, ao, normal);
 		MaterialFactory::OrderPBR("MetallicMaterial", Color::White(), Shader::PBR(), "GroundAlbedo", "GroundRoughness", "GroundMetallic", "AO", "GoldNormal");
 		MaterialFactory::OrderPBR("BrickMaterial", Color::White(), Shader::PBR(), "OctoAlbedo", "OctoRoughness", "OctoMetallic", "OctoAO", "OctoNormal");
@@ -78,20 +78,27 @@ public:
 		ModelFactory::OrderTile("Floor", maths::vec2(50, 50), Color::White()); 
 		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/Plane.obj"));
 		ModelFactory::Order("Cruiser", VFS::RetrieveFile<WavefrontFile>("/res/SunPrincess.obj"));
-		FontFactory::Order("Roboto", "/res/Roboto-Regular.ttf", 32);
+		ModelFactory::Order("Bridge", VFS::RetrieveFile<WavefrontFile>("/res/Bridge.obj"));
 		MeshFactory::Order("Floor", "Floor", "BrickMaterial");
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 		MeshFactory::Order("Cruiser", "Cruiser", "RustedMaterial", maths::mat4::Translation(maths::vec3(0, 0, -500)) * maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 		MeshFactory::Order("Terrain", "Terrain", "GrassMaterial");
-		MaterialFactory::RequestPBR("GrassMaterial")->AddUniformFloat("tiling", 40);
+		MeshFactory::Order("Bridge", "Bridge", "Default");
+		MaterialFactory::RequestPBR("GrassMaterial")->AddUniformFloat("tiling", 100);
 
-		Camera* camera = new Camera(Viewport(-window->GetWidth() / 2, -window->GetHeight() / 2, window->GetWidth(), window->GetHeight()), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 3.0, Angle::Radians, 1.0f, 3000.0f);
+		Camera* camera = new Camera(window->GetViewport(), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 6.0, Angle::Radians, 1.0f, 3000.0f);
 		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
 		camera->AddComponent(new Components::Collider(BoundingBox(maths::vec3(2.5f, 3.0f, 2.5f))));
 
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
+		floor->Identifier()->SetName("Terrain");
+
+		GameObject* bridge = new GameObject(750, 20, -500);
+		bridge->Transform()->SetScale(35);
+		bridge->Transform()->Rotate(30, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
+		bridge->SetMesh("Bridge");
 
 		Layer* waterLayer = new Layer("Water", new Renderer());
 		waterLayer->SetCamera(camera);
@@ -119,19 +126,19 @@ public:
 		Components::RigidBody* r = cam->GetComponent<Components::RigidBody>();
 		if (Input::KeyDown(GLFW_KEY_W))
 		{
-			r->Acceleration() += CalculateVector(t->Forward()) * 250.0f;
+			r->Acceleration() += CalculateVector(t->Forward()) * camSpeed;
 		}
 		if (Input::KeyDown(GLFW_KEY_S))
 		{
-			r->Acceleration() += CalculateVector(t->Forward()) * -250.0f;
+			r->Acceleration() += CalculateVector(t->Forward()) * -camSpeed;
 		}
 		if (Input::KeyDown(GLFW_KEY_D))
 		{
-			r->Acceleration() += CalculateVector(t->Right()) * 250.0f;
+			r->Acceleration() += CalculateVector(t->Right()) * camSpeed;
 		}
 		if (Input::KeyDown(GLFW_KEY_A))
 		{
-			r->Acceleration() += CalculateVector(t->Right()) * -250.0f;
+			r->Acceleration() += CalculateVector(t->Right()) * -camSpeed;
 		}
 		if (Input::KeyDown(GLFW_KEY_LEFT))
 		{
@@ -149,20 +156,46 @@ public:
 		{
 			t->Rotate(-90 * Time::DeltaTime(), maths::vec3(1, 0, 0), Space::Local, Angle::Degrees);
 		}
-		if (Input::KeyDown(GLFW_KEY_SPACE))
+		if (Input::KeyPressedDown(GLFW_KEY_C))
 		{
-			r->Velocity().y = 50.0f;
-			r->Acceleration().y = 0.0f;
+			firstPersonMode = !firstPersonMode;
+			if (firstPersonMode)
+			{
+				Mouse::Capture();
+			}
+			else
+			{
+				Mouse::Release();
+			}
 		}
 
+		if (firstPersonMode)
+		{
+			t->Rotate(-Mouse::GetRelPosition().x * 0.3f, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
+			t->Rotate(-Mouse::GetRelPosition().y * 0.3f, maths::vec3(1, 0, 0), Space::Local, Angle::Degrees);
+		}
+
+		Terrain* terrain = (Terrain*)GameObjects::GetWithName("Terrain")->Mesh()->GetMesh()->GetModel(0);
+		TerrainData& data = *terrain->GetData();
+		maths::vec3 pos = t->GetPosition();
+		if (pos.y - 1.5f <= data.GetHeightAtLocation(pos.x, pos.z))
+		{
+			t->SetPosition(maths::vec3(pos.x, data.GetHeightAtLocation(pos.x, pos.z) + 1.5f, pos.z));
+			r->Velocity().y = 0;
+			r->Acceleration().y = 0;
+		}
+
+		if (Input::KeyPressedDown(GLFW_KEY_SPACE))
+		{
+			r->Velocity().y = 8.0f;
+			r->Acceleration().y = 0.0f;
+		}
 		Application::Update();
 	}
 
 	void Render() override
 	{
-		texture->Create();
 		Application::Render();
-		DebugLayer::RenderTexture(texture, maths::vec2(100), maths::vec2(200));
 		UpdateDisplay();
 	}
 

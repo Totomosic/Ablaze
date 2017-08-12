@@ -2,6 +2,8 @@
 #include "Engine.h"
 #include "Log.h"
 #include "Scene/SceneManager.h"
+#include "Input/Tools/Keyboard.h"
+#include "Input/Tools/Mouse.h"
 
 namespace Ablaze
 {
@@ -98,6 +100,8 @@ namespace Ablaze
 		Time::OnUpdate();
 		if (SceneManager::CurrentScene()->GetHightestID() > 0)
 			SystemManager::Run();
+		Keyboard::Update();
+		Mouse::Update();
 	}
 
 	void Application::Render()

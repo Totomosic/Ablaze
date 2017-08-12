@@ -12,8 +12,8 @@ namespace Ablaze
 	class Mouse
 	{
 	private:
-		static Window& window;
 		static maths::vec3 position;
+		static maths::vec3 movedThisFrame;
 		static maths::vec2 relativeScroll;
 		static bool buttons[MAX_BUTTONS];
 		static bool onWindow; // entered or not
@@ -21,10 +21,15 @@ namespace Ablaze
 
 	public:
 		static const maths::vec3& GetPosition(const Position& mode = Position::TopLeft);
+		static const maths::vec3& GetRelPosition(const Position& mode = Position::TopLeft);
 		static const maths::vec2& GetRelativeScroll();
 
+		static void Capture();
+		static void Release();
 		static bool TestButton(int button);
 		static bool OnWindow();
+
+		static void Update();
 
 		static void _MousePosCallback(GLFWwindow* window, double x, double y);
 		static void _MouseEnteredCallback(GLFWwindow* window, int entered);

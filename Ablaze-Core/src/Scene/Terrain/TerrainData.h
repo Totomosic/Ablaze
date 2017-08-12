@@ -45,7 +45,8 @@ namespace Ablaze
 		void ApplyToModel();
 		void SetModelVertex(int x, int y, float value);
 		int To1DIndex(int x, int y) const;
-		maths::vec3 CalculateNormal(int x, int y);
+		maths::vec3 CalculateNormal(int x, int y) const;
+		float Interpolate(float a, float b, float blend) const;
 
 	};
 

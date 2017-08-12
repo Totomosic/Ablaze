@@ -22,10 +22,10 @@ namespace Ablaze
 		shader->SetUniformMat4("projectionMatrix", maths::mat4::Identity());
 		shader->SetUniformColor("color", Color::White());
 
-		Mesh* mesh = MeshFactory::BuildRectangle("_POST_PROCESSOR_RECT_SCREEN_", maths::vec2(2), Color::White(), MaterialFactory::Build("_POST_PROCESSOR_RECT_SCREEN_MATERIAL_", Color::White(), shader, frame));
+		Mesh* mesh = MeshFactory::BuildRectangle("_POST_PROCESSOR_RECT_SCREEN_", maths::vec2(2), Color::White(), MaterialFactory::Build("_POST_PROCESSOR_RECT_SCREEN_MATERIAL_", Color::White(), shader, "Tex0", frame));
 		mesh->GetMaterial(0)->ApplyMaterial();
 
-		shader->SetTexture(*frame, "tex");
+		shader->SetTexture(*frame, "Tex0");
 		mesh->GetModel(0)->Bind();
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		

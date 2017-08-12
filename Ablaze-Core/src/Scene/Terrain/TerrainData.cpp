@@ -57,6 +57,27 @@ namespace Ablaze
 		return heightData[To1DIndex(x, y)];
 	}
 
+	float TerrainData::GetHeightAtLocation(float x, float z) const
+	{
+		x += size.x / 2.0f;
+		z += size.y / 2.0f;
+		float xVertex = vertexResolution * (x / size.x);
+		float yVertex = vertexResolution * (z / size.y);
+
+		int xInt = (int)xVertex;
+		int yInt = (int)yVertex;
+		float xFrac = xVertex - xInt;
+		float yFrac = yVertex - yInt;
+
+		float bl = GetVertexHeight(xInt, yInt);
+		float br = GetVertexHeight(xInt + 1, yInt);
+		float tl = GetVertexHeight(xInt, yInt + 1);
+		float tr = GetVertexHeight(xInt + 1, yInt + 1);
+		float i0 = Interpolate(bl, br, xFrac);
+		float i1 = Interpolate(tl, tr, xFrac);
+		return Interpolate(i0, i1, yFrac);
+	}
+
 	void TerrainData::SetTerrain(Terrain* const terrain)
 	{
 		this->terrain = terrain;
@@ -143,7 +164,7 @@ namespace Ablaze
 		{
 			for (int j = 0; j < vertexResolution; j++)
 			{
-				ptr->position = maths::vec3(-size.x / 2.0f + i / (float)(vertexResolution - 1) * size.x, heightData[To1DIndex(i, j)], -size.y / 2.0f + j / (float)(vertexResolution - 1) * size.y);
+				ptr->position = maths::vec3(-size.x / 2.0f + i / (float)(vertexResolution) * size.x, heightData[To1DIndex(i, j)], -size.y / 2.0f + j / (float)(vertexResolution) * size.y);
 				ptr->normal = CalculateNormal(i, j);
 				ptr->texCoord = maths::vec2(i / (float)(vertexResolution - 1), j / (float)(vertexResolution - 1)); // TODO: investigate
 				ptr->color = Color::White();
@@ -162,13 +183,18 @@ namespace Ablaze
 		glBufferSubData(terrain->vbo->GetTarget(), offset, sizeof(float), &value);
 	}
 
-	maths::vec3 TerrainData::CalculateNormal(int x, int y)
+	maths::vec3 TerrainData::CalculateNormal(int x, int y) const
 	{
 		float heightL = GetVertexHeight(x - 1, y);
 		float heightR = GetVertexHeight(x + 1, y);
 		float heightD = GetVertexHeight(x, y - 1);
 		float heightU = GetVertexHeight(x, y + 1);
 		return (maths::vec3(heightL - heightR, 2.0, heightU - heightD).Normalize());
+	}
+
+	float TerrainData::Interpolate(float a, float b, float blend) const
+	{
+		return a + ((b - a) * blend);
 	}
 
 }

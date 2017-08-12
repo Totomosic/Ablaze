@@ -336,6 +336,9 @@
     <ClCompile Include="src\Graphics\Imaging\Framebuffers\GBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\Imaging\Textures\TextureSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">
@@ -714,6 +717,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Imaging\Framebuffers\GBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Imaging\Textures\TextureSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

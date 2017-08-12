@@ -3,6 +3,7 @@
 #include "Graphics/Shaders/Shader.h"
 #include "Graphics/Imaging/Textures/Texture.h"
 #include "Graphics/Shaders/Uniforms/UniformManager.h"
+#include "Graphics/Imaging/Textures/TextureSet.h"
 
 namespace Ablaze
 {
@@ -19,11 +20,12 @@ namespace Ablaze
 		bool blendState;
 		GLenum srcBlendState;
 		GLenum dstBlendState;
-		std::vector<Texture*> textures;
+		TextureSet textures;
 		UniformManager uniforms;
 
 	protected:
-		Material(const String& name, const Color& color, const Shader* const shader, Texture* texture = nullptr, bool depthState = true, bool blendState = true, GLenum srcBlendState = GL_SRC_ALPHA, GLenum dstBlendState = GL_ONE_MINUS_SRC_ALPHA);
+		Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState = true, bool blendState = true, GLenum srcBlendState = GL_SRC_ALPHA, GLenum dstBlendState = GL_ONE_MINUS_SRC_ALPHA);
+		Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture = nullptr, bool depthState = true, bool blendState = true, GLenum srcBlendState = GL_SRC_ALPHA, GLenum dstBlendState = GL_ONE_MINUS_SRC_ALPHA);
 		Material();
 
 	public:
@@ -32,17 +34,16 @@ namespace Ablaze
 		const Color& GetColor() const;
 		const Shader* const GetShader() const;
 		Texture* GetTexture(int index = 0) const;
-		const bool& GetDepthState() const;
-		const bool& GetBlendState() const;		
+		bool GetDepthState() const;
+		bool GetBlendState() const;		
 		const GLenum& GetSrcBlend() const;
 		const GLenum& GetDstBlend() const;
 		bool HasTransparency() const;
 		bool HasTextures() const;
 		const String& GetName() const;
 
-		void AddTexture(Texture* texture);
-		void RemoveTexture(Texture* texture);
-		const std::vector<Texture*>& GetAllTextures() const;
+		void AddTexture(const String& sampler, Texture* texture);
+		const TextureSet& GetAllTextures() const;
 
 		void AddUniformFloat(const String& varname, float value);
 		void AddUniformVec2(const String& varname, const maths::vec2& value);

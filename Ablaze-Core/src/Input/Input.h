@@ -22,7 +22,7 @@ namespace Ablaze
 
 		static const bool KeyDown(int key);
 		static const bool KeyUp(int key);
-
+		static const bool KeyPressedDown(int key);
 
 	};
 

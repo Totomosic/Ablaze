@@ -164,8 +164,38 @@ namespace Ablaze
 								}
 								else
 								{
-									AB_ERROR("Skipped Loading Model Face");
-									continue;
+									result = sscanf(cstr, "%*s %d/%d %d/%d %d/%d", &indexSet[0].position, &indexSet[0].uv, &indexSet[1].position, &indexSet[1].uv, &indexSet[2].position, &indexSet[2].uv);
+									if (result == 6)
+									{
+										indexSet[0].normal = 0;
+										indexSet[1].normal = 0;
+										indexSet[2].normal = 0;
+										InsertVertex(vertices, indices, mapping, inputVertices, indexSet[0]);
+										InsertVertex(vertices, indices, mapping, inputVertices, indexSet[1]);
+										InsertVertex(vertices, indices, mapping, inputVertices, indexSet[2]);
+									}
+									else
+									{
+										result = sscanf(cstr, "%*s %d/%d %d/%d %d/%d %d/%d", &firstIndexSet[0].position, &firstIndexSet[0].uv, &firstIndexSet[1].position, &firstIndexSet[1].uv, &firstIndexSet[2].position, &firstIndexSet[2].uv, &firstIndexSet[3].position, &firstIndexSet[3].uv);
+										if (result == 8)
+										{
+											firstIndexSet[0].normal = 0;
+											firstIndexSet[1].normal = 0;
+											firstIndexSet[2].normal = 0;
+											firstIndexSet[3].normal = 0;
+											InsertVertex(vertices, indices, mapping, inputVertices, firstIndexSet[0]);
+											InsertVertex(vertices, indices, mapping, inputVertices, firstIndexSet[1]);
+											InsertVertex(vertices, indices, mapping, inputVertices, firstIndexSet[2]);
+											InsertVertex(vertices, indices, mapping, inputVertices, firstIndexSet[0]);
+											InsertVertex(vertices, indices, mapping, inputVertices, firstIndexSet[2]);
+											InsertVertex(vertices, indices, mapping, inputVertices, firstIndexSet[3]);
+										}
+										else
+										{
+											AB_ERROR("Skipped Loading Model Face");
+											continue;
+										}
+									}
 								}
 							}
 						}
@@ -193,16 +223,40 @@ namespace Ablaze
 			{
 				mapping[indexSet] = (int)vertices.size();
 				indices.push_back(vertices.size());
-				if (indexSet.uv == 0)
+
+				maths::vec3 position;
+				maths::vec3 normal;
+				maths::vec2 tex;
+
+				if (indexSet.position == 0 || indexSet.position - 1 >= inputVertices.positions.size())
 				{
-					Vertex vertex = { inputVertices.positions[indexSet.position - 1], inputVertices.normals[indexSet.normal - 1], maths::vec2(0, 0), Color::White(), maths::vec3(0, 0, 1) };
-					vertices.push_back(vertex);
+					
 				}
 				else
 				{
-					Vertex vertex = { inputVertices.positions[indexSet.position - 1], inputVertices.normals[indexSet.normal - 1], inputVertices.uvs[indexSet.uv - 1], Color::White(), maths::vec3(0, 0, 1) };
-					vertices.push_back(vertex);
+					position = inputVertices.positions[indexSet.position - 1];
 				}
+
+				if (indexSet.normal == 0 || indexSet.normal - 1 >= inputVertices.normals.size())
+				{
+					normal = maths::vec3(0, 1, 0);
+				}
+				else
+				{
+					normal = inputVertices.normals[indexSet.normal - 1];
+				}
+
+				if (indexSet.uv == 0 || indexSet.uv - 1 >= inputVertices.uvs.size())
+				{
+					tex = maths::vec2(0, 0);
+				}
+				else
+				{
+					tex = inputVertices.uvs[indexSet.uv - 1];
+				}
+
+				Vertex vertex = { position, normal, tex, Color::White(), maths::vec3(0, 0, 1) };
+				vertices.push_back(vertex);
 			}
 		}
 	}

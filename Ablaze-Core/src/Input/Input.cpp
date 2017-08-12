@@ -47,4 +47,9 @@ namespace Ablaze
 		return !Keyboard::TestKey(key);
 	}
 
+	const bool Input::KeyPressedDown(int key)
+	{
+		return Keyboard::KeyPressed(key);
+	}
+
 }

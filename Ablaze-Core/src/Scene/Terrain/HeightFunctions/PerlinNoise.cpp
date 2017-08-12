@@ -7,7 +7,7 @@ namespace Ablaze
 	PerlinNoise::PerlinNoise(int seed, float amplitude, float smoothness, int iterations)
 		: seed(seed), amplitude(amplitude), smoothness(smoothness), iterations(iterations)
 	{
-		
+		AB_FATAL("Seed: " + std::to_string(seed));
 	}
 
 	float PerlinNoise::GetNoise(int x, int y) const

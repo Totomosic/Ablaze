@@ -3,12 +3,18 @@
 namespace Ablaze
 {
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, Texture* texture, bool depthState, bool blendState, GLenum srcBlendState, GLenum dstBlendState)
-		: name(name), diffuseColor(color), shader(shader), textures(), depthState(depthState), blendState(blendState), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState, bool blendState, GLenum srcBlendState, GLenum dstBlendState)
+		: name(name), diffuseColor(color), shader(shader), textures(textures), depthState(depthState), blendState(blendState), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	{
+
+	}
+
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depthState, bool blendState, GLenum srcBlendState, GLenum dstBlendState)
+		: name(name), diffuseColor(color), shader(shader), depthState(depthState), blendState(blendState), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
 	{
 		if (texture != nullptr)
 		{
-			textures.push_back(texture);
+			textures.AddTexture(sampler, texture);
 		}
 	}
 
@@ -34,15 +40,15 @@ namespace Ablaze
 
 	Texture* Material::GetTexture(int index) const
 	{
-		return textures[index];
+		return textures.textures[index]->second;
 	}
 
-	const bool& Material::GetDepthState() const
+	bool Material::GetDepthState() const
 	{
 		return depthState;
 	}
 
-	const bool& Material::GetBlendState() const
+	bool Material::GetBlendState() const
 	{
 		return blendState;
 	}
@@ -70,24 +76,15 @@ namespace Ablaze
 
 	bool Material::HasTextures() const
 	{
-		return textures.size() > 0;
+		return textures.textures.size() > 0;
 	}
 
-	void Material::AddTexture(Texture* texture)
+	void Material::AddTexture(const String& sampler, Texture* texture)
 	{
-		textures.push_back(texture);
+		textures.AddTexture(sampler, texture);
 	}
 
-	void Material::RemoveTexture(Texture* texture)
-	{
-		auto it = std::find(textures.begin(), textures.end(), texture);
-		if (it != textures.end())
-		{
-			textures.erase(it);
-		}
-	}
-
-	const std::vector<Texture*>& Material::GetAllTextures() const
+	const TextureSet& Material::GetAllTextures() const
 	{
 		return textures;
 	}
@@ -174,9 +171,9 @@ namespace Ablaze
 			glDisable(GL_BLEND);
 		}
 		int count = 0;
-		for (auto texture : GetAllTextures())
+		for (auto texture : GetAllTextures().textures)
 		{
-			shader->SetTexture(*texture, "tex" + std::to_string(count));
+			shader->SetTexture(*(texture->second), texture->first);
 			count++;
 		}
 	}

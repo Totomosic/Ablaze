@@ -26,15 +26,17 @@ namespace Ablaze
 		static bool ReleasePBR(const String& name);
 		static bool ReleasePBR(const PBRMaterial* const material);
 
-		static Material* Build(const String& name, const Color& color, const Shader* const shader, Texture* texture = nullptr, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static Material* Build(const String& name, const Color& color, const Shader* const shader, const String& textureName, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static Material* Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture = nullptr, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static Material* Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static Material* Build(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
 		static PBRMaterial* BuildPBR(const String& name, const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap,
 			bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
 		static PBRMaterial* BuildPBR(const String& name, const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap,
 			bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
 
-		static void Order(const String& name, const Color& color, const Shader* const shader, Texture* texture = nullptr, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static void Order(const String& name, const Color& color, const Shader* const shader, const String& textureName, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static void Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture = nullptr, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static void Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static void Order(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
 		static void OrderPBR(const String& name, const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap, 
 			bool depth = true, bool blend = true, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
 		static void OrderPBR(const String& name, const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap,
