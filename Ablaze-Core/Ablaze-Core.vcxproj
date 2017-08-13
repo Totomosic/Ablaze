@@ -206,6 +206,7 @@
     <ClCompile Include="src\Input\Tools\Keyboard.cpp" />
     <ClCompile Include="src\Input\Tools\Mouse.cpp" />
     <ClCompile Include="src\Maths\mat4.cpp" />
+    <ClCompile Include="src\Maths\Maths.cpp" />
     <ClCompile Include="src\Maths\Random.cpp" />
     <ClCompile Include="src\Maths\Ray.cpp" />
     <ClCompile Include="src\Maths\vec2.cpp" />
@@ -230,10 +231,11 @@
     <ClCompile Include="src\RenderEngine\structs\Mesh.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Model.cpp" />
     <ClCompile Include="src\Scene\Layer.cpp" />
+    <ClCompile Include="src\Scene\Physics\stucts\OBB.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Scene\LayerMask.cpp" />
     <ClCompile Include="src\Scene\Physics\Physics.cpp" />
-    <ClCompile Include="src\Scene\Physics\stucts\BoundingBox.cpp" />
+    <ClCompile Include="src\Scene\Physics\stucts\AABB.cpp" />
     <ClCompile Include="src\Scene\Physics\stucts\CollisionInfo.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\Terrain\HeightFunctions\HeightFunction.cpp" />
@@ -354,10 +356,11 @@
     <ClInclude Include="src\RenderEngine\structs\Mesh.h" />
     <ClInclude Include="src\RenderEngine\structs\Model.h" />
     <ClInclude Include="src\Scene\Layer.h" />
+    <ClInclude Include="src\Scene\Physics\stucts\OBB.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Scene\LayerMask.h" />
     <ClInclude Include="src\Scene\Physics\Physics.h" />
-    <ClInclude Include="src\Scene\Physics\stucts\BoundingBox.h" />
+    <ClInclude Include="src\Scene\Physics\stucts\AABB.h" />
     <ClInclude Include="src\Scene\Physics\stucts\CollisionInfo.h" />
     <ClInclude Include="src\Scene\Physics\stucts\RayCastInfo.h" />
     <ClInclude Include="src\Scene\Scene.h" />

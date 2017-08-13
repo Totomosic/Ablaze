@@ -12,6 +12,8 @@ uniform mat4 projectionMatrix;
 
 out vec2 f_TexCoord;
 out vec4 f_Color;
+out vec3 f_WorldPosition;
+out vec3 f_WorldNormal;
 
 void main()
 {
@@ -22,4 +24,6 @@ void main()
 
 	f_Color = color;
 	f_TexCoord = texCoord;
+	f_WorldPosition = worldPosition.xyz;
+	f_WorldNormal = (modelMatrix * vec4(normal, 0.0)).xyz;
 })"

@@ -74,12 +74,12 @@ namespace Ablaze
 		CollisionInfo info(false, maths::vec3(0.0f), false, false, false);
 		for (int i = 0; i < collider1.GetCount(); i++)
 		{
-			BoundingBox bbox1 = collider1.GetBoundingBox(i);
+			AABB bbox1 = collider1.GetAABB(i);
 			bbox1.size *= transform1.GetScale();
 			maths::vec3 position1 = collider1.GetPositionOffset(i) * transform1.GetScale();
 			for (int j = 0; j < collider2.GetCount(); j++)
 			{
-				BoundingBox bbox2 = collider2.GetBoundingBox(j);
+				AABB bbox2 = collider2.GetAABB(j);
 				bbox2.size *= transform2.GetScale();
 				maths::vec3 position2 = collider2.GetPositionOffset(j) * transform2.GetScale();
 				CollisionInfo xCollision = Physics::Intersects(bbox2, obj2Position + position2, bbox1, obj1Position + position1 + maths::vec3(frameVelocity.x, 0, 0));

@@ -20,8 +20,8 @@ namespace Ablaze
 		// TODO: add image -> display fake cursor
 
 	public:
-		static const maths::vec3& GetPosition(const Position& mode = Position::TopLeft);
-		static const maths::vec3& GetRelPosition(const Position& mode = Position::TopLeft);
+		static maths::vec3 GetPosition(const Position& mode = Position::TopLeft);
+		static maths::vec3 GetRelPosition(const Position& mode = Position::TopLeft);
 		static const maths::vec2& GetRelativeScroll();
 
 		static void Capture();

@@ -78,7 +78,7 @@ public:
 		ModelFactory::OrderTile("Floor", maths::vec2(50, 50), Color::White()); 
 		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/Plane.obj"));
 		ModelFactory::Order("Cruiser", VFS::RetrieveFile<WavefrontFile>("/res/SunPrincess.obj"));
-		ModelFactory::Order("Bridge", VFS::RetrieveFile<WavefrontFile>("/res/Bridge.obj"));
+		ModelFactory::Order("Bridge", VFS::RetrieveFile<WavefrontFile>("/res/Bridge1.obj"));
 		MeshFactory::Order("Floor", "Floor", "BrickMaterial");
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
@@ -89,15 +89,15 @@ public:
 
 		Camera* camera = new Camera(window->GetViewport(), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 6.0, Angle::Radians, 1.0f, 3000.0f);
 		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
-		camera->AddComponent(new Components::Collider(BoundingBox(maths::vec3(2.5f, 3.0f, 2.5f))));
+		camera->AddComponent(new Components::Collider(AABB(maths::vec3(2.5f, 3.0f, 2.5f))));
 
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
 		floor->Identifier()->SetName("Terrain");
 
-		GameObject* bridge = new GameObject(750, 20, -500);
-		bridge->Transform()->SetScale(35);
-		bridge->Transform()->Rotate(30, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
+		GameObject* bridge = new GameObject(1000, -90, -250);
+		bridge->Transform()->SetScale(50);
+		bridge->Transform()->Rotate(55, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
 		bridge->SetMesh("Bridge");
 
 		Layer* waterLayer = new Layer("Water", new Renderer());
@@ -106,12 +106,15 @@ public:
 		GameObject* water = new GameObject(0, 0, 0);
 		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(10000), Color(50, 100, 150, 180)), "Default"));
 		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
-		water->AddComponent(new Components::Collider(BoundingBox(maths::vec3(10000, 0, 10000))));
+		water->AddComponent(new Components::Collider(AABB(maths::vec3(10000, 0, 10000))));
 
 		Shader::PBR()->Enable();
 		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
 		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(1e9));
 		Shader::PBR()->SetUniformInt("lightCount", 1);
+
+		Shader::Default()->Enable();
+		Shader::Default()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
 	}
 
 	void Tick() override

@@ -13,7 +13,8 @@ namespace Ablaze
 	{
 		for (auto val : *components)
 		{
-			delete val.second;
+			
+			val.second;
 		}
 		delete components;
 	}

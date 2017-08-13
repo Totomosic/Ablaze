@@ -45,7 +45,8 @@ namespace Ablaze
 		Model* WavefrontLoader::LoadModel(const String& name, WavefrontFile* const file)
 		{
 			file->Open(OpenMode::Read);
-			std::vector<String> lines = Utils::SplitString(file->Read(), "\n");
+			String data = file->Read();
+			std::vector<String> lines = Utils::SplitString(data, "\n");
 			file->Close();
 			VertexSet inputVertices;
 			std::vector<Vertex> vertices;

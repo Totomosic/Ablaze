@@ -113,7 +113,7 @@ namespace Ablaze
 			}
 			if (Angle == Angle::Degrees)
 			{
-				angle = maths::Angles::ToRadians(angle);
+				angle = maths::ToRadians(angle);
 			}
 			maths::mat4 rotationMatrix = maths::mat4::Rotation(angle, rotAxis);
 			rotation *= rotationMatrix;

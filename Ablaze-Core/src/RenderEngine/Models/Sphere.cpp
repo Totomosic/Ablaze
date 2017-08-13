@@ -25,16 +25,16 @@ namespace Ablaze
 		{
 			for (float a = 0; a <= 360 - space; a += space)
 			{
-				maths::vec3 v0 = maths::vec3((float)(radius * sin(maths::Angles::ToRadians(a)) * sin(maths::Angles::ToRadians(b))), (float)(radius * cos(maths::Angles::ToRadians(a)) * sin(maths::Angles::ToRadians(b))), (float)(radius * cos(maths::Angles::ToRadians(b))));
+				maths::vec3 v0 = maths::vec3((float)(radius * sin(maths::ToRadians(a)) * sin(maths::ToRadians(b))), (float)(radius * cos(maths::ToRadians(a)) * sin(maths::ToRadians(b))), (float)(radius * cos(maths::ToRadians(b))));
 				maths::vec2 tex0 = maths::vec2((b) / 360.0f, (a) / 360.0f);
 
-				maths::vec3 v1 = maths::vec3((float)(radius * sin(maths::Angles::ToRadians(a)) * sin(maths::Angles::ToRadians(b - space))), (float)(radius * cos(maths::Angles::ToRadians(a)) * sin(maths::Angles::ToRadians(b - space))), (float)(radius * cos(maths::Angles::ToRadians(b - space))));
+				maths::vec3 v1 = maths::vec3((float)(radius * sin(maths::ToRadians(a)) * sin(maths::ToRadians(b - space))), (float)(radius * cos(maths::ToRadians(a)) * sin(maths::ToRadians(b - space))), (float)(radius * cos(maths::ToRadians(b - space))));
 				maths::vec2 tex1 = maths::vec2((b - space) / 360.0f, (a) / 360.0f);
 
-				maths::vec3 v2 = maths::vec3((float)(radius * sin(maths::Angles::ToRadians(a - space)) * sin(maths::Angles::ToRadians(b))), (float)(radius * cos(maths::Angles::ToRadians(a - space)) * sin(maths::Angles::ToRadians(b))), (float)(radius * cos(maths::Angles::ToRadians(b))));
+				maths::vec3 v2 = maths::vec3((float)(radius * sin(maths::ToRadians(a - space)) * sin(maths::ToRadians(b))), (float)(radius * cos(maths::ToRadians(a - space)) * sin(maths::ToRadians(b))), (float)(radius * cos(maths::ToRadians(b))));
 				maths::vec2 tex2 = maths::vec2((b) / 360.0f, (a - space) / 360.0f);
 
-				maths::vec3 v3 = maths::vec3((float)(radius * sin(maths::Angles::ToRadians(a - space)) * sin(maths::Angles::ToRadians(b - space))), (float)(radius * cos(maths::Angles::ToRadians(a - space)) * sin(maths::Angles::ToRadians(b - space))), (float)(radius * cos(maths::Angles::ToRadians(b - space))));
+				maths::vec3 v3 = maths::vec3((float)(radius * sin(maths::ToRadians(a - space)) * sin(maths::ToRadians(b - space))), (float)(radius * cos(maths::ToRadians(a - space)) * sin(maths::ToRadians(b - space))), (float)(radius * cos(maths::ToRadians(b - space))));
 				maths::vec2 tex3 = maths::vec2((b - space) / 360.0f, (a - space) / 360.0f);
 
 				maths::vec3 deltaPos1 = v1 - v0;

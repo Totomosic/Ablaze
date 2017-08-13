@@ -8,23 +8,15 @@
 
 namespace Ablaze
 {
-
 	namespace maths
 	{
 		const double PI = M_PI;
 
-		class Angles
-		{
-		public:
-			static float ToRadians(float degrees)
-			{
-				return degrees * ((float)PI / 180.0f);
-			}
+		float Clamp(float value, float min, float max);
+		float Map(float value, float min, float max, float newMin, float newMax);
 
-			static float ToDegrees(float radians)
-			{
-				return radians / (float)PI * 180.0f;
-			}
-		};
+		float ToRadians(float degrees);
+		float ToDegrees(float radians);
+
 	}
 }

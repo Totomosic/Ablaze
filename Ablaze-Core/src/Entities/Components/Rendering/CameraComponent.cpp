@@ -10,7 +10,7 @@ namespace Ablaze
 		Components::Camera::Camera(const Viewport& viewport, Projection type, float fieldOfView, Angle Angle, float nearPlane, float farPlane)
 			: viewport(viewport), projection(type), nearPlane(nearPlane), farPlane(farPlane)
 		{
-			this->fov = (Angle == Angle::Degrees ? maths::Angles::ToRadians(fieldOfView) : fieldOfView);
+			this->fov = (Angle == Angle::Degrees ? maths::ToRadians(fieldOfView) : fieldOfView);
 			if (projection == Projection::Perspective)
 			{
 				projectionMatrix = maths::mat4::Perspective(fov, viewport.GetAspect(), nearPlane, farPlane);

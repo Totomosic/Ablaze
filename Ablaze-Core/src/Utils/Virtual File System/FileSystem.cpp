@@ -60,7 +60,10 @@ namespace Ablaze
 		byte* buffer = new byte[size];
 		bool result = ReadFileInternal(handle, buffer, size);
 		if (!result)
+		{
 			delete buffer;
+			AB_ERROR("Unable to read file");
+		}
 		return result ? buffer : nullptr;
 	}
 

@@ -20,12 +20,12 @@ namespace Ablaze
 		
 	}
 
-	const maths::vec3& Renderable::GetPosition() const
+	maths::vec3 Renderable::GetPosition() const
 	{
 		return modelMatrix.columns[3].xyz();
 	}
 
-	const maths::mat4& Renderable::GetRotation() const
+	maths::mat4 Renderable::GetRotation() const
 	{
 		// TODO: fix
 		return maths::mat4::Identity();

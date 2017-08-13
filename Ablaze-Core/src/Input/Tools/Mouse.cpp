@@ -11,7 +11,7 @@ namespace Ablaze
 	bool Mouse::onWindow = true;
 	bool Mouse::buttons[MAX_BUTTONS];
 
-	const maths::vec3& Mouse::GetPosition(const Position& mode)
+	maths::vec3 Mouse::GetPosition(const Position& mode)
 	{
 		if (mode == Position::TopLeft)
 		{
@@ -23,7 +23,7 @@ namespace Ablaze
 		}
 	}
 
-	const maths::vec3& Mouse::GetRelPosition(const Position& mode)
+	maths::vec3 Mouse::GetRelPosition(const Position& mode)
 	{
 		if (mode == Position::TopLeft)
 		{
