@@ -22,7 +22,7 @@ public:
 		firstPersonMode = false;
 
 		scene = new Scene("Default");
-		Layer* layer = new Layer("Scene", new Renderer());
+		Layer* layer = new Layer("Scene", new ForwardRenderer());
 
 		Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_metallic.png"));
 		Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_basecolor.png"));
@@ -84,29 +84,43 @@ public:
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 		MeshFactory::Order("Cruiser", "Cruiser", "RustedMaterial", maths::mat4::Translation(maths::vec3(0, 0, -500)) * maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 		MeshFactory::Order("Terrain", "Terrain", "GrassMaterial");
-		MeshFactory::Order("Bridge", "Bridge", "Default");
+		MeshFactory::Order("Bridge", "Bridge", "Default", maths::mat4::Translation(16.7f, 0, 0) * maths::mat4::Rotation(maths::PI / 2, maths::vec3(0, 1, 0)));
 		MaterialFactory::RequestPBR("GrassMaterial")->AddUniformFloat("tiling", 100);
 
-		Camera* camera = new Camera(window->GetViewport(), maths::vec3(0, 50, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 6.0, Angle::Radians, 1.0f, 3000.0f);
+		Camera* camera = new Camera(window->GetViewport(), maths::vec3(0, 100, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 6.0, Angle::Radians, 1.0f, 3000.0f);
 		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
-		camera->AddComponent(new Components::Collider(AABB(maths::vec3(2.5f, 3.0f, 2.5f))));
+		camera->AddComponent(new Components::Collider(OBB(maths::vec3(2.5f, 3.0f, 2.5f))));
 
 		GameObject* floor = new GameObject(0, 0, 0);
 		floor->SetMesh("Terrain");
 		floor->Identifier()->SetName("Terrain");
 
-		GameObject* bridge = new GameObject(1000, -90, -250);
-		bridge->Transform()->SetScale(50);
-		bridge->Transform()->Rotate(55, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
+		GameObject* bridge = new GameObject(0, -120, -700);
+		bridge->Transform()->SetScale(80);
+		bridge->Transform()->Rotate(-65, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
+		bridge->AddComponent(new Components::RigidBody(1, true, 0, 0, false));
+		Components::Collider* collider = new Components::Collider(OBB(maths::vec3(2.7f, 0.3f, 34)), maths::mat4::Translation(0, 2.5f, 0));
+		collider->AddOBB(OBB(maths::vec3(0.7f, 3, 1.2f)), maths::mat4::Translation(1.2f, 2.5f, 11.7f));
+		collider->AddOBB(OBB(maths::vec3(0.7f, 3, 1.2f)), maths::mat4::Translation(-1.3f, 2.5f, 11.7f));
+		collider->AddOBB(OBB(maths::vec3(0.7f, 3, 1.2f)), maths::mat4::Translation(1.2f, 2.5f, -11.0f));
+		collider->AddOBB(OBB(maths::vec3(0.7f, 3, 1.2f)), maths::mat4::Translation(-1.2f, 2.5f, -11.0f));
+		bridge->AddComponent(collider);
 		bridge->SetMesh("Bridge");
 
-		Layer* waterLayer = new Layer("Water", new Renderer());
-		waterLayer->SetCamera(camera);
+		Layer* waterLayer = new Layer("Water", new ForwardRenderer());
 
 		GameObject* water = new GameObject(0, 0, 0);
 		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(10000), Color(50, 100, 150, 180)), "Default"));
 		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
-		water->AddComponent(new Components::Collider(AABB(maths::vec3(10000, 0, 10000))));
+		water->AddComponent(new Components::Collider(OBB(maths::vec3(10000, 0, 10000))));
+
+		Layer* uiLayer = new Layer("UI", new ForwardRenderer());
+
+		Camera* uiCamera = new Camera(Viewport(-WindowWidth() / 2, -WindowHeight() / 2, WindowWidth(), WindowHeight()), maths::vec3(0, 0, 100), maths::mat4::Identity(), Projection::Orthographic);
+		uiLayer->SetCamera(uiCamera);
+
+		GameObject* crossHair = new GameObject(0, 0, 0);
+		crossHair->SetMesh(MeshFactory::BuildRectangleUnnamed(maths::vec2(5), Color::Black(), "Default"));
 
 		Shader::PBR()->Enable();
 		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
@@ -190,7 +204,7 @@ public:
 
 		if (Input::KeyPressedDown(GLFW_KEY_SPACE))
 		{
-			r->Velocity().y = 8.0f;
+			r->Velocity().y = 8.0f * maths::Map(camSpeed, 10, 1000, 1, 10);
 			r->Acceleration().y = 0.0f;
 		}
 		Application::Update();

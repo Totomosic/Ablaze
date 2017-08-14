@@ -2,7 +2,7 @@
 #include "AblazeGL.h"
 #include "Command.h"
 #include "RenderEngine/Interfaces/Renderable.h"
-#include "RenderEngine/Interfaces/Renderer.h"
+#include "RenderEngine/structs/CommandQueue.h"
 
 namespace Ablaze
 {
@@ -15,7 +15,7 @@ namespace Ablaze
 	public:
 		RenderCommand(Renderable* renderable);
 
-		void Execute(Renderer& renderer) override;
+		void Execute(CommandQueue& renderer) override;
 
 	};
 

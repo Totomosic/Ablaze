@@ -9,7 +9,7 @@ namespace Ablaze
 	
 	}
 
-	void ClearCommand::Execute(Renderer& renderer)
+	void ClearCommand::Execute(CommandQueue& renderer)
 	{
 		fbo->Bind();
 		fbo->Clear();

@@ -12,6 +12,10 @@ namespace Ablaze
 		: name(name), renderer(renderer), camera(nullptr)
 	{
 		SceneManager::CurrentScene()->PushLayer(this);
+		if (Camera::Main() != nullptr)
+		{
+			SetCamera(Camera::Main());
+		}
 	}
 
 	Layer::~Layer()
@@ -78,13 +82,8 @@ namespace Ablaze
 		std::vector<Renderable*> renderables;
 		Components::Camera* cam = camera->GetComponent<Components::Camera>();
 		Components::Transform* t = camera->Transform();
-		//renderer->PushCommand(new ClearCommand(Context::Window()->GetFramebuffer()));
 
-		// Sort gameObjects
-		std::sort(gameObjects.begin(), gameObjects.end(), [t](GameObject* a, GameObject* b) {
-			return ((a->Transform()->GetNievePosition() - t->GetNievePosition()).GetLengthSqrd() < (b->Transform()->GetNievePosition() - t->GetNievePosition()).GetLengthSqrd());
-		});
-
+		renderer->Begin();
 		for (auto obj : gameObjects)
 		{
 			if (!obj->HasComponent<Components::Transform>() || !obj->HasComponent<Components::MeshComponent>())
@@ -95,11 +94,11 @@ namespace Ablaze
 			Components::MeshComponent* mesh = obj->GetComponent<Components::MeshComponent>();
 
 			Renderable* renderable = new Renderable(mesh->GetMesh(), transform->GetModelMatrix());
-			renderer->PushCommand(new RenderCommand(renderable));
+			renderer->Submit(renderable);
 			renderables.push_back(renderable);
 		}
-		//renderer->PushCommand(new RTSwapCommand(Context::Window()->GetFramebuffer()));
-		renderer->Execute(cam->GetViewMatrix(), cam->GetProjectionMatrix());
+		renderer->End();
+		renderer->Render(cam->GetViewMatrix(), cam->GetProjectionMatrix());
 
 		for (auto renderable : renderables)
 		{

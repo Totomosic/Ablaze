@@ -22,7 +22,7 @@ namespace Ablaze
 			maths::vec3 GetPosition() const;
 			maths::vec3 GetNievePosition() const; // Does not account for rotation, could be inaccurate
 			maths::mat4 GetRotation() const;
-			const maths::vec3& GetScale() const;
+			maths::vec3 GetScale() const;
 			maths::mat4 GetModelMatrix() const;
 			maths::vec3 Forward() const;
 			maths::vec3 Right() const;

@@ -9,7 +9,7 @@ namespace Ablaze
 		
 	}
 
-	void RenderCommand::Execute(Renderer& renderer)
+	void RenderCommand::Execute(CommandQueue& renderer)
 	{
 		const Mesh* mesh = renderable->GetMesh();
 		for (int i = 0; i < mesh->GetLength(); i++)

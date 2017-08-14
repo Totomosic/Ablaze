@@ -43,7 +43,7 @@ namespace Ablaze
 		return CollisionInfo(x && y && z, containerPosition, x, y, z);
 	}
 
-	/*CollisionInfo Physics::Intersects(const AABB& boundingBox, const maths::vec3& boxPosition, const AABB& object, const maths::vec3& objectPosition)
+	CollisionInfo Physics::Intersects(const AABB& boundingBox, const maths::vec3& boxPosition, const AABB& object, const maths::vec3& objectPosition)
 	{
 		float w1 = boundingBox.GetSize().x / 2.0f;
 		float h1 = boundingBox.GetSize().y / 2.0f;
@@ -55,7 +55,7 @@ namespace Ablaze
 		bool y = ((objectPosition.y - h2 > boxPosition.y - h1 && objectPosition.y - h2 < boxPosition.y + h1) || (objectPosition.y + h2 > boxPosition.y - h1 && objectPosition.y + h2 < boxPosition.y + h1) || (objectPosition.y - h2 < boxPosition.y - h1 && objectPosition.y + h2 > boxPosition.y + h1));
 		bool z = ((objectPosition.z - d2 > boxPosition.z - d1 && objectPosition.z - d2 < boxPosition.z + d1) || (objectPosition.z + d2 > boxPosition.z - d1 && objectPosition.z + d2 < boxPosition.z + d1) || (objectPosition.z - d2 < boxPosition.z - d1 && objectPosition.z + d2 > boxPosition.z + d1));
 		return CollisionInfo(x && y && z, maths::vec3(0, 0, 0), x, y, z);
-	}*/
+	}
 
 	CollisionInfo Physics::Intersects(const OBB& boundingBox, const maths::vec3& boxPosition, const OBB& other, const maths::vec3& otherPosition)
 	{

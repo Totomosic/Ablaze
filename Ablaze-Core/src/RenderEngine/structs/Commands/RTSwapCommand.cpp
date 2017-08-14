@@ -9,7 +9,7 @@ namespace Ablaze
 		
 	}
 
-	void RTSwapCommand::Execute(Renderer& renderer)
+	void RTSwapCommand::Execute(CommandQueue& renderer)
 	{
 		renderTarget->Bind();
 	}

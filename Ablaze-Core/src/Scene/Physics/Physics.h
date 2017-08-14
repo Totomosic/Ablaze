@@ -18,7 +18,7 @@ namespace Ablaze
 		static CollisionInfo Contains(const AABB& boundingBox, const maths::vec3& boxPosition, const maths::vec3& point);
 		static CollisionInfo Contains(const AABB& container, const maths::vec3& containerPosition, const AABB& object, const maths::vec3& objectPosition);
 		static CollisionInfo Contains(const OBB& boundingBox, const maths::vec3& boxPosition, const maths::vec3& point);
-		//static CollisionInfo Intersects(const AABB& boundingBox, const maths::vec3& boxPosition, const AABB& other, const maths::vec3& otherPosition);
+		static CollisionInfo Intersects(const AABB& boundingBox, const maths::vec3& boxPosition, const AABB& other, const maths::vec3& otherPosition);
 		static CollisionInfo Intersects(const OBB& boundingBox, const maths::vec3& boxPosition, const OBB& other, const maths::vec3& otherPosition);
 
 		static RayCastInfo Raycast(const Ray& ray, const AABB& boundingBox, const maths::vec3& boxPosition);

@@ -13,7 +13,7 @@ namespace Ablaze
 	public:
 		RTSwapCommand(const Framebuffer* renderTarget);
 
-		void Execute(Renderer& renderer) override;
+		void Execute(CommandQueue& renderer) override;
 
 	};
 

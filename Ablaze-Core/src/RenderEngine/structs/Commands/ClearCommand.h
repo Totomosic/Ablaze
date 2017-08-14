@@ -13,7 +13,7 @@ namespace Ablaze
 	public:
 		ClearCommand(const Framebuffer* fbo);
 
-		void Execute(Renderer& renderer) override;
+		void Execute(CommandQueue& renderer) override;
 
 	};
 

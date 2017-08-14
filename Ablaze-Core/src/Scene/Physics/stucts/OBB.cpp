@@ -11,42 +11,42 @@ namespace Ablaze
 
 	maths::vec3 OBB::FLT() const
 	{
-		return (transform * maths::vec4(AABB::FLT(), 0)).xyz();
+		return (transform * maths::vec4(AABB::FLT(), 1)).xyz();
 	}
 
 	maths::vec3 OBB::FLB() const
 	{
-		return (transform * maths::vec4(AABB::FLB(), 0)).xyz();
+		return (transform * maths::vec4(AABB::FLB(), 1)).xyz();
 	}
 
 	maths::vec3 OBB::FRB() const
 	{
-		return (transform * maths::vec4(AABB::FRB(), 0)).xyz();
+		return (transform * maths::vec4(AABB::FRB(), 1)).xyz();
 	}
 
 	maths::vec3 OBB::FRT() const
 	{
-		return (transform * maths::vec4(AABB::FRT(), 0)).xyz();
+		return (transform * maths::vec4(AABB::FRT(), 1)).xyz();
 	}
 
 	maths::vec3 OBB::BRT() const
 	{
-		return (transform * maths::vec4(AABB::BRT(), 0)).xyz();
+		return (transform * maths::vec4(AABB::BRT(), 1)).xyz();
 	}
 
 	maths::vec3 OBB::BRB() const
 	{
-		return (transform * maths::vec4(AABB::BRB(), 0)).xyz();
+		return (transform * maths::vec4(AABB::BRB(), 1)).xyz();
 	}
 
 	maths::vec3 OBB::BLB() const
 	{
-		return (transform * maths::vec4(AABB::BLB(), 0)).xyz();
+		return (transform * maths::vec4(AABB::BLB(), 1)).xyz();
 	}
 
 	maths::vec3 OBB::BLT() const
 	{
-		return (transform * maths::vec4(AABB::BLT(), 0)).xyz();
+		return (transform * maths::vec4(AABB::BLT(), 1)).xyz();
 	}
 
 	maths::vec3* OBB::GetCorners() const

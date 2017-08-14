@@ -214,6 +214,8 @@
     <ClCompile Include="src\Maths\vec4.cpp" />
     <ClCompile Include="src\RenderEngine\Interfaces\Renderable.cpp" />
     <ClCompile Include="src\RenderEngine\Interfaces\Renderer.cpp" />
+    <ClCompile Include="src\RenderEngine\Renderers\ForwardRenderer.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\CommandQueue.cpp" />
     <ClCompile Include="src\RenderEngine\Models\Cuboid.cpp" />
     <ClCompile Include="src\RenderEngine\Models\Rectangle.cpp" />
     <ClCompile Include="src\RenderEngine\Models\Sphere.cpp" />
@@ -337,6 +339,8 @@
     <ClInclude Include="src\Object.h" />
     <ClInclude Include="src\RenderEngine\Interfaces\Renderable.h" />
     <ClInclude Include="src\RenderEngine\Interfaces\Renderer.h" />
+    <ClInclude Include="src\RenderEngine\Renderers\ForwardRenderer.h" />
+    <ClInclude Include="src\RenderEngine\structs\CommandQueue.h" />
     <ClInclude Include="src\RenderEngine\Models\Cuboid.h" />
     <ClInclude Include="src\RenderEngine\Models\Rectangle.h" />
     <ClInclude Include="src\RenderEngine\Models\Sphere.h" />

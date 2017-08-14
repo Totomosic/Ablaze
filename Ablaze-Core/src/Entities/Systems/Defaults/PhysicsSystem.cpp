@@ -74,17 +74,15 @@ namespace Ablaze
 		CollisionInfo info(false, maths::vec3(0.0f), false, false, false);
 		for (int i = 0; i < collider1.GetCount(); i++)
 		{
-			AABB bbox1 = collider1.GetAABB(i);
-			bbox1.size *= transform1.GetScale();
-			maths::vec3 position1 = collider1.GetPositionOffset(i) * transform1.GetScale();
+			OBB bbox1 = collider1.GetOBB(i);
+			bbox1.transform = transform1.GetModelMatrix() * collider1.GetTransform(i);
 			for (int j = 0; j < collider2.GetCount(); j++)
 			{
-				AABB bbox2 = collider2.GetAABB(j);
-				bbox2.size *= transform2.GetScale();
-				maths::vec3 position2 = collider2.GetPositionOffset(j) * transform2.GetScale();
-				CollisionInfo xCollision = Physics::Intersects(bbox2, obj2Position + position2, bbox1, obj1Position + position1 + maths::vec3(frameVelocity.x, 0, 0));
-				CollisionInfo yCollision = Physics::Intersects(bbox2, obj2Position + position2, bbox1, obj1Position + position1 + maths::vec3(0, frameVelocity.y, 0));
-				CollisionInfo zCollision = Physics::Intersects(bbox2, obj2Position + position2, bbox1, obj1Position + position1 + maths::vec3(0, 0, frameVelocity.z));
+				OBB bbox2 = collider2.GetOBB(j);
+				bbox2.transform = transform2.GetModelMatrix() * collider2.GetTransform(j);
+				CollisionInfo xCollision = Physics::Intersects(bbox2, maths::vec3(0), bbox1, maths::vec3(frameVelocity.x, 0, 0));
+				CollisionInfo yCollision = Physics::Intersects(bbox2, maths::vec3(0), bbox1, maths::vec3(0, frameVelocity.y, 0));
+				CollisionInfo zCollision = Physics::Intersects(bbox2, maths::vec3(0), bbox1, maths::vec3(0, 0, frameVelocity.z));
 
 				info.x = xCollision.collided || info.x;
 				info.y = yCollision.collided || info.y;

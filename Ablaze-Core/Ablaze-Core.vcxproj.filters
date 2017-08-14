@@ -153,9 +153,6 @@
     <ClCompile Include="src\RenderEngine\Interfaces\Renderable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderEngine\Interfaces\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\RenderEngine\Models\Cuboid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -345,6 +342,15 @@
     <ClCompile Include="src\Scene\Physics\stucts\OBB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderEngine\structs\CommandQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Interfaces\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderEngine\Renderers\ForwardRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">
@@ -501,9 +507,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderEngine\Interfaces\Renderable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RenderEngine\Interfaces\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\RenderEngine\Models\Cuboid.h">
@@ -729,6 +732,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Physics\stucts\OBB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\structs\CommandQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Interfaces\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderEngine\Renderers\ForwardRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

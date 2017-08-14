@@ -11,22 +11,22 @@ namespace Ablaze
 		class Collider : public Component
 		{
 		protected:
-			std::vector<std::pair<maths::vec3, AABB>*> boundingBoxes;
+			std::vector<std::pair<maths::mat4, OBB>*> boundingBoxes;
 
 		protected:
-			Collider(const std::vector<std::pair<maths::vec3, AABB>*>& boundingBoxes);
+			Collider(const std::vector<std::pair<maths::mat4, OBB>*>& boundingBoxes);
 
 		public:
-			Collider(const AABB& boundingBox, const maths::vec3& positionOffset = maths::vec3(0.0f));
-			Collider(Model* model, const maths::vec3& positionOffset = maths::vec3(0.0f));
-			Collider(const String& modelName, const maths::vec3& positionOffset = maths::vec3(0.0f));
+			Collider(const OBB& boundingBox, const maths::mat4& transform = maths::mat4::Identity());
+			//Collider(Model* model, const maths::vec3& positionOffset = maths::vec3(0.0f));
+			//Collider(const String& modelName, const maths::vec3& positionOffset = maths::vec3(0.0f));
 			Collider();
 
 			int GetCount() const;
-			const AABB& GetAABB(int index = 0) const;
-			const maths::vec3& GetPositionOffset(int index = 0) const;
+			const OBB& GetOBB(int index = 0) const;
+			const maths::mat4& GetTransform(int index = 0) const;
 
-			void AddAABB(const AABB& boundingBox, const maths::vec3& positionOffset = maths::vec3(0.0f));
+			void AddOBB(const OBB& boundingBox, const maths::mat4& transform = maths::mat4::Identity());
 
 			Component* Clone() override;
 

@@ -52,8 +52,12 @@ namespace Ablaze
 			return rotation;
 		}
 
-		const maths::vec3& Transform::GetScale() const
+		maths::vec3 Transform::GetScale() const
 		{
+			if (owner->HasComponent<Parent>())
+			{
+				return owner->GetComponent<Parent>()->GetParentObject()->Transform()->GetScale() * scale;
+			}
 			return scale;
 		}
 
@@ -101,7 +105,7 @@ namespace Ablaze
 
 		void Transform::SetScale(float scale)
 		{
-			this->scale = maths::vec3(scale);
+			SetScale(maths::vec3(scale, scale, scale));
 		}
 
 		void Transform::Rotate(float angle, const maths::vec3& axis, Space space, Angle Angle)

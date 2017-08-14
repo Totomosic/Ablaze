@@ -7,18 +7,18 @@ namespace Ablaze
 	namespace Components
 	{
 
-		Collider::Collider(const std::vector<std::pair<maths::vec3, AABB>*>& boundingBoxes)
+		Collider::Collider(const std::vector<std::pair<maths::mat4, OBB>*>& boundingBoxes)
 			: boundingBoxes(boundingBoxes)
 		{
 
 		}
 
-		Collider::Collider(const AABB& boundingBox, const maths::vec3& positionOffset)
+		Collider::Collider(const OBB& boundingBox, const maths::mat4& transform)
 		{
-			AddAABB(boundingBox, positionOffset);
+			AddOBB(boundingBox, transform);
 		}
 
-		Collider::Collider(Model* model, const maths::vec3& positionOffset) : Collider(AABB::FromModel(model), positionOffset)
+		/*Collider::Collider(Model* model, const maths::vec3& positionOffset) : Collider(AABB::FromModel(model), positionOffset)
 		{
 		
 		}
@@ -26,7 +26,7 @@ namespace Ablaze
 		Collider::Collider(const String& modelName, const maths::vec3& positionOffset) : Collider(AABB::FromModel(modelName), positionOffset)
 		{
 		
-		}
+		}*/
 
 		Collider::Collider()
 		{
@@ -38,19 +38,19 @@ namespace Ablaze
 			return boundingBoxes.size();
 		}
 
-		const AABB& Collider::GetAABB(int index) const
+		const OBB& Collider::GetOBB(int index) const
 		{
 			return boundingBoxes[index]->second;
 		}
 
-		const maths::vec3& Collider::GetPositionOffset(int index) const
+		const maths::mat4& Collider::GetTransform(int index) const
 		{
 			return boundingBoxes[index]->first;
 		}
 
-		void Collider::AddAABB(const AABB& boundingBox, const maths::vec3& positionOffset)
+		void Collider::AddOBB(const OBB& boundingBox, const maths::mat4& transform)
 		{
-			boundingBoxes.push_back(new std::pair<maths::vec3, AABB>(positionOffset, boundingBox));
+			boundingBoxes.push_back(new std::pair<maths::mat4, OBB>(transform, boundingBox));
 		}
 
 		Component* Collider::Clone()
@@ -65,7 +65,7 @@ namespace Ablaze
 			Mesh* mesh = object->Mesh()->GetMesh();
 			for (int i = 0; i < mesh->GetLength(); i++)
 			{
-				collider->AddAABB(AABB::FromModel(mesh->GetModel(i)), (useModelTransforms) ? mesh->GetTransform(i).GetColumn(3).xyz() : maths::vec3(0.0f));
+				//collider->AddAABB(AABB::FromModel(mesh->GetModel(i)), (useModelTransforms) ? mesh->GetTransform(i).GetColumn(3).xyz() : maths::vec3(0.0f));
 			}
 			return collider;
 		}

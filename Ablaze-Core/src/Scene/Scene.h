@@ -20,7 +20,7 @@ namespace Ablaze
 		String name;
 		std::vector<Layer*> layers;
 		Layer* currentLayer;
-		Renderer* renderer;
+		CommandQueue* renderer;
 
 	public:
 		Scene(const String& name);

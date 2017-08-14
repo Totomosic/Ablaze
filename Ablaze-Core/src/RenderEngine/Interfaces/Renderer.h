@@ -1,34 +1,31 @@
 #pragma once
-#include "Renderable.h"
-#include "Object.h"
-#include "RenderEngine/structs/Commands/Command.h"
-#include <deque>
+#include "RenderEngine/structs/CommandQueue.h"
+#include "RenderEngine/structs/Commands/Commands.h"
 
 namespace Ablaze
 {
 
 	class Renderer : public Object
 	{
-	private:
-		std::deque<Command*> commandQueue;
-		maths::mat4 viewMatrix;
-		maths::mat4 projectionMatrix;
+	protected:
+		CommandQueue commandQueue;
 
-	public:
+	protected:
 		Renderer();
 
-		void PushCommand(Command* command);
-		void PopCommand();
+	public:
+		virtual ~Renderer();
+		const CommandQueue& GetCommandQueue() const;
 
-		void Execute(const maths::mat4& viewMatrix, const maths::mat4& projectionMatrix);
+		virtual void Begin() = 0; // Before any submissions
+		virtual void End() = 0; // After all submissions, before render
+		virtual void Submit(Renderable* renderable) = 0; // Submit renderables
+		virtual void Render(const maths::mat4& viewMatrix, const maths::mat4& projectionMatrix) = 0; // Execute all commands
 
-		const maths::mat4& GetViewMatrix() const;
-		const maths::mat4& GetProjectionMatrix() const;
-		void SetViewMatrix(const maths::mat4& viewMatrix);
-		void SetProjectionMatrix(const maths::mat4& projectionMatrix);
+		virtual void PushCommand(Command* command); // Manually push a command
 
 		String ToString() const override;
 
 	};
 
-}                  
+}

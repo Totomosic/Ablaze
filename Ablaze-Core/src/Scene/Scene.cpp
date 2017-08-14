@@ -12,7 +12,7 @@ namespace Ablaze
 	{
 		gameObjects = new GameObject*[AblazeEngine::maxEntities];
 		SceneManager::SetCurrentScene(this);
-		renderer = new Renderer();
+		renderer = new CommandQueue();
 	}
 
 	Scene::~Scene()

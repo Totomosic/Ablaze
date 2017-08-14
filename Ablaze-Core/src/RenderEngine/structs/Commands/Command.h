@@ -5,7 +5,7 @@
 namespace Ablaze
 {
 
-	class Renderer;
+	class CommandQueue;
 
 	class Command : public Object
 	{
@@ -16,7 +16,7 @@ namespace Ablaze
 		Command(const CommandType& type);
 
 		const CommandType& GetType() const;
-		virtual void Execute(Renderer& renderer) = 0;
+		virtual void Execute(CommandQueue& renderer) = 0;
 
 		String ToString() const override;
 
