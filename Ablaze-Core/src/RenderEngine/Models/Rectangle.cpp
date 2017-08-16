@@ -10,6 +10,7 @@ namespace Ablaze
 
 	void Rectangle::Create(const Color& color)
 	{
+		indexBuffer->Bind();
 		indexBuffer->Upload(new GLuint[6]{ 0, 1, 2, 0, 2, 3 }, 6 * sizeof(GLuint));
 		auto ptr = (Vertex*)vbo->MapBuffer(Access::Write);
 

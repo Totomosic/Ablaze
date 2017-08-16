@@ -29,6 +29,7 @@ namespace Ablaze
 		inline const std::vector<BufferElement>& GetLayout() const { return elements; }
 		inline uint GetStride() const { return size; }
 		inline const BufferElement& GetElement(const String& elementName) const { return elements[indices.at(elementName)]; }
+		inline bool HasElement(const String& elementName) const { return indices.find(elementName) != indices.end(); }
 		inline int GetIndexOf(const String& elementName) const { return indices.at(elementName); }
 		inline int GetOffsetOf(const String& elementName) const { return GetElement(elementName).offset; }
 

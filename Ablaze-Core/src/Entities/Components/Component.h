@@ -12,7 +12,7 @@ namespace Ablaze
 		class Component
 		{
 		protected:
-			const GameObject* owner;
+			GameObject* owner;
 
 		public:
 			Component();
@@ -20,7 +20,7 @@ namespace Ablaze
 
 			virtual Component* Clone() = 0;
 
-			void SetOwner(const GameObject* owner);
+			void SetOwner(GameObject* owner);
 			const GameObject& GetOwner() const;
 
 			// Function that is called every time the owner is set

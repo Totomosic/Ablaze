@@ -55,6 +55,11 @@ namespace Ablaze
 		vao->AttachIndexBuffer(indexBuffer);
 	}
 
+	void Model::SetColor(const Color& color)
+	{
+		vao->SetColor(color);
+	}
+
 	void Model::Bind() const
 	{
 		vao->Bind();

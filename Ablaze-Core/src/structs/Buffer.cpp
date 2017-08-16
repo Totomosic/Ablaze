@@ -75,7 +75,6 @@ namespace Ablaze
 
 	void Buffer::Upload(void* data, GLint offset, GLint byteLength)
 	{
-		Bind();
 		glBufferSubData(target, offset, byteLength, data);
 	}
 

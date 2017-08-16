@@ -9,6 +9,7 @@ namespace Ablaze
 	Shader* Shader::textureShader = nullptr;
 	Shader* Shader::fontShader = nullptr;
 	Shader* Shader::pbrShader = nullptr;
+	Shader* Shader::baseUIShader = nullptr;
 
 	Shader::Shader(const String& name, const String& vertex, const String& frag)
 		: name(name), vertexString(&vertex), fragString(&frag)
@@ -138,6 +139,15 @@ namespace Ablaze
 		return pbrShader;
 	}
 
+	const Shader* const Shader::BaseUI()
+	{
+		if (baseUIShader == nullptr)
+		{
+			baseUIShader = CreateBaseUI();
+		}
+		return baseUIShader;
+	}
+
 	void Shader::Load(const String& v, const String& f)
 	{
 		GLuint id = glCreateProgram();
@@ -254,6 +264,18 @@ namespace Ablaze
 			;
 
 		return Shader::FromSource("_Texture", vData, fData);
+	}
+
+	Shader* Shader::CreateBaseUI()
+	{
+		String vData =
+#include "Source/base_ui_v.glsl"
+			;
+		String fData =
+#include "Source/base_ui_f.glsl"
+			;
+
+		return Shader::FromSource("_BaseUI", vData, fData);
 	}
 
 }

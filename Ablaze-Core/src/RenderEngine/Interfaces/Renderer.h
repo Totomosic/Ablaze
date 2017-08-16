@@ -23,6 +23,7 @@ namespace Ablaze
 		virtual void Render(const maths::mat4& viewMatrix, const maths::mat4& projectionMatrix) = 0; // Execute all commands
 
 		virtual void PushCommand(Command* command); // Manually push a command
+		virtual void ChangeRenderTarget(const Framebuffer* const renderTarget);
 
 		String ToString() const override;
 

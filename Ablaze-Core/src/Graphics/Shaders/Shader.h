@@ -17,6 +17,7 @@ namespace Ablaze
 		static Shader* textureShader;
 		static Shader* fontShader;
 		static Shader* pbrShader;
+		static Shader* baseUIShader;
 
 		String name;
 		GLuint programID;
@@ -49,6 +50,7 @@ namespace Ablaze
 		static const Shader* const Texture();
 		static const Shader* const Font();
 		static const Shader* const PBR();
+		static const Shader* const BaseUI();
 
 	private:
 		void Load(const String& vertex, const String& fragment);
@@ -58,6 +60,7 @@ namespace Ablaze
 		static Shader* CreateTextureShader();
 		static Shader* CreateFontShader();
 		static Shader* CreatePBRShader();
+		static Shader* CreateBaseUI();
 		
 	};
 

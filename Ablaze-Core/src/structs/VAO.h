@@ -41,6 +41,7 @@ namespace Ablaze
 
 		void SetMode(const RenderMode& mode);
 		void SetPrimitiveType(GLenum primitive);
+		void SetColor(const Color& color);
 
 		void Bind() const;
 		void Unbind() const;

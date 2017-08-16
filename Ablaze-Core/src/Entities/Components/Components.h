@@ -8,3 +8,5 @@
 #include "Rendering/MeshComponent.h"
 #include "Lighting/Light.h"
 #include "Colliders/Collider.h"
+#include "UI/Clickable.h"
+#include "UI/TextComponent.h"

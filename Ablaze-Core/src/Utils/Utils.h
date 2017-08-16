@@ -10,4 +10,6 @@
 #include "Files/WavefrontFile.h"
 #include "Files/ImageFile.h"
 
+#include "Timer.h"
+
 #include "Funcs.h"

@@ -14,7 +14,7 @@ namespace Ablaze
 			
 		}
 
-		void Component::SetOwner(const GameObject* owner)
+		void Component::SetOwner(GameObject* owner)
 		{
 			this->owner = owner;
 			Initialise();

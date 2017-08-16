@@ -104,6 +104,25 @@ namespace Ablaze
 		}
 	}
 
+	void VAO::SetColor(const Color& color)
+	{
+		if (HasAttribute(0))
+		{
+			VBO* vbo = GetAttribute(0);
+			const BufferLayout& layout = vbo->GetLayout();
+			if (layout.HasElement("COLOR"))
+			{
+				vbo->Bind();
+				float* c = color.ToFloat();
+				for (int i = layout.GetOffsetOf("COLOR"); i < vbo->GetSize(); i += layout.GetStride())
+				{
+					vbo->Upload(c, i, 4 * sizeof(float));
+				}
+				delete c;
+			}
+		}
+	}
+
 	void VAO::Bind() const
 	{
 		glBindVertexArray(id);

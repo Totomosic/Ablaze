@@ -1,10 +1,13 @@
 #pragma once
 #include "Layer.h"
 #include "Types.h"
+
 #include "Scene/Physics/Physics.h"
 #include "Terrain/Terrain.h"
 #include "Terrain/HeightFunctions/PerlinNoise.h"
 #include "Terrain/HeightFunctions/HeightmapFunction.h"
+#include "UI/Widget.h"
+#include "UI/Background.h"
 
 namespace Ablaze
 {

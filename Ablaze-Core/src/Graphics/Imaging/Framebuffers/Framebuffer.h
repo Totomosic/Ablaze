@@ -9,6 +9,8 @@ namespace Ablaze
 	class Framebuffer
 	{
 	private:
+		static const Framebuffer* currentlyBound;
+
 		GLuint id;
 		Viewport viewport;
 		Color clearColor;
@@ -44,6 +46,8 @@ namespace Ablaze
 		Texture2D* GetTextureAttachment(Attachment attachment = Attachment::Color0);
 
 		static Framebuffer* Screen(int width, int height);
+		static void ClearBuffer(GLbitfield mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		static const Framebuffer* const GetCurrentlyBound();
 
 	private:
 		void Create();

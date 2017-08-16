@@ -1,4 +1,5 @@
 #include "ComponentSet.h"
+#include "Entities/GameObject.h"
 #include <iostream>
 
 namespace Ablaze
@@ -36,12 +37,20 @@ namespace Ablaze
 			// Type already exists
 			delete (*components)[typeid(component)];
 		}
+		if (typeid(component) == typeid(Components::Transform))
+		{
+			owner.transform = (Components::Transform*)&component;
+		}
 		(*components)[typeid(component)] = &component;	
 		component.SetOwner(&owner);
 	}
 
 	void ComponentSet::RemoveComponent(const std::type_index& componentType)
 	{
+		if (componentType == typeid(Components::Transform))
+		{
+			owner.transform = nullptr;
+		}
 		delete (*components)[componentType];
 		components->erase(componentType);
 	}

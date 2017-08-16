@@ -20,6 +20,7 @@ namespace Ablaze
 	{
 	protected:
 		uint id;
+		Components::Transform* transform;
 		Layer* currentLayer;
 		ComponentSet* components;
 
@@ -33,12 +34,12 @@ namespace Ablaze
 		GameObject(const GameObject* parent, bool preserveCurrentPosition = false);
 		GameObject(); 				
 
-		void Destroy();
-		GameObject* Clone() const;
-		void MakeChildOf(const GameObject* parent, bool preserveCurrentPosition = false);
-		void MakeStandalone(bool preserveCurrentPosition = true);
-		Layer* GetLayer() const;
-		void SetLayer(Layer* layer);
+		virtual void Destroy();
+		virtual GameObject* Clone() const;
+		virtual void MakeChildOf(const GameObject* parent, bool preserveCurrentPosition = false);
+		virtual void MakeStandalone(bool preserveCurrentPosition = true);
+		virtual Layer* GetLayer() const;
+		virtual void SetLayer(Layer* layer);
 
 		uint GetID() const;
 		ComponentSet& GetComponentSet() const;
@@ -74,6 +75,7 @@ namespace Ablaze
 		static GameObject* Instantiate(const GameObject* prefab, const GameObject* parent, const maths::vec3& worldPosition);
 
 		friend class Scene;
+		friend class ComponentSet;
 
 	};
 

@@ -156,7 +156,13 @@
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
     <ClCompile Include="src\Debug\DebugLayer.cpp" />
-    <ClCompile Include="src\Debug\Timer.cpp" />
+    <ClCompile Include="src\Entities\Canvas.cpp" />
+    <ClCompile Include="src\Entities\Components\UI\TextComponent.cpp" />
+    <ClCompile Include="src\Entities\Components\UI\Clickable.cpp" />
+    <ClCompile Include="src\Scene\UI\Background.cpp" />
+    <ClCompile Include="src\Scene\UI\Menu.cpp" />
+    <ClCompile Include="src\Scene\UI\Widget.cpp" />
+    <ClCompile Include="src\Utils\Timer.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\Entities\Camera.cpp" />
     <ClCompile Include="src\Entities\Components\Colliders\Collider.cpp" />
@@ -223,7 +229,7 @@
     <ClCompile Include="src\RenderEngine\PBR\PBRMaterial.cpp" />
     <ClCompile Include="src\RenderEngine\Post Processing\PostProcessor.cpp" />
     <ClCompile Include="src\RenderEngine\Post Processing\PostProcessorEffect.cpp" />
-    <ClCompile Include="src\RenderEngine\structs\Commands\ClearCommand.cpp" />
+    <ClCompile Include="src\RenderEngine\structs\Commands\RTClearCommand.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Commands\Command.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Commands\RenderCommand.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Commands\RTSwapCommand.cpp" />
@@ -273,7 +279,13 @@
     <ClInclude Include="src\Application\Application.h" />
     <ClInclude Include="src\Debug\Debug.h" />
     <ClInclude Include="src\Debug\DebugLayer.h" />
-    <ClInclude Include="src\Debug\Timer.h" />
+    <ClInclude Include="src\Entities\Canvas.h" />
+    <ClInclude Include="src\Entities\Components\UI\TextComponent.h" />
+    <ClInclude Include="src\Entities\Components\UI\Clickable.h" />
+    <ClInclude Include="src\Scene\UI\Background.h" />
+    <ClInclude Include="src\Scene\UI\Menu.h" />
+    <ClInclude Include="src\Scene\UI\Widget.h" />
+    <ClInclude Include="src\Utils\Timer.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Entities\Camera.h" />
     <ClInclude Include="src\Entities\Components\Colliders\Collider.h" />
@@ -349,7 +361,7 @@
     <ClInclude Include="src\RenderEngine\Post Processing\PostProcessor.h" />
     <ClInclude Include="src\RenderEngine\Post Processing\PostProcessorEffect.h" />
     <ClInclude Include="src\RenderEngine\RenderEngine.h" />
-    <ClInclude Include="src\RenderEngine\structs\Commands\ClearCommand.h" />
+    <ClInclude Include="src\RenderEngine\structs\Commands\RTClearCommand.h" />
     <ClInclude Include="src\RenderEngine\structs\Commands\Command.h" />
     <ClInclude Include="src\RenderEngine\structs\Commands\Commands.h" />
     <ClInclude Include="src\RenderEngine\structs\Commands\RenderCommand.h" />
@@ -403,6 +415,8 @@
     <None Include="src\Debug\Shaders\DebugTexture_f.glsl" />
     <None Include="src\Debug\Shaders\DebugTexture_v.glsl" />
     <None Include="src\Graphics\Shaders\Source\base_f.glsl" />
+    <None Include="src\Graphics\Shaders\Source\base_ui_f.glsl" />
+    <None Include="src\Graphics\Shaders\Source\base_ui_v.glsl" />
     <None Include="src\Graphics\Shaders\Source\base_v.glsl" />
     <None Include="src\Graphics\Shaders\Source\font_f.glsl" />
     <None Include="src\Graphics\Shaders\Source\font_v.glsl" />

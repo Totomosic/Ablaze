@@ -39,7 +39,7 @@ namespace Ablaze
 		AddComponent(new Components::Transform(position, rotation, scale));
 		AddComponent(new Components::Parent(SceneManager::CurrentScene()->Anchor())); // All objects are a child of the Anchor Object
 		AddComponent(new Components::Identifier(Tags::None));
-		AddComponent(new Components::MeshComponent(MeshFactory::BuildCuboidUnnamed(maths::vec3(1, 1, 1), Color::White(), MaterialFactory::Build("_GAMEOBJECT_DEFAULT_", Color::White(), Shader::Default(), ""))));
+		AddComponent(new Components::MeshComponent(MeshFactory::BuildCuboidUnnamed(maths::vec3(1, 1, 1), Color::White(), MaterialFactory::Fabricate(Color::White(), Shader::Default(), ""))));
 	}
 
 	GameObject::GameObject(float x, float y, float z, const maths::mat4& rotation, const maths::vec3& scale) : GameObject(maths::vec3(x, y, z), rotation, scale)
@@ -132,7 +132,7 @@ namespace Ablaze
 
 	Components::Transform* GameObject::Transform() const
 	{
-		return GetComponent<Components::Transform>();
+		return transform;
 	}
 
 	Components::Parent* GameObject::ParentComponent() const

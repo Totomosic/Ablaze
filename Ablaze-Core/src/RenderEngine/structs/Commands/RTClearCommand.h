@@ -5,14 +5,10 @@
 namespace Ablaze
 {
 
-	class ClearCommand : public Command
+	class RTClearCommand : public Command
 	{
-	private:
-		const Framebuffer* fbo;
-
 	public:
-		ClearCommand(const Framebuffer* fbo);
-
+		RTClearCommand();
 		void Execute(CommandQueue& renderer) override;
 
 	};

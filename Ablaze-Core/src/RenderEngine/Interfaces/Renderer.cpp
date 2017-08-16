@@ -23,6 +23,12 @@ namespace Ablaze
 		commandQueue.PushCommand(command);
 	}
 
+	void Renderer::ChangeRenderTarget(const Framebuffer* const renderTarget)
+	{
+		PushCommand(new RTSwapCommand(renderTarget));
+		PushCommand(new RTClearCommand());
+	}
+
 	String Renderer::ToString() const
 	{
 		return "Default Renderer";

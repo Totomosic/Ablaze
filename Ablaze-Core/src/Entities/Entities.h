@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "GameObjects.h"
 #include "Camera.h"
+#include "Canvas.h"
 
 #include "Components/Component.h"
 #include "Components/Components.h"

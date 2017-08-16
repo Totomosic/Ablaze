@@ -1,6 +1,6 @@
 #pragma once
 
 #include "Command.h"
-#include "ClearCommand.h"
 #include "RenderCommand.h"
+#include "RTClearCommand.h"
 #include "RTSwapCommand.h"

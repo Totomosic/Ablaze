@@ -37,6 +37,7 @@ namespace Ablaze
 
 		void SetVBO(VBO* vbo);
 		void SetIndexBuffer(IndexBuffer* ibo);
+		void SetColor(const Color& color);
 
 		void Bind() const;
 		void Unbind() const;

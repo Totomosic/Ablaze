@@ -13,6 +13,10 @@ namespace Ablaze
 			pair->second += 1;
 			return (Texture2D*)pair->first;
 		}
+		if (name == "NULLPTR")
+		{
+			return nullptr;
+		}
 		AB_ERROR("Attempted to request Texture2D that does not exist: " + name);
 		return nullptr;
 	}

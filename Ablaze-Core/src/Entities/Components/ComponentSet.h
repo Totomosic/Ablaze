@@ -8,6 +8,12 @@
 
 namespace Ablaze
 {
+
+	namespace Components
+	{
+		class Transform;
+	}
+
 	class ComponentSet
 	{
 	private:

@@ -4,6 +4,9 @@
 
 namespace Ablaze
 {
+
+	const Framebuffer* Framebuffer::currentlyBound = nullptr;
+
 	Framebuffer::Framebuffer(int width, int height, bool window)
 		: viewport(Viewport(0, 0, width, height))
 	{
@@ -44,7 +47,7 @@ namespace Ablaze
 	void Framebuffer::Clear(GLbitfield mask) const
 	{
 		glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
-		glClear(mask);
+		ClearBuffer(mask);
 	}
 
 	const Viewport& Framebuffer::GetViewport() const
@@ -143,6 +146,16 @@ namespace Ablaze
 	Framebuffer* Framebuffer::Screen(int width, int height)
 	{
 		return new Framebuffer(width, height, true);
+	}
+
+	void Framebuffer::ClearBuffer(GLbitfield mask)
+	{
+		glClear(mask);
+	}
+
+	const Framebuffer* const Framebuffer::GetCurrentlyBound()
+	{
+		return currentlyBound;
 	}
 
 	void Framebuffer::Create()

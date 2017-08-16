@@ -134,6 +134,7 @@ namespace Ablaze
 			}
 		}
 		vbo->UnmapBuffer();
+		ibo->Bind();
 		ibo->Upload(indices, text.length() * 6 * sizeof(GLuint));
 		return new Model(modelName, vbo, ibo, maths::vec3(width, height, 0));
 	}

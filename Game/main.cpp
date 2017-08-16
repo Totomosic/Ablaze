@@ -79,6 +79,7 @@ public:
 		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/Plane.obj"));
 		ModelFactory::Order("Cruiser", VFS::RetrieveFile<WavefrontFile>("/res/SunPrincess.obj"));
 		ModelFactory::Order("Bridge", VFS::RetrieveFile<WavefrontFile>("/res/Bridge1.obj"));
+		FontFactory::Order("Arial", "res/arial.ttf", 32);
 		MeshFactory::Order("Floor", "Floor", "BrickMaterial");
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
@@ -95,7 +96,7 @@ public:
 		floor->SetMesh("Terrain");
 		floor->Identifier()->SetName("Terrain");
 
-		GameObject* bridge = new GameObject(0, -120, -700);
+		GameObject* bridge = new GameObject(200, -120, -700);
 		bridge->Transform()->SetScale(80);
 		bridge->Transform()->Rotate(-65, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
 		bridge->AddComponent(new Components::RigidBody(1, true, 0, 0, false));
@@ -115,12 +116,14 @@ public:
 		water->AddComponent(new Components::Collider(OBB(maths::vec3(10000, 0, 10000))));
 
 		Layer* uiLayer = new Layer("UI", new ForwardRenderer());
+		Canvas* canvas = new Canvas(window, Origin::Center);
+		uiLayer->SetCamera(canvas);
 
-		Camera* uiCamera = new Camera(Viewport(-WindowWidth() / 2, -WindowHeight() / 2, WindowWidth(), WindowHeight()), maths::vec3(0, 0, 100), maths::mat4::Identity(), Projection::Orthographic);
-		uiLayer->SetCamera(uiCamera);
+		Background* crosshair = new Background(0, 0, 0, maths::vec2(4), Color::Black());
+		crosshair->SetColor(Color::Red());
 
-		GameObject* crossHair = new GameObject(0, 0, 0);
-		crossHair->SetMesh(MeshFactory::BuildRectangleUnnamed(maths::vec2(5), Color::Black(), "Default"));
+		GameObject* text = new GameObject(0, 0, 0);
+		text->AddComponent(new Components::TextComponent("Test Text", FontFactory::Request("Arial", 32)));
 
 		Shader::PBR()->Enable();
 		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));

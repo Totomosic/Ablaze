@@ -126,6 +126,40 @@ namespace Ablaze
 		OrderPBR(name, color, shader, TextureFactory::Request2D(albedoTexture), TextureFactory::Request2D(roughnessTexture), TextureFactory::Request2D(metallicTexture), TextureFactory::Request2D(aoTexture), TextureFactory::Request2D(normalMap), depth, blend, blendSrcFunc, blendDstFunc);
 	}
 
+	Material* MaterialFactory::Fabricate(const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth, bool blend, GLenum blendSrcFunc, GLenum blendDstFunc)
+	{
+		String hashedName = "Material(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURE(" + sampler + ", " + textureName + ")SETTINGS(" + std::to_string(depth) + std::to_string(blend) + std::to_string(blendSrcFunc) + std::to_string(blendDstFunc) + ")_HASHED_";
+		if (ContainsKey(hashedName))
+		{
+			return Request(hashedName);
+		}
+		return Build(hashedName, color, shader, sampler, textureName, depth, blend, blendSrcFunc, blendDstFunc);
+	}
+
+	Material* MaterialFactory::Fabricate(const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depth, bool blend, GLenum blendSrcFunc, GLenum blendDstFunc)
+	{
+		if (texture == nullptr)
+		{
+			return Fabricate(color, shader, sampler, "NULLPTR", depth, blend, blendSrcFunc, blendDstFunc);
+		}
+		return Fabricate(color, shader, sampler, texture->GetName(), depth, blend, blendSrcFunc, blendDstFunc);
+	}
+
+	PBRMaterial* MaterialFactory::FabricatePBR(const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap, bool depth, bool blend, GLenum blendSrcFunc, GLenum blendDstFunc)
+	{
+		String hashedName = "PBRMaterial(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURES(" + albedoTexture + ", " + roughnessTexture + ", " + metallicTexture + ", " + aoTexture + ", " + normalMap  + ")SETTINGS(" + std::to_string(depth) + std::to_string(blend) + std::to_string(blendSrcFunc) + std::to_string(blendDstFunc) + ")_HASHED_";
+		if (ContainsKey(hashedName))
+		{
+			return RequestPBR(hashedName);
+		}
+		return BuildPBR(hashedName, color, shader, albedoTexture, roughnessTexture, metallicTexture, aoTexture, normalMap, depth, blend, blendSrcFunc, blendDstFunc);
+	}
+
+	PBRMaterial* MaterialFactory::FabricatePBR(const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap, bool depth, bool blend, GLenum blendSrcFunc, GLenum blendDstFunc)
+	{
+		return FabricatePBR(color, shader, albedo->GetName(), roughness->GetName(), metallic->GetName(), ao->GetName(), normalMap->GetName(), depth, blend, blendSrcFunc, blendDstFunc);
+	}
+
 	void MaterialFactory::Increment(const String& name)
 	{
 		materials[name]->second++;
