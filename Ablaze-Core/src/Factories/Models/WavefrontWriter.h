@@ -1,7 +1,7 @@
 #pragma once
 #include "Utils/Files/WavefrontFile.h"
 #include "Utils/Virtual File System/VFS.h"
-#include "RenderEngine/structs/Model.h"
+#include "Graphics/Resources/Model.h"
 
 namespace Ablaze
 {

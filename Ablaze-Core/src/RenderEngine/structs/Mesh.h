@@ -1,9 +1,8 @@
 #pragma once
-#include <vector>
-#include "Material.h"
-#include "Model.h"
 #include "Maths/Maths.h"
 #include "Types.h"
+#include "Graphics/Resources/Model.h"
+#include "Graphics/Resources/Material.h"
 
 namespace Ablaze
 {

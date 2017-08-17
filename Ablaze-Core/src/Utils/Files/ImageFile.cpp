@@ -1,5 +1,5 @@
 #include "ImageFile.h"
-#include "Graphics/Imaging/ImageLoader.h"
+#include "Graphics/Resources/Imaging/ImageLoader.h"
 
 namespace Ablaze
 {

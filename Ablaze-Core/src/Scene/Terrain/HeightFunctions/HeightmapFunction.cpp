@@ -1,6 +1,6 @@
 #include "HeightmapFunction.h"
-#include "Graphics/Imaging/ImageLoader.h"
-#include "Graphics/Imaging/Textures/Texture2D.h"
+#include "Graphics/Resources/Imaging/ImageLoader.h"
+#include "Graphics/Resources/Imaging/Textures/Texture2D.h"
 #include "AblazeGL.h"
 
 namespace Ablaze

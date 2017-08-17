@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "Log.h"
 #include "Entities/GameObject.h"
-#include "Graphics/Imaging/Textures/TextureManager.h"
+#include "Graphics/Resources/Imaging/Textures/TextureManager.h"
 #include "Debug/DebugLayer.h"
 
 namespace Ablaze

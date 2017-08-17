@@ -1,5 +1,5 @@
 #pragma once
-#include "RenderEngine/structs/Model.h"
+#include "Graphics/Resources/Model.h"
 #include "Utils/Files/WavefrontFile.h"
 #include "Utils/Funcs.h"
 #include "Types.h"

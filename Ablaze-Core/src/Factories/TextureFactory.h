@@ -1,6 +1,6 @@
 #pragma once
-#include "Graphics/Imaging/Textures/Texture2D.h"
-#include "Graphics/Imaging/Textures/TextureCube.h"
+#include "Graphics/Resources/Imaging/Textures/Texture2D.h"
+#include "Graphics/Resources/Imaging/Textures/TextureCube.h"
 #include "Utils/Files/ImageFile.h"
 #include <map>
 

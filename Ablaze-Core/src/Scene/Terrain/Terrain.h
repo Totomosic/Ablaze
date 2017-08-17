@@ -1,6 +1,6 @@
 #pragma once
 #include "Types.h"
-#include "RenderEngine/structs/Model.h"
+#include "Graphics/Resources/Model.h"
 #include "HeightFunctions/HeightFunction.h"
 
 namespace Ablaze

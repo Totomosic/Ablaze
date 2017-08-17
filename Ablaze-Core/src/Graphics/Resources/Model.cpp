@@ -3,8 +3,8 @@
 namespace Ablaze
 {
 
-	Model::Model(const String& name, VBO* vertexBuffer, IndexBuffer* indexBuffer, const maths::vec3& size)
-		: name(name), vbo(vertexBuffer), indexBuffer(indexBuffer), size(size)
+	Model::Model(const String& name, VBO* vertexBuffer, IndexBuffer* indexBuffer, const maths::vec3& size) : Resource(name), 
+		vbo(vertexBuffer), indexBuffer(indexBuffer), size(size)
 	{
 		vao = new VAO(Elements);
 		vao->AttachVBO(vbo);
@@ -14,11 +14,6 @@ namespace Ablaze
 	Model::~Model()
 	{
 		delete vao;
-	}
-
-	const String& Model::GetName() const
-	{
-		return name;
 	}
 
 	VAO* Model::GetVAO() const

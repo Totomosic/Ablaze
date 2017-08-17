@@ -1,6 +1,7 @@
 #pragma once
 #include "structs/Structs.h"
 #include "Types.h"
+#include "Resource.h"
 
 namespace Ablaze
 {
@@ -13,10 +14,9 @@ namespace Ablaze
 		class WavefrontLoader;
 	}
 
-	class Model
+	class Model : public Resource
 	{
 	protected:
-		String name;
 		VAO* vao;
 		VBO* vbo;
 		IndexBuffer* indexBuffer;
@@ -29,7 +29,6 @@ namespace Ablaze
 	public:
 		virtual ~Model();
 
-		const String& GetName() const;
 		VAO* GetVAO() const;
 		VBO* GetVBO() const;
 		IndexBuffer* GetIndexBuffer() const;

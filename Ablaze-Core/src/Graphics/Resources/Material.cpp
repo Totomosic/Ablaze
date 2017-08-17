@@ -3,14 +3,14 @@
 namespace Ablaze
 {
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState)
-		: name(name), diffuseColor(color), shader(shader), textures(textures), depthState(depthState), blendState(blendState), depthFunction(depthFunction), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState) : Resource(name), 
+		diffuseColor(color), shader(shader), textures(textures), depthState(depthState), blendState(blendState), depthFunction(depthFunction), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
 	{
 
 	}
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState)
-		: name(name), diffuseColor(color), shader(shader), depthState(depthState), blendState(blendState), depthFunction(depthFunction), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState) : Resource(name), 
+		diffuseColor(color), shader(shader), depthState(depthState), blendState(blendState), depthFunction(depthFunction), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
 	{
 		if (texture != nullptr)
 		{
@@ -70,11 +70,6 @@ namespace Ablaze
 	const GLenum& Material::GetDstBlend() const
 	{
 		return dstBlendState;
-	}
-
-	const String& Material::GetName() const
-	{
-		return name;
 	}
 
 	bool Material::HasTransparency() const

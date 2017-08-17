@@ -1,19 +1,19 @@
 #pragma once
 #include "Types.h"
+#include "Resource.h"
 #include "Graphics/Shaders/Shader.h"
-#include "Graphics/Imaging/Textures/Texture.h"
+#include "Graphics/Resources/Imaging/Textures/Texture.h"
 #include "Graphics/Shaders/Uniforms/UniformManager.h"
-#include "Graphics/Imaging/Textures/TextureSet.h"
+#include "Graphics/Resources/Imaging/Textures/TextureSet.h"
 
 namespace Ablaze
 {
 
 	class MaterialFactory;
 
-	class Material
+	class Material : public Resource
 	{
 	protected:
-		String name;
 		Color diffuseColor;
 		const Shader* shader;
 		bool depthState;
@@ -42,7 +42,6 @@ namespace Ablaze
 		const GLenum& GetDstBlend() const;
 		bool HasTransparency() const;
 		bool HasTextures() const;
-		const String& GetName() const;
 
 		void AddTexture(const String& sampler, Texture* texture);
 		const TextureSet& GetAllTextures() const;

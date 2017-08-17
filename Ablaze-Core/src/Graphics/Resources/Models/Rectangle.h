@@ -1,5 +1,5 @@
 #pragma once
-#include "RenderEngine/structs/Model.h"
+#include "Graphics/Resources/Model.h"
 #include "Types.h"
 
 namespace Ablaze

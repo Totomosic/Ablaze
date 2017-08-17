@@ -1,6 +1,6 @@
 #pragma once
 #include "Texture.h"
-#include "Graphics/Imaging/Framebuffers/Framebuffer.h"
+#include "Graphics/Resources/Imaging/Framebuffers/Framebuffer.h"
 #include "Entities/GameObject.h"
 #include "Scene/LayerMask.h"
 

@@ -1,5 +1,5 @@
 #include "MeshFactory.h"
-#include "Graphics/Fonts/Font.h"
+#include "Graphics/Resources/Fonts/Font.h"
 
 namespace Ablaze
 {

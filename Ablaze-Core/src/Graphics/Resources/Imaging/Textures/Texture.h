@@ -1,6 +1,7 @@
 #pragma once
 #include "AblazeGL.h"
-#include "Graphics/Imaging/ImageLoader.h"
+#include "Graphics/Resources/Imaging/ImageLoader.h"
+#include "Graphics/Resources/Resource.h"
 
 namespace Ablaze
 {
@@ -9,10 +10,9 @@ namespace Ablaze
 	class Framebuffer;
 	class TextureManager;
 
-	class Texture
+	class Texture : public Resource
 	{
 	protected:
-		String name;
 		String path;
 		GLuint id;
 		GLenum textureTarget;
@@ -29,7 +29,6 @@ namespace Ablaze
 		const GLuint GetID() const;
 		const GLenum GetTarget() const;
 		const String& GetPath() const;
-		const String& GetName() const;
 		const GLint GetBindUnit() const;
 
 		virtual GLint Bind();

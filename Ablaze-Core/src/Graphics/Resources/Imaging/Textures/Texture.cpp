@@ -4,14 +4,14 @@
 namespace Ablaze
 {
 
-	Texture::Texture(const String& name, const String& filename, GLenum target)
-		: name(name), path(filename), textureTarget(target), bindUnit(-1)
+	Texture::Texture(const String& name, const String& filename, GLenum target) : Resource(name), 
+		path(filename), textureTarget(target), bindUnit(-1)
 	{
 		
 	}
 
-	Texture::Texture(const String& name, GLenum target, int width, int height)
-		: name(name), textureTarget(target), width(width), height(height), bindUnit(-1)
+	Texture::Texture(const String& name, GLenum target, int width, int height) : Resource(name), 
+		textureTarget(target), width(width), height(height), bindUnit(-1)
 	{
 		
 	}
@@ -34,11 +34,6 @@ namespace Ablaze
 	const String& Texture::GetPath() const
 	{
 		return path;
-	}
-
-	const String& Texture::GetName() const
-	{
-		return name;
 	}
 
 	const GLint Texture::GetBindUnit() const

@@ -1,14 +1,14 @@
 #pragma once
 #include "Types.h"
-#include "RenderEngine/structs/Model.h"
-#include "RenderEngine/Models/Rectangle.h"
-#include "RenderEngine/Models/Cuboid.h"
-#include "RenderEngine/Models/Tile.h"
+#include "Graphics/Resources/Model.h"
+#include "Graphics/Resources/Models/Rectangle.h"
+#include "Graphics/Resources/Models/Cuboid.h"
+#include "Graphics/Resources/Models/Tile.h"
+#include "Graphics/Resources/Models/Sphere.h"
 #include "Scene/Terrain/Terrain.h"
 #include "Models/WavefrontLoader.h"
-#include "Graphics/Fonts/Font.h"
+#include "Graphics/Resources/Fonts/Font.h"
 #include "Log.h"
-#include <map>
 
 namespace Ablaze
 {

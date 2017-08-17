@@ -1,6 +1,6 @@
 #pragma once
 #include "TextFile.h"
-#include "RenderEngine/structs/Model.h"
+#include "Graphics/Resources/Model.h"
 
 namespace Ablaze
 {

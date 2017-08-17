@@ -1,7 +1,7 @@
 #pragma once
 #include "structs/Structs.h"
 #include "RenderEngine/RenderEngine.h"
-#include "Graphics/Imaging/Textures/Texture.h"
+#include "Graphics/Resources/Imaging/Textures/Texture.h"
 #include "Utils/Files/FontFile.h"
 #include "Types.h"
 

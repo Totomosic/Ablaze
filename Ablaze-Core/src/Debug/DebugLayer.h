@@ -1,8 +1,8 @@
 #pragma once
 #include "Scene/Layer.h"
-#include "Graphics/Imaging/Textures/Texture.h"
+#include "Graphics/Resources/Imaging/Textures/Texture.h"
 #include "Graphics/Shaders/Shader.h"
-#include "RenderEngine/Models/Rectangle.h"
+#include "Graphics/Resources/Models/Rectangle.h"
 
 namespace Ablaze
 {

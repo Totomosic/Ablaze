@@ -3,7 +3,7 @@
 #include "Maths/Maths.h"
 #include "structs/Data/Color.h"
 #include "Utils/Utils.h"
-#include "Graphics/Imaging/Textures/Texture.h"
+#include "Graphics/Resources/Imaging/Textures/Texture.h"
 #include <vector>
 #include <map>
 
