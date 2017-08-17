@@ -47,6 +47,7 @@ namespace Ablaze
 		void TextComponent::SetFont(Font* font)
 		{
 			this->font = font;
+			//FontFactory::Request(font);
 			ApplyToMesh();
 		}
 
@@ -66,11 +67,11 @@ namespace Ablaze
 		{
 			if (owner->HasComponent<Components::MeshComponent>())
 			{
-				owner->SetMesh(MeshFactory::BuildTextUnnamed(text, font, color, MaterialFactory::Fabricate(Color::White(), Shader::Font(), "Tex0", font)));
+				owner->SetMesh(MeshFactory::BuildTextUnnamed(text, font, color, MaterialFactory::FabricateFont(Color::White(), Shader::Font(), "Tex0", font)));
 			}
 			else
 			{
-				owner->AddComponent(new Components::MeshComponent(MeshFactory::BuildTextUnnamed(text, font, color, MaterialFactory::Fabricate(Color::White(), Shader::Font(), "Tex0", font))));
+				owner->AddComponent(new Components::MeshComponent(MeshFactory::BuildTextUnnamed(text, font, color, MaterialFactory::FabricateFont(Color::White(), Shader::Font(), "Tex0", font))));
 			}
 		}
 

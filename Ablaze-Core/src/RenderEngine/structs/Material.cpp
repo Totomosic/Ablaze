@@ -3,22 +3,26 @@
 namespace Ablaze
 {
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState, bool blendState, GLenum srcBlendState, GLenum dstBlendState)
-		: name(name), diffuseColor(color), shader(shader), textures(textures), depthState(depthState), blendState(blendState), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState)
+		: name(name), diffuseColor(color), shader(shader), textures(textures), depthState(depthState), blendState(blendState), depthFunction(depthFunction), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
 	{
 
 	}
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depthState, bool blendState, GLenum srcBlendState, GLenum dstBlendState)
-		: name(name), diffuseColor(color), shader(shader), depthState(depthState), blendState(blendState), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState)
+		: name(name), diffuseColor(color), shader(shader), depthState(depthState), blendState(blendState), depthFunction(depthFunction), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
 	{
 		if (texture != nullptr)
 		{
 			textures.AddTexture(sampler, texture);
 		}
+		else
+		{
+			AB_WARN("Texture was nullptr");
+		}
 	}
 
-	Material::Material() : Material::Material("", Color::White(), nullptr, nullptr)
+	Material::Material() : Material::Material("", Color::White(), nullptr, "", nullptr, true, true, GL_LESS, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 	{
 	
 	}
@@ -51,6 +55,11 @@ namespace Ablaze
 	bool Material::GetBlendState() const
 	{
 		return blendState;
+	}
+
+	const GLenum& Material::GetDepthFunc() const
+	{
+		return depthFunction; 
 	}
 
 	const GLenum& Material::GetSrcBlend() const
@@ -139,6 +148,11 @@ namespace Ablaze
 		blendState = blend;
 	}
 
+	void Material::SetDepthFunc(GLenum func)
+	{
+		depthFunction = func;
+	}
+
 	void Material::SetSrcBlend(GLenum src)
 	{
 		srcBlendState = src;
@@ -156,6 +170,7 @@ namespace Ablaze
 		if (depthState)
 		{
 			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(depthFunction);
 		}
 		else
 		{

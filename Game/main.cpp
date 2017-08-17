@@ -79,7 +79,7 @@ public:
 		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/Plane.obj"));
 		ModelFactory::Order("Cruiser", VFS::RetrieveFile<WavefrontFile>("/res/SunPrincess.obj"));
 		ModelFactory::Order("Bridge", VFS::RetrieveFile<WavefrontFile>("/res/Bridge1.obj"));
-		FontFactory::Order("Arial", "res/arial.ttf", 32);
+		FontFactory::Order("Arial", "/res/arial.ttf", 32);
 		MeshFactory::Order("Floor", "Floor", "BrickMaterial");
 		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
@@ -132,6 +132,8 @@ public:
 
 		Shader::Default()->Enable();
 		Shader::Default()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
+
+		glDepthFunc(GL_LEQUAL);
 	}
 
 	void Tick() override

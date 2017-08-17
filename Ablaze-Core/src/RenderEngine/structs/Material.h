@@ -18,14 +18,15 @@ namespace Ablaze
 		const Shader* shader;
 		bool depthState;
 		bool blendState;
+		GLenum depthFunction;
 		GLenum srcBlendState;
 		GLenum dstBlendState;
 		TextureSet textures;
 		UniformManager uniforms;
 
 	protected:
-		Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState = true, bool blendState = true, GLenum srcBlendState = GL_SRC_ALPHA, GLenum dstBlendState = GL_ONE_MINUS_SRC_ALPHA);
-		Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture = nullptr, bool depthState = true, bool blendState = true, GLenum srcBlendState = GL_SRC_ALPHA, GLenum dstBlendState = GL_ONE_MINUS_SRC_ALPHA);
+		Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState, bool blendState, GLenum depthFunc, GLenum srcBlendState, GLenum dstBlendState);
+		Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depthState, bool blendState, GLenum depthFunc, GLenum srcBlendState, GLenum dstBlendState);
 		Material();
 
 	public:
@@ -36,6 +37,7 @@ namespace Ablaze
 		Texture* GetTexture(int index = 0) const;
 		bool GetDepthState() const;
 		bool GetBlendState() const;		
+		const GLenum& GetDepthFunc() const;
 		const GLenum& GetSrcBlend() const;
 		const GLenum& GetDstBlend() const;
 		bool HasTransparency() const;
@@ -56,6 +58,7 @@ namespace Ablaze
 		void SetShader(const Shader* const shader);
 		void SetDepthState(bool depthEnabled);
 		void SetBlendState(bool blendEnabled);
+		void SetDepthFunc(GLenum func);
 		void SetSrcBlend(GLenum src);
 		void SetDstBlend(GLenum dst);
 

@@ -17,7 +17,7 @@ namespace Ablaze
 
 	public:
 		Font(const String& name, String filename, float size = 32);
-		~Font();
+		~Font() override;
 
 		float GetSize() const;
 

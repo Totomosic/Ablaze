@@ -54,18 +54,18 @@ namespace Ablaze
 	{
 		if (ContainsSize(fontName, size))
 		{
-			auto val = *(fonts[fontName]);
-			auto pair = val[size];
-			pair->second--;
+			auto val = fonts[fontName];
+			auto pair = (*val)[size];
+			pair->second -= 1;
 			if (pair->second <= 0)
 			{
+				val->erase(size);
 				delete pair->first;
 				delete pair;
-				val.erase(size);
-				if (val.empty())
+				if (val->empty())
 				{
-					delete &val;
 					fonts.erase(fontName);
+					delete &val;
 				}
 				return true;
 			}
