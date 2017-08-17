@@ -160,8 +160,9 @@
     <ClCompile Include="src\Entities\Components\UI\TextComponent.cpp" />
     <ClCompile Include="src\Entities\Components\UI\Clickable.cpp" />
     <ClCompile Include="src\Graphics\Resources\Resource.cpp" />
-    <ClCompile Include="src\Scene\UI\Background.cpp" />
+    <ClCompile Include="src\Scene\UI\Panel.cpp" />
     <ClCompile Include="src\Scene\UI\Menu.cpp" />
+    <ClCompile Include="src\Scene\UI\Text.cpp" />
     <ClCompile Include="src\Scene\UI\Widget.cpp" />
     <ClCompile Include="src\Utils\Timer.cpp" />
     <ClCompile Include="src\Engine.cpp" />
@@ -284,8 +285,10 @@
     <ClInclude Include="src\Entities\Components\UI\Clickable.h" />
     <ClInclude Include="src\Graphics\Resources\Resource.h" />
     <ClInclude Include="src\Graphics\Resources\Resources.h" />
-    <ClInclude Include="src\Scene\UI\Background.h" />
+    <ClInclude Include="src\Scene\UI\Panel.h" />
     <ClInclude Include="src\Scene\UI\Menu.h" />
+    <ClInclude Include="src\Scene\UI\Text.h" />
+    <ClInclude Include="src\Scene\UI\UI.h" />
     <ClInclude Include="src\Scene\UI\Widget.h" />
     <ClInclude Include="src\Utils\Timer.h" />
     <ClInclude Include="src\Engine.h" />

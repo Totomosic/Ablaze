@@ -1,6 +1,5 @@
 #pragma once
 #include "Enums.h"
-#include "Maths/Maths.h"
 #include "Types.h"
 
 namespace Ablaze

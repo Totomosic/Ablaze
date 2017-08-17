@@ -1,10 +1,10 @@
 #pragma once
-#include "Background.h"
+#include "Panel.h"
 
 namespace Ablaze
 {
 
-	class Menu : public Background
+	class Menu : public Panel
 	{
 	private:
 		std::vector<GameObject*> widgets;

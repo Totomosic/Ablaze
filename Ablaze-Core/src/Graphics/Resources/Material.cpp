@@ -57,17 +57,17 @@ namespace Ablaze
 		return blendState;
 	}
 
-	const GLenum& Material::GetDepthFunc() const
+	GLenum Material::GetDepthFunc() const
 	{
 		return depthFunction; 
 	}
 
-	const GLenum& Material::GetSrcBlend() const
+	GLenum Material::GetSrcBlend() const
 	{
 		return srcBlendState;
 	}
 
-	const GLenum& Material::GetDstBlend() const
+	GLenum Material::GetDstBlend() const
 	{
 		return dstBlendState;
 	}

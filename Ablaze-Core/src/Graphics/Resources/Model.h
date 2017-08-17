@@ -27,7 +27,7 @@ namespace Ablaze
 		Model(const Model& other) = delete;
 
 	public:
-		virtual ~Model();
+		~Model() override;
 
 		VAO* GetVAO() const;
 		VBO* GetVBO() const;

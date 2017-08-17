@@ -1,7 +1,6 @@
 #include "GameObject.h"
 #include "Engine.h"
 #include "Tags.h"
-#include "Components/Components.h"
 #include "Scene/SceneManager.h"
 #include "Factories/MeshFactory.h"
 
@@ -132,7 +131,7 @@ namespace Ablaze
 
 	Components::Transform* GameObject::Transform() const
 	{
-		return transform;
+		return GetComponent<Components::Transform>();
 	}
 
 	Components::Parent* GameObject::ParentComponent() const

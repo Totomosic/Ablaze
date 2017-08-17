@@ -47,7 +47,6 @@ namespace Ablaze
 		void TextComponent::SetFont(Font* font)
 		{
 			this->font = font;
-			//FontFactory::Request(font);
 			ApplyToMesh();
 		}
 

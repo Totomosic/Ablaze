@@ -57,6 +57,11 @@ namespace Ablaze
 		return maxHeight;
 	}
 
+	maths::vec2 Font::GetSize(const String& text) const
+	{
+		return maths::vec2(GetWidth(text), GetHeight(text));
+	}
+
 	Model* Font::CreateModel(const String& modelName, const String& text, const Color& color) const
 	{
 		VBO* vbo = new VBO(text.length() * 4 * sizeof(Vertex), BufferLayout::Vertex());

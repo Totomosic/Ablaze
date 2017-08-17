@@ -1,26 +1,16 @@
 #pragma once
-#include "Components/ComponentSet.h"
 #include "RenderEngine/structs/Mesh.h"
-#include "Maths/Maths.h"
+#include "Components/ComponentSet.h"
 
 namespace Ablaze
 {
 
 	class Layer;
 
-	namespace Components
-	{
-		class Transform;
-		class Parent;
-		class Identifier;
-		class MeshComponent;
-	}
-
 	class GameObject
 	{
 	protected:
 		uint id;
-		Components::Transform* transform;
 		Layer* currentLayer;
 		ComponentSet* components;
 
@@ -48,10 +38,12 @@ namespace Ablaze
 		{
 			return components->GetComponent<T>();
 		}
+
 		template<class T> bool HasComponent() const
 		{
 			return components->HasComponent<T>();
 		}
+
 		void AddComponent(Components::Component* component)
 		{
 			components->AddComponent(*component);

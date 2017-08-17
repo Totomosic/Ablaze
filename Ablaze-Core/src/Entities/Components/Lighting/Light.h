@@ -1,6 +1,4 @@
 #pragma once
-#include "Enums.h"
-#include "Types.h"
 #include "Entities/Components/Component.h"
 
 namespace Ablaze

@@ -30,16 +30,16 @@ namespace Ablaze
 		Material();
 
 	public:
-		virtual ~Material();
+		~Material() override;
 
 		const Color& GetColor() const;
 		const Shader* const GetShader() const;
 		Texture* GetTexture(int index = 0) const;
 		bool GetDepthState() const;
 		bool GetBlendState() const;		
-		const GLenum& GetDepthFunc() const;
-		const GLenum& GetSrcBlend() const;
-		const GLenum& GetDstBlend() const;
+		GLenum GetDepthFunc() const;
+		GLenum GetSrcBlend() const;
+		GLenum GetDstBlend() const;
 		bool HasTransparency() const;
 		bool HasTextures() const;
 

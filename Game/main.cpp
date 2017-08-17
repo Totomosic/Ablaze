@@ -116,14 +116,14 @@ public:
 		water->AddComponent(new Components::Collider(OBB(maths::vec3(10000, 0, 10000))));
 
 		Layer* uiLayer = new Layer("UI", new ForwardRenderer());
-		Canvas* canvas = new Canvas(window, Origin::Center);
+		Canvas* canvas = new Canvas(window, Origin::TopLeft);
 		uiLayer->SetCamera(canvas);
 
-		Background* crosshair = new Background(0, 0, 0, maths::vec2(4), Color::Black());
+		Panel* crosshair = new Panel(WindowWidth() / 2, WindowHeight() / 2, maths::vec2(4), Color::Black());
 		crosshair->SetColor(Color::Red());
 
-		GameObject* text = new GameObject(0, 0, 0);
-		text->AddComponent(new Components::TextComponent("Test Text", FontFactory::Request("Arial", 32)));
+		Text* text = new Text(100, -25, "Test Text", FontFactory::Request("Arial", 24));
+		text->Identifier()->SetName("Text");
 
 		Shader::PBR()->Enable();
 		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
@@ -217,6 +217,7 @@ public:
 
 	void Render() override
 	{
+		((Text*)GameObjects::GetWithName("Text"))->SetText("Ablaze: " + std::to_string(Time::FramesPerSecond()) + " FPS");
 		Application::Render();
 		UpdateDisplay();
 	}

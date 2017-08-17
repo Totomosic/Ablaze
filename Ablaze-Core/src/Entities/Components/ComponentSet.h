@@ -1,18 +1,11 @@
 #pragma once
-#include <vector>
-#include <map>
 #include <typeindex>
 #include <typeinfo>
-
-#include "Component.h"
+#include "Types.h"
+#include "Components.h"
 
 namespace Ablaze
 {
-
-	namespace Components
-	{
-		class Transform;
-	}
 
 	class ComponentSet
 	{

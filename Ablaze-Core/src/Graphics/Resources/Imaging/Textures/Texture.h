@@ -24,7 +24,7 @@ namespace Ablaze
 		Texture(const String& name, GLenum target, int width, int height);
 
 	public:
-		virtual ~Texture();
+		~Texture() override;
 
 		const GLuint GetID() const;
 		const GLenum GetTarget() const;

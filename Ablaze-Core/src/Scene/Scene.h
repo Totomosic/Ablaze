@@ -6,8 +6,7 @@
 #include "Terrain/Terrain.h"
 #include "Terrain/HeightFunctions/PerlinNoise.h"
 #include "Terrain/HeightFunctions/HeightmapFunction.h"
-#include "UI/Widget.h"
-#include "UI/Background.h"
+#include "UI/UI.h"
 
 namespace Ablaze
 {

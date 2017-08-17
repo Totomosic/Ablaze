@@ -3,7 +3,7 @@
 namespace Ablaze
 {
 
-	Menu::Menu(const maths::vec3& position, const maths::vec2& size, const Color& color, const maths::mat4& transform) : Background(position, size, color, transform)
+	Menu::Menu(const maths::vec3& position, const maths::vec2& size, const Color& color, const maths::mat4& transform) : Panel(position, size, color, transform)
 	{
 	
 	}

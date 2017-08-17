@@ -1,6 +1,7 @@
 #include "Collider.h"
 #include "RenderEngine/structs/Mesh.h"
 #include "Entities/Components/Rendering/MeshComponent.h"
+#include "Entities/GameObject.h"
 
 namespace Ablaze
 {

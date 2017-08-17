@@ -23,6 +23,7 @@ namespace Ablaze
 
 		float GetWidth(const String& text) const;
 		float GetHeight(const String& text) const;
+		maths::vec2 GetSize(const String& text) const;
 
 		Model* CreateModel(const String& modelName, const String& text, const Color& color = Color::White()) const;
 
