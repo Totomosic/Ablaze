@@ -200,9 +200,9 @@
     <ClCompile Include="src\Graphics\Resources\Imaging\Image.cpp" />
     <ClCompile Include="src\Graphics\Resources\Imaging\Textures\DynamicTexture.cpp" />
     <ClCompile Include="src\Graphics\Resources\Imaging\Textures\TextureSet.cpp" />
-    <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
-    <ClCompile Include="src\Graphics\Shaders\ShaderManager.cpp" />
-    <ClCompile Include="src\Graphics\Shaders\Uniforms\UniformManager.cpp" />
+    <ClCompile Include="src\Graphics\Resources\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Graphics\Resources\Shaders\ShaderManager.cpp" />
+    <ClCompile Include="src\Graphics\Resources\Shaders\Uniforms\UniformManager.cpp" />
     <ClCompile Include="src\Graphics\Resources\Imaging\Textures\Texture.cpp" />
     <ClCompile Include="src\Graphics\Resources\Imaging\Textures\Texture2D.cpp" />
     <ClCompile Include="src\Graphics\Resources\Imaging\Textures\TextureCube.cpp" />
@@ -331,9 +331,9 @@
     <ClInclude Include="src\Graphics\Resources\Imaging\Image.h" />
     <ClInclude Include="src\Graphics\Resources\Imaging\Textures\DynamicTexture.h" />
     <ClInclude Include="src\Graphics\Resources\Imaging\Textures\TextureSet.h" />
-    <ClInclude Include="src\Graphics\Shaders\Shader.h" />
-    <ClInclude Include="src\Graphics\Shaders\ShaderManager.h" />
-    <ClInclude Include="src\Graphics\Shaders\Uniforms\UniformManager.h" />
+    <ClInclude Include="src\Graphics\Resources\Shaders\Shader.h" />
+    <ClInclude Include="src\Graphics\Resources\Shaders\ShaderManager.h" />
+    <ClInclude Include="src\Graphics\Resources\Shaders\Uniforms\UniformManager.h" />
     <ClInclude Include="src\Graphics\Resources\Imaging\ImageLoader.h" />
     <ClInclude Include="src\Graphics\Resources\Imaging\Textures\Texture.h" />
     <ClInclude Include="src\Graphics\Resources\Imaging\Textures\Texture2D.h" />
@@ -418,16 +418,16 @@
   <ItemGroup>
     <None Include="src\Debug\Shaders\DebugTexture_f.glsl" />
     <None Include="src\Debug\Shaders\DebugTexture_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\base_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\base_ui_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\base_ui_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\base_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\font_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\font_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\pbr_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\pbr_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\texture_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\texture_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\base_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\base_ui_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\base_ui_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\base_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\font_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\font_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\pbr_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\pbr_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\texture_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\texture_v.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,5 @@
 #pragma once
-#include "Graphics/Shaders/Shader.h"
+#include "Graphics/Resources/Shaders/Shader.h"
 #include "Maths/Maths.h"
 #include "Types.h"
 

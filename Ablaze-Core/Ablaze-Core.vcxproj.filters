@@ -99,15 +99,6 @@
     <ClCompile Include="src\Factories\TextureFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\Shaders\Uniforms\UniformManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\Shaders\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\Shaders\ShaderManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\Context.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -372,6 +363,15 @@
     <ClCompile Include="src\Scene\UI\Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\Resources\Shaders\Uniforms\UniformManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Resources\Shaders\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Resources\Shaders\ShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">
@@ -468,15 +468,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Factories\TextureFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\Shaders\Uniforms\UniformManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\Shaders\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Graphics\Shaders\ShaderManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Context.h">
@@ -791,19 +782,28 @@
     <ClInclude Include="src\Scene\UI\UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\Resources\Shaders\Uniforms\UniformManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Resources\Shaders\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Resources\Shaders\ShaderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Graphics\Shaders\Source\base_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\base_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\pbr_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\font_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\font_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\pbr_f.glsl" />
     <None Include="src\Debug\Shaders\DebugTexture_v.glsl" />
     <None Include="src\Debug\Shaders\DebugTexture_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\texture_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\texture_v.glsl" />
-    <None Include="src\Graphics\Shaders\Source\base_ui_f.glsl" />
-    <None Include="src\Graphics\Shaders\Source\base_ui_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\base_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\base_ui_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\base_ui_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\base_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\font_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\font_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\pbr_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\pbr_v.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\texture_f.glsl" />
+    <None Include="src\Graphics\Resources\Shaders\Source\texture_v.glsl" />
   </ItemGroup>
 </Project>
