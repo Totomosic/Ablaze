@@ -67,136 +67,158 @@ namespace Ablaze
 		return Release(material);
 	}
 
-	Material* MaterialFactory::Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings)
 	{
-		Material* mat = new Material(name, color, shader, sampler, texture, depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		Material* mat = new Material(name, color, shader, sampler, texture, settings);
 		CreateNew(mat, 1);
 		return mat;
 	}
 
-	Material* MaterialFactory::Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, const RenderingSettings& settings)
 	{
-		return Build(name, color, shader, sampler, TextureFactory::Request2D(textureName), depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return Build(name, color, shader, sampler, TextureFactory::Request2D(textureName), settings);
 	}
 
-	Material* MaterialFactory::Build(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::Build(const String& name, const Color& color, const Shader* const shader, const RenderingSettings& settings)
 	{
-		Material* mat = new Material(name, color, shader, textures, depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		Material* mat = new Material(name, color, shader, settings);
+		CreateNew(mat, 1);
+		return mat;
+	}
+
+	Material* MaterialFactory::Build(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, const RenderingSettings& settings)
+	{
+		Material* mat = new Material(name, color, shader, textures, settings);
 		CreateNew(mat, 1);
 		return mat;
 	}
 
 	PBRMaterial* MaterialFactory::BuildPBR(const String& name, const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap,
-		bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+		const RenderingSettings& settings)
 	{
-		PBRMaterial* mat = new PBRMaterial(name, color, shader, albedo, roughness, metallic, ao, normalMap, depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		PBRMaterial* mat = new PBRMaterial(name, color, shader, albedo, roughness, metallic, ao, normalMap, settings);
 		CreateNew(mat, 1);
 		return mat;
 	}
 
 	PBRMaterial* MaterialFactory::BuildPBR(const String& name, const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap,
-		bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+		const RenderingSettings& settings)
 	{
-		return BuildPBR(name, color, shader, TextureFactory::Request2D(albedoTexture), TextureFactory::Request2D(roughnessTexture), TextureFactory::Request2D(metallicTexture), TextureFactory::Request2D(aoTexture), TextureFactory::Request2D(normalMap), depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return BuildPBR(name, color, shader, TextureFactory::Request2D(albedoTexture), TextureFactory::Request2D(roughnessTexture), TextureFactory::Request2D(metallicTexture), TextureFactory::Request2D(aoTexture), TextureFactory::Request2D(normalMap), settings);
 	}
 
-	Material* MaterialFactory::BuildFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, Font* font, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::BuildFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, Font* font, const RenderingSettings& settings)
 	{
-		return Build(name, color, shader, sampler, font, depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return Build(name, color, shader, sampler, font, settings);
 	}
 
-	Material* MaterialFactory::BuildFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::BuildFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, const RenderingSettings& settings)
 	{
-		return BuildFont(name, color, shader, sampler, FontFactory::Request(fontName, size), depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return BuildFont(name, color, shader, sampler, FontFactory::Request(fontName, size), settings);
 	}
 
-	void MaterialFactory::Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	void MaterialFactory::Order(const String& name, const Color& color, const Shader* const shader, const RenderingSettings& settings)
 	{
-		Decrement(Build(name, color, shader, sampler, texture, depth, blend, depthFunction, blendSrcFunc, blendDstFunc)->GetName());
+		Decrement(Build(name, color, shader, settings)->GetName());
 	}
 
-	void MaterialFactory::Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	void MaterialFactory::Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings)
 	{
-		Order(name, color, shader, sampler, TextureFactory::Request2D(textureName), depth, blend, blendSrcFunc, blendDstFunc);
+		Decrement(Build(name, color, shader, sampler, texture, settings)->GetName());
 	}
 
-	void MaterialFactory::Order(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	void MaterialFactory::Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, const RenderingSettings& settings)
 	{
-		Decrement(Build(name, color, shader, textures, depth, blend, depthFunction, blendSrcFunc, blendDstFunc)->GetName());
+		Order(name, color, shader, sampler, TextureFactory::Request2D(textureName), settings);
+	}
+
+	void MaterialFactory::Order(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, const RenderingSettings& settings)
+	{
+		Decrement(Build(name, color, shader, textures, settings)->GetName());
 	}
 
 	void MaterialFactory::OrderPBR(const String& name, const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap,
-		bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+		const RenderingSettings& settings)
 	{
-		Decrement(BuildPBR(name, color, shader, albedo, roughness, metallic, ao, normalMap, depth, blend, depthFunction, blendSrcFunc, blendDstFunc)->GetName());
+		Decrement(BuildPBR(name, color, shader, albedo, roughness, metallic, ao, normalMap, settings)->GetName());
 	}
 
 	void MaterialFactory::OrderPBR(const String& name, const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap,
-		bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+		const RenderingSettings& settings)
 	{
 		OrderPBR(name, color, shader, TextureFactory::Request2D(albedoTexture), TextureFactory::Request2D(roughnessTexture), TextureFactory::Request2D(metallicTexture), TextureFactory::Request2D(aoTexture), TextureFactory::Request2D(normalMap), 
-			depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+			settings);
 	}
 
-	void MaterialFactory::OrderFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, Font* font, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	void MaterialFactory::OrderFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, Font* font, const RenderingSettings& settings)
 	{
-		Decrement(BuildFont(name, color, shader, sampler, font, depth, blend, depthFunction, blendSrcFunc, blendDstFunc)->GetName());
+		Decrement(BuildFont(name, color, shader, sampler, font, settings)->GetName());
 	}
 
-	void MaterialFactory::OrderFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	void MaterialFactory::OrderFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, const RenderingSettings& settings)
 	{
-		Decrement(BuildFont(name, color, shader, sampler, fontName, size, depth, blend, depthFunction, blendSrcFunc, blendDstFunc)->GetName());
+		Decrement(BuildFont(name, color, shader, sampler, fontName, size, settings)->GetName());
 	}
 
-	Material* MaterialFactory::Fabricate(const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::Fabricate(const Color& color, const Shader* const shader, const RenderingSettings& settings)
 	{
-		String hashedName = "Material(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURE(" + sampler + ", " + textureName + ")SETTINGS(" + std::to_string(depth) + std::to_string(blend) + std::to_string(blendSrcFunc) + std::to_string(blendDstFunc) + ")_HASHED_";
+		String hashedName = "Material(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")SETTINGS(" + settings.ToString() + ")_HASHED_";
 		if (ContainsKey(hashedName))
 		{
 			return Request(hashedName);
 		}
-		return Build(hashedName, color, shader, sampler, textureName, depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return Build(hashedName, color, shader, settings);
 	}
 
-	Material* MaterialFactory::Fabricate(const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::Fabricate(const Color& color, const Shader* const shader, const String& sampler, const String& textureName, const RenderingSettings& settings)
+	{
+		String hashedName = "Material(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURE(" + sampler + ", " + textureName + ")SETTINGS(" + settings.ToString() + ")_HASHED_";
+		if (ContainsKey(hashedName))
+		{
+			return Request(hashedName);
+		}
+		return Build(hashedName, color, shader, sampler, textureName, settings);
+	}
+
+	Material* MaterialFactory::Fabricate(const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings)
 	{
 		String hashedName = "";
 		if (texture != nullptr)
-			hashedName = "Material(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURE(" + sampler + ", " + texture->GetName() + ")SETTINGS(" + std::to_string(depth) + std::to_string(blend) + std::to_string(blendSrcFunc) + std::to_string(blendDstFunc) + ")_HASHED_";
+			hashedName = "Material(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURE(" + sampler + ", " + texture->GetName() + ")SETTINGS(" + settings.ToString() + ")_HASHED_";
 		else
-			hashedName = "Material(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURE(" + sampler + ", " + "NULLPTR" + ")SETTINGS(" + std::to_string(depth) + std::to_string(blend) + std::to_string(blendSrcFunc) + std::to_string(blendDstFunc) + ")_HASHED_";
+			hashedName = "Material(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURE(" + sampler + ", " + "NULLPTR" + ")SETTINGS(" + settings.ToString() + ")_HASHED_";
 		if (ContainsKey(hashedName))
 		{
 			return Request(hashedName);
 		}
-		return Build(hashedName, color, shader, sampler, texture, depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return Build(hashedName, color, shader, sampler, texture, settings);
 	}
 
 	PBRMaterial* MaterialFactory::FabricatePBR(const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap,
-		bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+		const RenderingSettings& settings)
 	{
-		String hashedName = "PBRMaterial(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURES(" + albedoTexture + ", " + roughnessTexture + ", " + metallicTexture + ", " + aoTexture + ", " + normalMap  + ")SETTINGS(" + std::to_string(depth) + std::to_string(blend) + std::to_string(blendSrcFunc) + std::to_string(blendDstFunc) + ")_HASHED_";
+		String hashedName = "PBRMaterial(" + std::to_string(color.r) + "," + std::to_string(color.g) + "," + std::to_string(color.b) + "," + std::to_string(color.a) + ")SHADER(" + shader->GetName() + ")TEXTURES(" + albedoTexture + ", " + roughnessTexture + ", " + metallicTexture + ", " + aoTexture + ", " + normalMap  + ")SETTINGS(" + settings.ToString() + ")_HASHED_";
 		if (ContainsKey(hashedName))
 		{
 			return RequestPBR(hashedName);
 		}
-		return BuildPBR(hashedName, color, shader, albedoTexture, roughnessTexture, metallicTexture, aoTexture, normalMap, depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return BuildPBR(hashedName, color, shader, albedoTexture, roughnessTexture, metallicTexture, aoTexture, normalMap, settings);
 	}
 
 	PBRMaterial* MaterialFactory::FabricatePBR(const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap, 
-		bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+		const RenderingSettings& settings)
 	{
-		return FabricatePBR(color, shader, albedo->GetName(), roughness->GetName(), metallic->GetName(), ao->GetName(), normalMap->GetName(), depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return FabricatePBR(color, shader, albedo->GetName(), roughness->GetName(), metallic->GetName(), ao->GetName(), normalMap->GetName(), settings);
 	}
 
-	Material* MaterialFactory::FabricateFont(const Color& color, const Shader* const shader, const String& sampler, Font* font, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::FabricateFont(const Color& color, const Shader* const shader, const String& sampler, Font* font, const RenderingSettings& settings)
 	{
-		return Fabricate(color, shader, sampler, font, depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return Fabricate(color, shader, sampler, font, settings);
 	}
 
-	Material* MaterialFactory::FabricateFont(const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, bool depth, bool blend, GLenum depthFunction, GLenum blendSrcFunc, GLenum blendDstFunc)
+	Material* MaterialFactory::FabricateFont(const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, const RenderingSettings& settings)
 	{
-		return FabricateFont(color, shader, sampler, FontFactory::Request(fontName, size), depth, blend, depthFunction, blendSrcFunc, blendDstFunc);
+		return FabricateFont(color, shader, sampler, FontFactory::Request(fontName, size), settings);
 	}
 
 	void MaterialFactory::Increment(const String& name)

@@ -1,5 +1,5 @@
 #pragma once
-#include "VBO.h"
+#include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "Data/Vertex.h"
 #include "Data/Color.h"
@@ -13,24 +13,24 @@ namespace Ablaze
 		Arrays, Elements
 	};
 
-	class VAO
+	class VertexArray
 	{
 	protected:
 		GLuint id;
 		GLint renderCount;
 		GLint vertexCount;
-		std::vector<VBO*> attributes;
+		std::vector<VertexBuffer*> attributes;
 
 		RenderMode renderMode;
 		GLenum primitiveType;
 		IndexBuffer* indexBuffer;
 
 	public:
-		VAO(RenderMode renderMode);
-		virtual ~VAO();
+		VertexArray(RenderMode renderMode);
+		virtual ~VertexArray();
 
 		GLuint GetID() const;
-		VBO* GetAttribute(GLint index);
+		VertexBuffer* GetAttribute(GLint index);
 		IndexBuffer* GetIndexBuffer() const;
 		GLint GetRenderCount() const;
 		GLint GetVertexCount() const;
@@ -46,13 +46,13 @@ namespace Ablaze
 		void Bind() const;
 		void Unbind() const;
 
-		void AttachVBO(VBO* vbo);
-		void AttachVBOs(VBO** const vbos, int length);
+		void AttachVertexBuffer(VertexBuffer* vbo);
+		void AttachVertexBuffers(VertexBuffer** const vbos, int length);
 		void AttachIndexBuffer(IndexBuffer* buffer);
 
 		IndexBuffer* CreateIndexBuffer(GLuint* data, int byteLength, GLenum bufferUsage = GL_STATIC_DRAW);
 
-		static VAO* FromVertices(const Vertex* vertices, const GLsizei length);
+		static VertexArray* FromVertices(const Vertex* vertices, const GLsizei length);
 
 	private:
 		void Create();

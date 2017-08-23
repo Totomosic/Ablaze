@@ -3,7 +3,7 @@
 namespace Ablaze
 {
 
-	Rectangle::Rectangle(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VBO(4 * sizeof(Vertex), BufferLayout::Vertex()), new IndexBuffer(6 * sizeof(GLuint)), maths::vec3(size.x, size.y, 0))
+	Rectangle::Rectangle(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VertexBuffer(4 * sizeof(Vertex), BufferLayout::Vertex()), new IndexBuffer(6 * sizeof(GLuint)), maths::vec3(size.x, size.y, 0))
 	{
 		Create(color);
 	}
@@ -21,25 +21,25 @@ namespace Ablaze
 
 		ptr->position = maths::vec3(-x, y, 0);
 		ptr->normal = n;
-		ptr->texCoord = maths::vec2(0, 0);
+		ptr->texCoord = maths::vec2(0, 1);
 		ptr->color = color;
 		ptr++;
 
 		ptr->position = maths::vec3(-x, -y, 0);
 		ptr->normal = n;
-		ptr->texCoord = maths::vec2(0, 1);
+		ptr->texCoord = maths::vec2(0, 0);
 		ptr->color = color;
 		ptr++;
 
 		ptr->position = maths::vec3(x, -y, 0);
 		ptr->normal = n;
-		ptr->texCoord = maths::vec2(1, 1);
+		ptr->texCoord = maths::vec2(1, 0);
 		ptr->color = color;
 		ptr++;
 
 		ptr->position = maths::vec3(x, y, 0);
 		ptr->normal = n;
-		ptr->texCoord = maths::vec2(1, 0);
+		ptr->texCoord = maths::vec2(1, 1);
 		ptr->color = color;
 
 		auto val = vbo->UnmapBuffer();

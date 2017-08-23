@@ -7,11 +7,11 @@ namespace Ablaze
 	class TextureCube : public Texture
 	{
 	public:
-		TextureCube();
+		TextureCube(const String& name);
 
 	private:
 		void Create() override;
 
 	};
 
-}
+} 

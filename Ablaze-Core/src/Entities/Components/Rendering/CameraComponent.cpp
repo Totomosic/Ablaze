@@ -7,8 +7,8 @@ namespace Ablaze
 	namespace Components
 	{
 
-		Components::Camera::Camera(const Viewport& viewport, Projection type, float fieldOfView, Angle Angle, float nearPlane, float farPlane)
-			: viewport(viewport), projection(type), nearPlane(nearPlane), farPlane(farPlane)
+		Components::Camera::Camera(const Viewport& viewport, Projection type, float fieldOfView, Angle Angle, float nearPlane, float farPlane) : Component(),
+			viewport(viewport), projection(type), nearPlane(nearPlane), farPlane(farPlane)
 		{
 			this->fov = (Angle == Angle::Degrees ? maths::ToRadians(fieldOfView) : fieldOfView);
 			if (projection == Projection::Perspective)

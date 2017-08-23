@@ -5,6 +5,7 @@
 #include "Graphics/Resources/Imaging/Textures/Texture.h"
 #include "Graphics/Resources/Shaders/Uniforms/UniformManager.h"
 #include "Graphics/Resources/Imaging/Textures/TextureSet.h"
+#include "RenderingSettings.h"
 
 namespace Ablaze
 {
@@ -16,17 +17,14 @@ namespace Ablaze
 	protected:
 		Color diffuseColor;
 		const Shader* shader;
-		bool depthState;
-		bool blendState;
-		GLenum depthFunction;
-		GLenum srcBlendState;
-		GLenum dstBlendState;
+		RenderingSettings settings;
 		TextureSet textures;
 		UniformManager uniforms;
 
 	protected:
-		Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState, bool blendState, GLenum depthFunc, GLenum srcBlendState, GLenum dstBlendState);
-		Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depthState, bool blendState, GLenum depthFunc, GLenum srcBlendState, GLenum dstBlendState);
+		Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, const RenderingSettings& settings = RenderingSettings());
+		Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings = RenderingSettings());
+		Material(const String& name, const Color& color, const Shader* const shader, const RenderingSettings& settings = RenderingSettings());
 		Material();
 
 	public:
@@ -34,12 +32,8 @@ namespace Ablaze
 
 		const Color& GetColor() const;
 		const Shader* const GetShader() const;
+		const RenderingSettings& GetSettings() const;
 		Texture* GetTexture(int index = 0) const;
-		bool GetDepthState() const;
-		bool GetBlendState() const;		
-		GLenum GetDepthFunc() const;
-		GLenum GetSrcBlend() const;
-		GLenum GetDstBlend() const;
 		bool HasTransparency() const;
 		bool HasTextures() const;
 
@@ -55,11 +49,7 @@ namespace Ablaze
 
 		void SetColor(const Color& color);
 		void SetShader(const Shader* const shader);
-		void SetDepthState(bool depthEnabled);
-		void SetBlendState(bool blendEnabled);
-		void SetDepthFunc(GLenum func);
-		void SetSrcBlend(GLenum src);
-		void SetDstBlend(GLenum dst);
+		void SetSettings(const RenderingSettings& settings);
 
 		virtual void ApplyMaterial() const;
 

@@ -4,7 +4,7 @@
 #include "Factories/TextureFactory.h"
 #include "structs/Data/Color.h"
 #include "Graphics/Resources/Material.h"
-#include "RenderEngine/PBR/PBRMaterial.h"
+#include "Graphics/Resources/PBRMaterial.h"
 
 namespace Ablaze
 {
@@ -26,34 +26,37 @@ namespace Ablaze
 		static bool ReleasePBR(const String& name);
 		static bool ReleasePBR(const PBRMaterial* const material);
 
-		static Material* Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture = nullptr, bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static Material* Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static Material* Build(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static Material* Build(const String& name, const Color& color, const Shader* const shader, const RenderingSettings& settings = RenderingSettings());
+		static Material* Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings = RenderingSettings());
+		static Material* Build(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, const RenderingSettings& settings = RenderingSettings());
+		static Material* Build(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, const RenderingSettings& settings = RenderingSettings());
 		static PBRMaterial* BuildPBR(const String& name, const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap,
-			bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+			const RenderingSettings& settings = RenderingSettings());
 		static PBRMaterial* BuildPBR(const String& name, const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap,
-			bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static Material* BuildFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, Font* font, bool depth = true, bool blend = true, GLenum depthFunction = GL_LEQUAL, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static Material* BuildFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, bool depth = true, bool blend = true, GLenum depthFunction = GL_LEQUAL, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+			const RenderingSettings& settings = RenderingSettings());
+		static Material* BuildFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, Font* font, const RenderingSettings& settings = RenderingSettings());
+		static Material* BuildFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, const RenderingSettings& settings = RenderingSettings());
 
-		static void Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture = nullptr, bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static void Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static void Order(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static void Order(const String& name, const Color& color, const Shader* const shader, const RenderingSettings& settings = RenderingSettings());
+		static void Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings = RenderingSettings());
+		static void Order(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& textureName, const RenderingSettings& settings = RenderingSettings());
+		static void Order(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, const RenderingSettings& settings = RenderingSettings());
 		static void OrderPBR(const String& name, const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap, 
-			bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+			const RenderingSettings& settings = RenderingSettings());
 		static void OrderPBR(const String& name, const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap,
-			bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static void OrderFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, Font* font, bool depth = true, bool blend = true, GLenum depthFunction = GL_LEQUAL, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static void OrderFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, bool depth = true, bool blend = true, GLenum depthFunction = GL_LEQUAL, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+			const RenderingSettings& settings = RenderingSettings());
+		static void OrderFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, Font* font, const RenderingSettings& settings = RenderingSettings());
+		static void OrderFont(const String& name, const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, const RenderingSettings& settings = RenderingSettings());
 
-		static Material* Fabricate(const Color& color, const Shader* const shader, const String& sampler, Texture* texture = nullptr, bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static Material* Fabricate(const Color& color, const Shader* const shader, const String& sampler, const String& textureName, bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+		static Material* Fabricate(const Color& color, const Shader* const shader, const RenderingSettings& settings = RenderingSettings());
+		static Material* Fabricate(const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings = RenderingSettings());
+		static Material* Fabricate(const Color& color, const Shader* const shader, const String& sampler, const String& textureName, const RenderingSettings& settings = RenderingSettings());
 		static PBRMaterial* FabricatePBR(const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap,
-			bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+			const RenderingSettings& settings = RenderingSettings());
 		static PBRMaterial* FabricatePBR(const Color& color, const Shader* const shader, const String& albedoTexture, const String& roughnessTexture, const String& metallicTexture, const String& aoTexture, const String& normalMap,
-			bool depth = true, bool blend = true, GLenum depthFunction = GL_LESS, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static Material* FabricateFont(const Color& color, const Shader* const shader, const String& sampler, Font* font, bool depth = true, bool blend = true, GLenum depthFunction = GL_LEQUAL, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
-		static Material* FabricateFont(const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, bool depth = true, bool blend = true, GLenum depthFunction = GL_LEQUAL, GLenum blendSrcFunc = GL_SRC_ALPHA, GLenum blendDstFunc = GL_ONE_MINUS_SRC_ALPHA);
+			const RenderingSettings& settings = RenderingSettings());
+		static Material* FabricateFont(const Color& color, const Shader* const shader, const String& sampler, Font* font, const RenderingSettings& settings = RenderingSettings());
+		static Material* FabricateFont(const Color& color, const Shader* const shader, const String& sampler, const String& fontName, float size, const RenderingSettings& settings = RenderingSettings());
 
 	private:
 		static void Increment(const String& name);

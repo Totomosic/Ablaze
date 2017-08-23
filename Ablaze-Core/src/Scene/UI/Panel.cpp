@@ -7,7 +7,7 @@ namespace Ablaze
 	Panel::Panel(const maths::vec3& position, const maths::vec2& size, const Color& color, const maths::mat4& rotation) : Widget(position, size, rotation),
 		color(color)
 	{
-		SetMesh(MeshFactory::BuildRectangleUnnamed(size, color, MaterialFactory::Fabricate(Color::White(), Shader::BaseUI(), "")));
+		SetMesh(MeshFactory::BuildRectangleUnnamed(size, color, MaterialFactory::Fabricate(Color::White(), Shader::BaseUI())));
 	}
 
 	Panel::Panel(float x, float y, float z, const maths::vec2& size, const Color& color, const maths::mat4& rotation) : Panel(maths::vec3(x, y, z), size, color, rotation)

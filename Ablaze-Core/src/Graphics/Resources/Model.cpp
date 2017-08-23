@@ -3,11 +3,11 @@
 namespace Ablaze
 {
 
-	Model::Model(const String& name, VBO* vertexBuffer, IndexBuffer* indexBuffer, const maths::vec3& size) : Resource(name), 
+	Model::Model(const String& name, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, const maths::vec3& size) : Resource(name), 
 		vbo(vertexBuffer), indexBuffer(indexBuffer), size(size)
 	{
-		vao = new VAO(Elements);
-		vao->AttachVBO(vbo);
+		vao = new VertexArray(Elements);
+		vao->AttachVertexBuffer(vbo);
 		vao->AttachIndexBuffer(indexBuffer);
 	}
 
@@ -16,12 +16,12 @@ namespace Ablaze
 		delete vao;
 	}
 
-	VAO* Model::GetVAO() const
+	VertexArray* Model::GetVertexArray() const
 	{
 		return vao;
 	}
 
-	VBO* Model::GetVBO() const
+	VertexBuffer* Model::GetVertexBuffer() const
 	{
 		return vbo;
 	}
@@ -36,11 +36,11 @@ namespace Ablaze
 		return size;
 	}
 
-	void Model::SetVBO(VBO* vbo)
+	void Model::SetVertexBuffer(VertexBuffer* vbo)
 	{
 		delete this->vbo;
 		this->vbo = vbo;
-		vao->AttachVBO(vbo);
+		vao->AttachVertexBuffer(vbo);
 	}
 
 	void Model::SetIndexBuffer(IndexBuffer* ibo)

@@ -3,7 +3,7 @@
 namespace Ablaze
 {
 
-	Tile::Tile(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VBO(4 * sizeof(Vertex), BufferLayout::Vertex()), new IndexBuffer(6 * sizeof(GLuint)), maths::vec3(size.x, 0, size.y))
+	Tile::Tile(const String& name, const maths::vec2& size, const Color& color) : Model(name, new VertexBuffer(4 * sizeof(Vertex), BufferLayout::Vertex()), new IndexBuffer(6 * sizeof(GLuint)), maths::vec3(size.x, 0, size.y))
 	{
 		Create(color);
 	}

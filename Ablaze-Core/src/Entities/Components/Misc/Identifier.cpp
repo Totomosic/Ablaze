@@ -5,8 +5,8 @@ namespace Ablaze
 	namespace Components
 	{
 
-		Identifier::Identifier(const String& name)
-			: name(name)
+		Identifier::Identifier(const String& name) : Component(),
+			name(name)
 		{
 
 		}

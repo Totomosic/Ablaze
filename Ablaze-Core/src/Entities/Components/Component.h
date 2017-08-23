@@ -12,6 +12,7 @@ namespace Ablaze
 		{
 		protected:
 			GameObject* owner;
+			bool isActive;
 
 		public:
 			Component();
@@ -19,8 +20,12 @@ namespace Ablaze
 
 			virtual Component* Clone() = 0;
 
-			void SetOwner(GameObject* owner);
 			const GameObject& GetOwner() const;
+			bool IsActive() const;
+			void SetOwner(GameObject* owner);
+			void Enable();
+			void Disable();
+			void SetActive(bool isActive);
 
 			// Function that is called every time the owner is set
 			virtual void Initialise();

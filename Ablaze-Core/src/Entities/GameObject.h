@@ -1,5 +1,5 @@
 #pragma once
-#include "RenderEngine/structs/Mesh.h"
+#include "Graphics/Resources/Mesh.h"
 #include "Components/ComponentSet.h"
 
 namespace Ablaze

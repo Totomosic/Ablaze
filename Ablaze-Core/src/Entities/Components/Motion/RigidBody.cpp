@@ -5,8 +5,8 @@ namespace Ablaze
 	namespace Components
 	{
 
-		RigidBody::RigidBody(float mass, bool isStatic, const maths::vec3& velocity, const maths::vec3& acceleration, bool gravityAffected)
-			: Component(), mass(mass), staticObject(isStatic), velocity(velocity), acceleration(acceleration), gravityAffected(gravityAffected)
+		RigidBody::RigidBody(float mass, bool isStatic, const maths::vec3& velocity, const maths::vec3& acceleration, bool gravityAffected) : Component(), 
+			mass(mass), staticObject(isStatic), velocity(velocity), acceleration(acceleration), gravityAffected(gravityAffected)
 		{
 
 		}

@@ -1,9 +1,9 @@
-#include "VAO.h"
+#include "VertexArray.h"
 
 namespace Ablaze
 {
 
-	VAO::VAO(RenderMode mode)
+	VertexArray::VertexArray(RenderMode mode)
 	{
 		vertexCount = 0;
 		renderCount = 0;
@@ -12,7 +12,7 @@ namespace Ablaze
 		Create();
 	}
 
-	VAO::~VAO()
+	VertexArray::~VertexArray()
 	{
 		glDeleteVertexArrays(1, &id);
 		if (HasIndexBuffer())
@@ -25,64 +25,64 @@ namespace Ablaze
 		}
 	}
 
-	GLuint VAO::GetID() const
+	GLuint VertexArray::GetID() const
 	{
 		return id;
 	}
 
-	VBO* VAO::GetAttribute(GLint index)
+	VertexBuffer* VertexArray::GetAttribute(GLint index)
 	{
 		return (attributes[index]);
 	}
 
-	GLint VAO::GetRenderCount() const
+	GLint VertexArray::GetRenderCount() const
 	{
 		return renderCount;
 	}
 
-	GLint VAO::GetVertexCount() const
+	GLint VertexArray::GetVertexCount() const
 	{
 		return vertexCount;
 	}
 
-	GLenum VAO::GetPrimitiveType() const
+	GLenum VertexArray::GetPrimitiveType() const
 	{
 		return primitiveType;
 	}
 
-	const RenderMode& VAO::GetMode() const
+	const RenderMode& VertexArray::GetMode() const
 	{
 		return renderMode;
 	}
 
-	bool VAO::HasAttribute(int index) const
+	bool VertexArray::HasAttribute(int index) const
 	{
 		return attributes.size() > index;
 	}
 
-	bool VAO::HasIndexBuffer() const
+	bool VertexArray::HasIndexBuffer() const
 	{
 		return indexBuffer != nullptr;
 	}
 
-	IndexBuffer* VAO::GetIndexBuffer() const
+	IndexBuffer* VertexArray::GetIndexBuffer() const
 	{
 		return indexBuffer;
 	}
 
-	void VAO::SetPrimitiveType(GLenum primitive)
+	void VertexArray::SetPrimitiveType(GLenum primitive)
 	{
 		this->primitiveType = primitive;
 	}
 
-	void VAO::SetMode(const RenderMode& mode)
+	void VertexArray::SetMode(const RenderMode& mode)
 	{
 		this->renderMode = mode;
 		if (renderMode == Arrays)
 		{
 			if (HasAttribute(0))
 			{
-				const VBO* vbo = GetAttribute(0);
+				const VertexBuffer* vbo = GetAttribute(0);
 				renderCount = vbo->GetSize() / vbo->GetLayout().GetStride();
 			}
 			else
@@ -104,11 +104,11 @@ namespace Ablaze
 		}
 	}
 
-	void VAO::SetColor(const Color& color)
+	void VertexArray::SetColor(const Color& color)
 	{
 		if (HasAttribute(0))
 		{
-			VBO* vbo = GetAttribute(0);
+			VertexBuffer* vbo = GetAttribute(0);
 			const BufferLayout& layout = vbo->GetLayout();
 			if (layout.HasElement("COLOR"))
 			{
@@ -123,7 +123,7 @@ namespace Ablaze
 		}
 	}
 
-	void VAO::Bind() const
+	void VertexArray::Bind() const
 	{
 		glBindVertexArray(id);
 		if (HasIndexBuffer())
@@ -132,12 +132,12 @@ namespace Ablaze
 		}
 	}
 
-	void VAO::Unbind() const
+	void VertexArray::Unbind() const
 	{
 		glBindVertexArray(0);
 	}
 
-	void VAO::AttachVBO(VBO* vbo)
+	void VertexArray::AttachVertexBuffer(VertexBuffer* vbo)
 	{
 		Bind();
 		vbo->Bind();
@@ -151,33 +151,33 @@ namespace Ablaze
 		}
 	}
 
-	void VAO::AttachVBOs(VBO** const vbos, int length)
+	void VertexArray::AttachVertexBuffers(VertexBuffer** const vbos, int length)
 	{
 		for (int i = 0; i < length; i++)
 		{
-			AttachVBO(vbos[i]);
+			AttachVertexBuffer(vbos[i]);
 		}
 	}
 
-	void VAO::AttachIndexBuffer(IndexBuffer* indexBuffer)
+	void VertexArray::AttachIndexBuffer(IndexBuffer* indexBuffer)
 	{
 		this->indexBuffer = indexBuffer;
 		SetMode(Elements);
 	}
 
-	IndexBuffer* VAO::CreateIndexBuffer(GLuint* data, int length, GLenum bufferUsage)
+	IndexBuffer* VertexArray::CreateIndexBuffer(GLuint* data, int length, GLenum bufferUsage)
 	{
 		IndexBuffer* ibo = new IndexBuffer(length, data, bufferUsage);
 		AttachIndexBuffer(ibo);
 		return ibo;
 	}
 
-	VAO* VAO::FromVertices(const Vertex* vertices, const GLsizei length)
+	VertexArray* VertexArray::FromVertices(const Vertex* vertices, const GLsizei length)
 	{
-		return new VAO(Arrays);
+		return new VertexArray(Arrays);
 	}
 
-	void VAO::Create()
+	void VertexArray::Create()
 	{
 		glGenVertexArrays(1, &id);
 	}

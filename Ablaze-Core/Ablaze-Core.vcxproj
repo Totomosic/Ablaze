@@ -159,6 +159,7 @@
     <ClCompile Include="src\Entities\Canvas.cpp" />
     <ClCompile Include="src\Entities\Components\UI\TextComponent.cpp" />
     <ClCompile Include="src\Entities\Components\UI\Clickable.cpp" />
+    <ClCompile Include="src\Graphics\Resources\RenderingSettings.cpp" />
     <ClCompile Include="src\Graphics\Resources\Resource.cpp" />
     <ClCompile Include="src\Scene\UI\Panel.cpp" />
     <ClCompile Include="src\Scene\UI\Menu.cpp" />
@@ -228,7 +229,7 @@
     <ClCompile Include="src\Graphics\Resources\Models\Rectangle.cpp" />
     <ClCompile Include="src\Graphics\Resources\Models\Sphere.cpp" />
     <ClCompile Include="src\Graphics\Resources\Models\Tile.cpp" />
-    <ClCompile Include="src\RenderEngine\PBR\PBRMaterial.cpp" />
+    <ClCompile Include="src\Graphics\Resources\PBRMaterial.cpp" />
     <ClCompile Include="src\RenderEngine\Post Processing\PostProcessor.cpp" />
     <ClCompile Include="src\RenderEngine\Post Processing\PostProcessorEffect.cpp" />
     <ClCompile Include="src\RenderEngine\structs\Commands\RTClearCommand.cpp" />
@@ -237,7 +238,7 @@
     <ClCompile Include="src\RenderEngine\structs\Commands\RTSwapCommand.cpp" />
     <ClCompile Include="src\RenderEngine\structs\DynamicMaterial\MaterialSettings.cpp" />
     <ClCompile Include="src\Graphics\Resources\Material.cpp" />
-    <ClCompile Include="src\RenderEngine\structs\Mesh.cpp" />
+    <ClCompile Include="src\Graphics\Resources\Mesh.cpp" />
     <ClCompile Include="src\Graphics\Resources\Model.cpp" />
     <ClCompile Include="src\Scene\Layer.cpp" />
     <ClCompile Include="src\Scene\Physics\stucts\OBB.cpp" />
@@ -259,8 +260,8 @@
     <ClCompile Include="src\Graphics\Resources\Imaging\Framebuffers\Framebuffer.cpp" />
     <ClCompile Include="src\Graphics\Resources\Imaging\Framebuffers\GBuffer.cpp" />
     <ClCompile Include="src\structs\IndexBuffer.cpp" />
-    <ClCompile Include="src\structs\VAO.cpp" />
-    <ClCompile Include="src\structs\VBO.cpp" />
+    <ClCompile Include="src\structs\VertexArray.cpp" />
+    <ClCompile Include="src\structs\VertexBuffer.cpp" />
     <ClCompile Include="src\System\Allocator.cpp" />
     <ClCompile Include="src\System\Memory.cpp" />
     <ClCompile Include="src\System\MemoryManager.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="src\Entities\Canvas.h" />
     <ClInclude Include="src\Entities\Components\UI\TextComponent.h" />
     <ClInclude Include="src\Entities\Components\UI\Clickable.h" />
+    <ClInclude Include="src\Graphics\Resources\RenderingSettings.h" />
     <ClInclude Include="src\Graphics\Resources\Resource.h" />
     <ClInclude Include="src\Graphics\Resources\Resources.h" />
     <ClInclude Include="src\Scene\UI\Panel.h" />
@@ -362,7 +364,7 @@
     <ClInclude Include="src\Graphics\Resources\Models\Rectangle.h" />
     <ClInclude Include="src\Graphics\Resources\Models\Sphere.h" />
     <ClInclude Include="src\Graphics\Resources\Models\Tile.h" />
-    <ClInclude Include="src\RenderEngine\PBR\PBRMaterial.h" />
+    <ClInclude Include="src\Graphics\Resources\PBRMaterial.h" />
     <ClInclude Include="src\RenderEngine\Post Processing\PostProcessor.h" />
     <ClInclude Include="src\RenderEngine\Post Processing\PostProcessorEffect.h" />
     <ClInclude Include="src\RenderEngine\RenderEngine.h" />
@@ -373,7 +375,7 @@
     <ClInclude Include="src\RenderEngine\structs\Commands\RTSwapCommand.h" />
     <ClInclude Include="src\RenderEngine\structs\DynamicMaterial\MaterialSettings.h" />
     <ClInclude Include="src\Graphics\Resources\Material.h" />
-    <ClInclude Include="src\RenderEngine\structs\Mesh.h" />
+    <ClInclude Include="src\Graphics\Resources\Mesh.h" />
     <ClInclude Include="src\Graphics\Resources\Model.h" />
     <ClInclude Include="src\Scene\Layer.h" />
     <ClInclude Include="src\Scene\Physics\stucts\OBB.h" />
@@ -397,8 +399,8 @@
     <ClInclude Include="src\Graphics\Resources\Imaging\Framebuffers\GBuffer.h" />
     <ClInclude Include="src\structs\IndexBuffer.h" />
     <ClInclude Include="src\structs\Structs.h" />
-    <ClInclude Include="src\structs\VAO.h" />
-    <ClInclude Include="src\structs\VBO.h" />
+    <ClInclude Include="src\structs\VertexArray.h" />
+    <ClInclude Include="src\structs\VertexBuffer.h" />
     <ClInclude Include="src\System\Allocator.h" />
     <ClInclude Include="src\System\Memory.h" />
     <ClInclude Include="src\System\MemoryManager.h" />

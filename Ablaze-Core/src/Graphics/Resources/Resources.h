@@ -11,6 +11,8 @@
 #include "Models/Rectangle.h"
 #include "Models/Sphere.h"
 #include "Models/Tile.h"
+#include "Mesh.h"
 #include "Model.h"
 #include "Material.h"
+#include "PBRMaterial.h"
 #include "Resource.h"

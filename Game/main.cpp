@@ -17,6 +17,7 @@ public:
 		BuildWindow(1280, 720, "Ablaze: ", Color(100, 200, 255));
 		VFS::Mount("shader", "");
 		VFS::Mount("textures", "res/Textures/");
+		VFS::Mount("water", "res/Textures/Water/");
 		VFS::Mount("res", "res/");
 		
 		firstPersonMode = false;
@@ -29,6 +30,9 @@ public:
 		Texture2D* roughness = TextureFactory::Build2D("Roughness", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_roughness.png"));
 		Texture2D* normal = TextureFactory::Build2D("Normal", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_normal.png"));
 		Texture2D* ao = TextureFactory::Build2D("AO", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_ao.png"));
+
+		TextureFactory::Order2D("WaterNormalMap", VFS::RetrieveFile<ImageFile>("/water/normal.png"));
+		TextureFactory::Order2D("WaterDUDV", VFS::RetrieveFile<ImageFile>("/water/waterDUDV.png"));
 
 		TextureFactory::Order2D("GroundAlbedo", VFS::RetrieveFile<ImageFile>("/textures/streakedmetal-albedo.png"));
 		TextureFactory::Order2D("GroundRoughness", VFS::RetrieveFile<ImageFile>("/textures/streakedmetal-roughness.png"));
@@ -46,21 +50,6 @@ public:
 		TextureFactory::Order2D("GrassAO", VFS::RetrieveFile<ImageFile>("/textures/grass1-ao.png"));
 		TextureFactory::Order2D("GrassNormal", VFS::RetrieveFile<ImageFile>("/textures/grass1-normal2.png"));
 
-		//Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-metal.png"));
-		//Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-albedo.png"));
-		//Texture2D* roughness = TextureFactory::Build2D("Roughness", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-roughness.png"));
-		//Texture2D* normal = TextureFactory::Build2D("Normal", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-normal.png"));
-		//Texture2D* ao = TextureFactory::Build2D("AO", VFS::RetrieveFile<ImageFile>("/res/bamboo-wood-semigloss-ao.png"));
-
-		//Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/res/cavefloor1_Metallic.png"));
-		//Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/res/cavefloor1_Base_Color.png"));
-		//Texture2D* roughness = TextureFactory::Build2D("Roughness", VFS::RetrieveFile<ImageFile>("/res/cavefloor1_Roughness.png"));
-		//Texture2D* normal = TextureFactory::Build2D("Normal", VFS::RetrieveFile<ImageFile>("/res/cavefloor1_Normal.png"));
-		//Texture2D* ao = TextureFactory::Build2D("AO", VFS::RetrieveFile<ImageFile>("/res/cavefloor1_Ambient_Occlusion.png"));
-
-		//Texture2D* metallic = TextureFactory::Build2D("gold-scuffed_metallic.png");
-		//Texture2D* albedo = TextureFactory::Build2D("gold-scuffed_basecolor-boosted.png");
-		//Texture2D* roughness = TextureFactory::Build2D("gold-scuffed_roughness.png");
 		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/textures/gold-scuffed_normal.png"));
 
 		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 200);
@@ -69,7 +58,7 @@ public:
 		data->SetData(PerlinNoise(688246124, 100, 16, 8));
 		data->DisableEditing();
 
-		MaterialFactory::Order("Default", Color::White(), Shader::Default(), "");
+		MaterialFactory::Order("Default", Color::White(), Shader::Default());
 		MaterialFactory::OrderPBR("RustedMaterial", Color::White(), Shader::PBR(), albedo, roughness, metallic, ao, normal);
 		MaterialFactory::OrderPBR("MetallicMaterial", Color::White(), Shader::PBR(), "GroundAlbedo", "GroundRoughness", "GroundMetallic", "AO", "GoldNormal");
 		MaterialFactory::OrderPBR("BrickMaterial", Color::White(), Shader::PBR(), "OctoAlbedo", "OctoRoughness", "OctoMetallic", "OctoAO", "OctoNormal");
@@ -111,7 +100,7 @@ public:
 		Layer* waterLayer = new Layer("Water", new ForwardRenderer());
 
 		GameObject* water = new GameObject(0, 0, 0);
-		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(10000), Color(50, 100, 150, 180)), "Default"));
+		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(10000), Color(20, 60, 120, 190)), "Default"));
 		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
 		water->AddComponent(new Components::Collider(OBB(maths::vec3(10000, 0, 10000))));
 
@@ -122,7 +111,7 @@ public:
 		Panel* crosshair = new Panel(WindowWidth() / 2, WindowHeight() / 2, maths::vec2(4), Color::Black());
 		crosshair->SetColor(Color::Red());
 
-		Text* text = new Text(100, -25, "Test Text", FontFactory::Request("Arial", 24));
+		Text* text = new Text(65, -25, "Test Text", FontFactory::Request("Arial", 24));
 		text->Identifier()->SetName("Text");
 
 		Shader::PBR()->Enable();
@@ -132,13 +121,12 @@ public:
 
 		Shader::Default()->Enable();
 		Shader::Default()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
-
-		glDepthFunc(GL_LEQUAL);
 	}
 
 	void Tick() override
 	{
 		WindowHandle()->SetTitle("Ablaze: " + std::to_string(Time::AverageFPS()) + " FPS");
+		((Text*)GameObjects::GetWithName("Text"))->SetText(std::to_string(Time::AverageFPS()) + " FPS");
 	}
 
 	void Update() override
@@ -217,7 +205,6 @@ public:
 
 	void Render() override
 	{
-		((Text*)GameObjects::GetWithName("Text"))->SetText("Ablaze: " + std::to_string(Time::FramesPerSecond()) + " FPS");
 		Application::Render();
 		UpdateDisplay();
 	}

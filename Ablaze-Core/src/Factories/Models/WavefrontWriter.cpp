@@ -41,8 +41,8 @@ namespace Ablaze
 			// TODO: optimize this
 			file->Open(OpenMode::Write);
 			file->Clear();
-			VBO* vbo = model->GetVAO()->GetAttribute(0);
-			IndexBuffer* ibo = model->GetVAO()->GetIndexBuffer();
+			VertexBuffer* vbo = model->GetVertexArray()->GetAttribute(0);
+			IndexBuffer* ibo = model->GetVertexArray()->GetIndexBuffer();
 			int64 length = vbo->GetSize() / sizeof(float);
 			int64 indexCount = ibo->GetSize() / sizeof(uint);
 			float* data = (float*)vbo->MapBuffer(Access::Read);

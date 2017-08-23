@@ -6,5 +6,5 @@
 #include "Buffer.h"
 #include "BufferLayout.h"
 #include "IndexBuffer.h"
-#include "VAO.h"
-#include "VBO.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"

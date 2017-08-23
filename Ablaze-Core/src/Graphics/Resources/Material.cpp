@@ -3,28 +3,27 @@
 namespace Ablaze
 {
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState) : Resource(name), 
-		diffuseColor(color), shader(shader), textures(textures), depthState(depthState), blendState(blendState), depthFunction(depthFunction), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, const RenderingSettings& settings) : Resource(name),
+		diffuseColor(color), shader(shader), textures(textures), settings(settings)
 	{
 
 	}
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState) : Resource(name), 
-		diffuseColor(color), shader(shader), depthState(depthState), blendState(blendState), depthFunction(depthFunction), srcBlendState(srcBlendState), dstBlendState(dstBlendState)
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings) : Resource(name),
+		diffuseColor(color), shader(shader), settings(settings)
 	{
-		if (texture != nullptr)
-		{
-			textures.AddTexture(sampler, texture);
-		}
-		else
-		{
-			AB_WARN("Texture was nullptr");
-		}
+		textures.AddTexture(sampler, texture);
 	}
 
-	Material::Material() : Material::Material("", Color::White(), nullptr, "", nullptr, true, true, GL_LESS, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const RenderingSettings& settings) : Resource(name),
+		diffuseColor(color), shader(shader), settings(settings)
 	{
 	
+	}
+
+	Material::Material() : Material::Material("", Color::White(), Shader::Default())
+	{
+		
 	}
 
 	Material::~Material()
@@ -42,34 +41,14 @@ namespace Ablaze
 		return shader;
 	}
 
+	const RenderingSettings& Material::GetSettings() const
+	{
+		return settings;
+	}
+
 	Texture* Material::GetTexture(int index) const
 	{
 		return textures.textures[index]->second;
-	}
-
-	bool Material::GetDepthState() const
-	{
-		return depthState;
-	}
-
-	bool Material::GetBlendState() const
-	{
-		return blendState;
-	}
-
-	GLenum Material::GetDepthFunc() const
-	{
-		return depthFunction; 
-	}
-
-	GLenum Material::GetSrcBlend() const
-	{
-		return srcBlendState;
-	}
-
-	GLenum Material::GetDstBlend() const
-	{
-		return dstBlendState;
 	}
 
 	bool Material::HasTransparency() const
@@ -133,53 +112,16 @@ namespace Ablaze
 		this->shader = shader;
 	}
 
-	void Material::SetDepthState(bool depth)
+	void Material::SetSettings(const RenderingSettings& settings)
 	{
-		depthState = depth;
-	}
-
-	void Material::SetBlendState(bool blend)
-	{
-		blendState = blend;
-	}
-
-	void Material::SetDepthFunc(GLenum func)
-	{
-		depthFunction = func;
-	}
-
-	void Material::SetSrcBlend(GLenum src)
-	{
-		srcBlendState = src;
-	}
-
-	void Material::SetDstBlend(GLenum dst)
-	{
-		dstBlendState = dst;
+		this->settings = settings;
 	}
 
 	void Material::ApplyMaterial() const
 	{
 		shader->Enable();
 		uniforms.UploadAll(shader);
-		if (depthState)
-		{
-			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(depthFunction);
-		}
-		else
-		{
-			glDisable(GL_DEPTH_TEST);
-		}
-		if (blendState)
-		{
-			glEnable(GL_BLEND);
-			glBlendFunc(srcBlendState, dstBlendState);
-		}
-		else
-		{
-			glDisable(GL_BLEND);
-		}
+		settings.ApplySettings();
 		int count = 0;
 		for (auto texture : GetAllTextures().textures)
 		{

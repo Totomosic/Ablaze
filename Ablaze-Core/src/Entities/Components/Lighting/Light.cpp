@@ -5,8 +5,8 @@ namespace Ablaze
 	namespace Components
 	{
 
-		Light::Light(LightType type, const Color& color)
-			: Component(), type(type), color(color)
+		Light::Light(LightType type, const Color& color) : Component(), 
+			type(type), color(color)
 		{
 		
 		}

@@ -1,5 +1,5 @@
 #include "MeshComponent.h"
-#include "RenderEngine/structs/Mesh.h"
+#include "Graphics/Resources/Mesh.h"
 #include "Factories/MeshFactory.h"
 
 namespace Ablaze
@@ -7,8 +7,8 @@ namespace Ablaze
 	namespace Components
 	{
 
-		MeshComponent::MeshComponent(Mesh* mesh)
-			: mesh(mesh)
+		MeshComponent::MeshComponent(Mesh* mesh) : Component(),
+			mesh(mesh)
 		{
 			
 		}

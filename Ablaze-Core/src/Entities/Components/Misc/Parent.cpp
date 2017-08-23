@@ -4,8 +4,8 @@ namespace Ablaze
 {
 	namespace Components
 	{
-		Parent::Parent(const GameObject* const parent)
-			: parent(parent)
+		Parent::Parent(const GameObject* const parent) : Component(),
+			parent(parent)
 		{
 		
 		}

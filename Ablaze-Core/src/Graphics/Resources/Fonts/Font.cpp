@@ -64,7 +64,7 @@ namespace Ablaze
 
 	Model* Font::CreateModel(const String& modelName, const String& text, const Color& color) const
 	{
-		VBO* vbo = new VBO(text.length() * 4 * sizeof(Vertex), BufferLayout::Vertex());
+		VertexBuffer* vbo = new VertexBuffer(text.length() * 4 * sizeof(Vertex), BufferLayout::Vertex());
 		IndexBuffer* ibo = new IndexBuffer(text.length() * 6 * sizeof(GLuint));
 		Vertex* buffer = (Vertex*)vbo->MapBuffer(Access::Write);
 		GLuint* indices = new GLuint[text.length() * 6];

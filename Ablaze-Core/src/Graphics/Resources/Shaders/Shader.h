@@ -34,15 +34,15 @@ namespace Ablaze
 		void Enable() const;
 		void Disable() const;
 
-		void SetUniformInt(String varname, int value) const;
-		void SetUniformFloat(String varname, float value) const;
-		void SetUniformVec2(String varname, const maths::vec2& vec2) const;
-		void SetUniformVec3(String varname, const maths::vec3& vec3) const;
-		void SetUniformVec4(String varname, const maths::vec4& vec4) const;
-		void SetUniformMat4(String varname, const maths::mat4& matrix) const;
-		void SetUniformColor(String varname, const Color& color) const;
+		void SetUniformInt(const String& varname, int value) const;
+		void SetUniformFloat(const String& varname, float value) const;
+		void SetUniformVec2(const String& varname, const maths::vec2& vec2) const;
+		void SetUniformVec3(const String& varname, const maths::vec3& vec3) const;
+		void SetUniformVec4(const String& varname, const maths::vec4& vec4) const;
+		void SetUniformMat4(const String& varname, const maths::mat4& matrix) const;
+		void SetUniformColor(const String& varname, const Color& color) const;
 
-		void SetTexture(Ablaze::Texture& texture, String samplerName) const;
+		void SetTexture(Ablaze::Texture& texture, const String& samplerName) const;
 
 		static Shader* FromSource(const String& name, const String& vertexData, const String& fragData);
 		static Shader* FromFile(const String& name, GLSLFile* vertexFile, GLSLFile* fragFile);
@@ -55,7 +55,7 @@ namespace Ablaze
 	private:
 		void Load(const String& vertex, const String& fragment);
 		GLuint LoadShader(const String& shaderData, GLenum shaderType);
-		GLint GetUniformLocation(String varname) const;
+		GLint GetUniformLocation(const String& varname) const;
 		static Shader* CreateDefault();
 		static Shader* CreateTextureShader();
 		static Shader* CreateFontShader();

@@ -1,6 +1,6 @@
 #pragma once
 #include "Maths/Maths.h"
-#include "RenderEngine/structs/Mesh.h"
+#include "Graphics/Resources/Mesh.h"
 
 namespace Ablaze
 {

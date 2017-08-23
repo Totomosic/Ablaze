@@ -1,5 +1,5 @@
 #include "Collider.h"
-#include "RenderEngine/structs/Mesh.h"
+#include "Graphics/Resources/Mesh.h"
 #include "Entities/Components/Rendering/MeshComponent.h"
 #include "Entities/GameObject.h"
 
@@ -8,8 +8,8 @@ namespace Ablaze
 	namespace Components
 	{
 
-		Collider::Collider(const std::vector<std::pair<maths::mat4, OBB>*>& boundingBoxes)
-			: boundingBoxes(boundingBoxes)
+		Collider::Collider(const std::vector<std::pair<maths::mat4, OBB>*>& boundingBoxes) : Component(),
+			boundingBoxes(boundingBoxes)
 		{
 
 		}

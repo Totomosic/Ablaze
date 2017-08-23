@@ -1,16 +1,14 @@
 #pragma once
-#include "Graphics/Resources/Material.h"
+#include "Material.h"
 
 namespace Ablaze
 {
-
-	class MaterialFactory;
 
 	class PBRMaterial : public Material
 	{
 	protected:
 		PBRMaterial(const String& name, const Color& color, const Shader* const shader, Texture* albedo, Texture* roughness, Texture* metallic, Texture* ao, Texture* normalMap,
-			bool depthState, bool blendState, GLenum depthFunction, GLenum srcBlendState, GLenum dstBlendState);
+			const RenderingSettings& settings = RenderingSettings());
 
 	public:
 		friend class MaterialFactory;

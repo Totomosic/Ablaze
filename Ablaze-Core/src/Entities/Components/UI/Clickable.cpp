@@ -5,7 +5,7 @@ namespace Ablaze
 	namespace Components
 	{
 
-		Clickable::Clickable()
+		Clickable::Clickable() : Component()
 		{
 		
 		}

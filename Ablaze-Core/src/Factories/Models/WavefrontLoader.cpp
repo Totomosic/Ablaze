@@ -203,13 +203,13 @@ namespace Ablaze
 					}
 				}
 			}
-			VBO* vbo = new VBO(vertices.size() * sizeof(Vertex), BufferLayout::Vertex());
+			VertexBuffer* vbo = new VertexBuffer(vertices.size() * sizeof(Vertex), BufferLayout::Vertex());
 			vbo->Bind();
 			vbo->Upload(&vertices[0], vertices.size() * sizeof(Vertex));
 
 			IndexBuffer* ib = new IndexBuffer(indices.size() * sizeof(GLuint), &indices[0]);
 			Model* model = new Model(name, vbo, ib, maths::vec3(maxX - minX, maxY - minY, maxZ - minZ));
-			model->GetVAO()->SetPrimitiveType(GL_TRIANGLES);
+			model->GetVertexArray()->SetPrimitiveType(GL_TRIANGLES);
 			return model;
 		}
 

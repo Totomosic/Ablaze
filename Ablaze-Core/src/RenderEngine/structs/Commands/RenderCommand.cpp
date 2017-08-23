@@ -25,7 +25,7 @@ namespace Ablaze
 			shader->SetUniformMat4("projectionMatrix", renderer.GetProjectionMatrix());
 			shader->SetUniformColor("color", material->GetColor());
 
-			VAO* vao = model->GetVAO();
+			VertexArray* vao = model->GetVertexArray();
 			vao->Bind();
 			if (vao->GetMode() == Arrays)
 			{

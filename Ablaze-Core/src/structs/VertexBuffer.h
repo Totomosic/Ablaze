@@ -6,14 +6,14 @@
 namespace Ablaze
 {
 
-	class VBO : public Buffer
+	class VertexBuffer : public Buffer
 	{
 	private:
 		BufferLayout layout;
 
 	public:
-		explicit VBO(GLint bufferSize, const BufferLayout& layout, float* data = nullptr, GLenum bufferUsage = GL_STATIC_DRAW);
-		VBO();
+		explicit VertexBuffer(GLint bufferSize, const BufferLayout& layout, float* data = nullptr, GLenum bufferUsage = GL_STATIC_DRAW);
+		VertexBuffer();
 
 		const BufferLayout& GetLayout() const;
 		void ApplyLayout();
