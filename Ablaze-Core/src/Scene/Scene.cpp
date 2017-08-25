@@ -13,6 +13,7 @@ namespace Ablaze
 		gameObjects = new GameObject*[AblazeEngine::maxEntities];
 		SceneManager::SetCurrentScene(this);
 		renderer = new CommandQueue();
+		defaultRenderTarget = nullptr;
 	}
 
 	Scene::~Scene()
@@ -106,6 +107,11 @@ namespace Ablaze
 		return layersFound;
 	}
 
+	Framebuffer* Scene::GetDefaultRenderTarget() const
+	{
+		return defaultRenderTarget;
+	}
+
 	void Scene::PushLayer(Layer* layer)
 	{
 		layers.push_back(layer);
@@ -139,24 +145,27 @@ namespace Ablaze
 		currentLayer = layer;
 	}
 
-	void Scene::Render() const
+	void Scene::SetDefaultRenderTarget(Framebuffer* renderTarget)
 	{
-		renderer->PushCommand(new RTSwapCommand(Context::Window()->GetFramebuffer()));
-		renderer->Execute(maths::mat4::Identity(), maths::mat4::Identity());
+		defaultRenderTarget = renderTarget;
+	}
+
+	void Scene::Render(Framebuffer* renderTargetOverride) const
+	{
 		for (int i = 0; i < GetLayerCount(); i++)
 		{
-			RenderLayer(i);
+			RenderLayer(i, (renderTargetOverride != nullptr) ? renderTargetOverride : defaultRenderTarget);
 		}
 	}
 
-	void Scene::RenderLayer(int index) const
+	void Scene::RenderLayer(int index, Framebuffer* renderTargetOverride) const
 	{
-		RenderLayerInternal(layers[index]);
+		RenderLayerInternal(layers[index], renderTargetOverride);
 	}
 
-	void Scene::RenderLayerInternal(Layer* layer) const
+	void Scene::RenderLayerInternal(Layer* layer, Framebuffer* renderTargetOverride) const
 	{
-		layer->Render();
+		layer->Render(renderTargetOverride);
 	}
 
 	uint Scene::GetNextID()

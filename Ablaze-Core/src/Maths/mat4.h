@@ -39,7 +39,11 @@ namespace Ablaze
 			static mat4 Translation(float x, float y, float z);
 			static mat4 Rotation(double angle, const vec3& axis);
 			static mat4 Scale(const vec3& scale);
+			static mat4 Scale(float x, float y, float z);
 			static mat4 Scale(float scale);
+			static mat4 InvertX(const maths::mat4& other);
+			static mat4 InvertY(const maths::mat4& other);
+			static mat4 InvertZ(const maths::mat4& other);
 
 			friend mat4 operator*(const mat4& left, const mat4& right);
 			friend vec4 operator*(const mat4& left, const vec4& right);

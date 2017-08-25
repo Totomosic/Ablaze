@@ -319,9 +319,32 @@ namespace Ablaze
 			return result;
 		}
 
+		mat4 mat4::Scale(float x, float y, float z)
+		{
+			return Scale(maths::vec3(x, y, z));
+		}
+
 		mat4 mat4::Scale(float scale)
 		{
 			return mat4::Scale(maths::vec3(scale));
+		}
+
+		mat4 mat4::InvertX(const maths::mat4& other)
+		{
+			mat4 flipMatrix = Scale(-1.f, 1.f, 1.f);
+			return flipMatrix * other * flipMatrix;
+		}
+
+		mat4 mat4::InvertY(const maths::mat4& other)
+		{
+			mat4 flipMatrix = Scale(1.f, -1.f, 1.f);
+			return flipMatrix * other * flipMatrix;
+		}
+
+		mat4 mat4::InvertZ(const maths::mat4& other)
+		{
+			mat4 flipMatrix = Scale(1.f, 1.f, -1.f);
+			return flipMatrix * other * flipMatrix;
 		}
 
 		std::ostream& operator<<(std::ostream& stream, const mat4& matrix)

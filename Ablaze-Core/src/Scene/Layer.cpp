@@ -12,6 +12,7 @@ namespace Ablaze
 		: name(name), renderer(renderer), camera(nullptr)
 	{
 		SceneManager::CurrentScene()->PushLayer(this);
+		defaultRenderTarget = Context::Window()->GetFramebuffer();
 		if (Camera::Main() != nullptr)
 		{
 			SetCamera(Camera::Main());
@@ -43,6 +44,11 @@ namespace Ablaze
 		return camera != nullptr;
 	}
 
+	Framebuffer* Layer::GetRenderTarget() const
+	{
+		return defaultRenderTarget;
+	}
+
 	void Layer::SetAsCurrent()
 	{
 		SceneManager::CurrentScene()->SetCurrentLayer(this);
@@ -56,6 +62,11 @@ namespace Ablaze
 	void Layer::SetName(const String& name)
 	{
 		this->name = name;
+	}
+
+	void Layer::SetRenderTarget(Framebuffer* renderTarget)
+	{
+		defaultRenderTarget = renderTarget;
 	}
 
 	void Layer::SetRenderer(Renderer* renderer)
@@ -77,8 +88,13 @@ namespace Ablaze
 		}
 	}
 
-	void Layer::Render()
+	void Layer::Render(Framebuffer* renderTarget)
 	{
+		if (renderTarget != nullptr)
+		{
+			renderTarget->Bind();
+		}
+
 		std::vector<Renderable*> renderables;
 		Components::Camera* cam = camera->GetComponent<Components::Camera>();
 		Components::Transform* t = camera->Transform();

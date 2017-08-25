@@ -34,6 +34,7 @@ namespace Ablaze
 		maths::mat4& GetMat4(const String& varname);
 
 		void UploadAll(const Shader* const shader) const;
+		void UploadAll(const std::vector<Shader*>& shaders) const;
 		void ClearAll();
 
 	};

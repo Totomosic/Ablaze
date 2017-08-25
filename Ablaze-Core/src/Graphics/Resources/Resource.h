@@ -4,18 +4,25 @@
 
 namespace Ablaze
 {
+	
+	class Texture;
+	class Model;
+	class Shader;
+	class Asset;
+	class Font;
 
+	template<typename T>
 	class Resource : public Object
 	{
-	protected:
-		String name;
-
-		Resource(const String& name);
-		virtual ~Resource();
+	private:
+		T* m_ResourcePtr;
 
 	public:
-		const String& GetName() const;
-		void SetName(const String& name);
+		Resource(T* resourcePtr);
+		~Resource();
+
+		T* Get() const;
+		T* operator*() const;
 
 		String ToString() const override;
 

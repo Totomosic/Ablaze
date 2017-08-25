@@ -3,19 +3,19 @@
 namespace Ablaze
 {
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, const RenderingSettings& settings) : Resource(name),
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const TextureSet& textures, const RenderingSettings& settings) : Asset(name),
 		diffuseColor(color), shader(shader), textures(textures), settings(settings)
 	{
 
 	}
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings) : Resource(name),
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const String& sampler, Texture* texture, const RenderingSettings& settings) : Asset(name),
 		diffuseColor(color), shader(shader), settings(settings)
 	{
 		textures.AddTexture(sampler, texture);
 	}
 
-	Material::Material(const String& name, const Color& color, const Shader* const shader, const RenderingSettings& settings) : Resource(name),
+	Material::Material(const String& name, const Color& color, const Shader* const shader, const RenderingSettings& settings) : Asset(name),
 		diffuseColor(color), shader(shader), settings(settings)
 	{
 	
@@ -60,6 +60,11 @@ namespace Ablaze
 	bool Material::HasTextures() const
 	{
 		return textures.textures.size() > 0;
+	}
+
+	UniformManager& Material::GetUniforms()
+	{
+		return uniforms;
 	}
 
 	void Material::AddTexture(const String& sampler, Texture* texture)
@@ -121,6 +126,7 @@ namespace Ablaze
 	{
 		shader->Enable();
 		uniforms.UploadAll(shader);
+		shader->SetUniformColor("color", diffuseColor);
 		settings.ApplySettings();
 		int count = 0;
 		for (auto texture : GetAllTextures().textures)

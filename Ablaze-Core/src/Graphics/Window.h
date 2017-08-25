@@ -25,7 +25,7 @@ namespace Ablaze
 		const String& GetTitle() const;
 		const Color& GetClearColor() const;
 		GLFWwindow* GetWindowPtr() const;
-		const Framebuffer* GetFramebuffer() const;
+		Framebuffer* GetFramebuffer() const;
 		const Viewport& GetViewport() const;
 
 		void SetWidth(int w);

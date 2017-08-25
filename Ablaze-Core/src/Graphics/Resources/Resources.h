@@ -5,6 +5,7 @@
 #include "Imaging/Framebuffers/Framebuffer.h"
 #include "Imaging/Framebuffers/GBuffer.h"
 #include "Imaging/Textures/Texture2D.h"
+#include "Imaging/Textures/DynamicTexture.h"
 #include "Imaging/Textures/TextureManager.h"
 #include "Imaging/Textures/TextureCube.h"
 #include "Models/Cuboid.h"
@@ -15,4 +16,5 @@
 #include "Model.h"
 #include "Material.h"
 #include "PBRMaterial.h"
+#include "Asset.h"
 #include "Resource.h"

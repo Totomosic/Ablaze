@@ -57,6 +57,11 @@ namespace Ablaze
 		return layers;
 	}
 
+	UniformManager& DynamicTexture::GetUniforms()
+	{
+		return uniforms;
+	}
+
 	void DynamicTexture::SetCamera(GameObject* camera)
 	{
 		this->camera = camera;
@@ -66,10 +71,16 @@ namespace Ablaze
 		}
 	}
 
+	void DynamicTexture::SetClearColor(const Color& color)
+	{
+		fbo->SetClearColor(color);
+	}
+
 	void DynamicTexture::Create()
 	{
 		if ((mode == UpdateMode::CreateOnce && !hasBeenCreated) || mode == UpdateMode::CreateEachFrame)
 		{
+			uniforms.UploadAll(ShaderManager::GetAllShaders());
 			hasBeenCreated = true;
 			BindFBO();
 			std::vector<Layer*> layerVector = SceneManager::CurrentScene()->GetLayers(layers.mask);

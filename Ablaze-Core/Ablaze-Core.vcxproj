@@ -160,6 +160,7 @@
     <ClCompile Include="src\Entities\Components\UI\TextComponent.cpp" />
     <ClCompile Include="src\Entities\Components\UI\Clickable.cpp" />
     <ClCompile Include="src\Graphics\Resources\RenderingSettings.cpp" />
+    <ClCompile Include="src\Graphics\Resources\Asset.cpp" />
     <ClCompile Include="src\Graphics\Resources\Resource.cpp" />
     <ClCompile Include="src\Scene\UI\Panel.cpp" />
     <ClCompile Include="src\Scene\UI\Menu.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="src\Entities\Components\UI\TextComponent.h" />
     <ClInclude Include="src\Entities\Components\UI\Clickable.h" />
     <ClInclude Include="src\Graphics\Resources\RenderingSettings.h" />
+    <ClInclude Include="src\Graphics\Resources\Asset.h" />
     <ClInclude Include="src\Graphics\Resources\Resource.h" />
     <ClInclude Include="src\Graphics\Resources\Resources.h" />
     <ClInclude Include="src\Scene\UI\Panel.h" />

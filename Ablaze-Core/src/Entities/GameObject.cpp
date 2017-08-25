@@ -26,7 +26,7 @@ namespace Ablaze
 	{
 		id = SceneManager::CurrentScene()->GetNextID();
 		SceneManager::CurrentScene()->gameObjects[id] = this;
-		currentLayer = nullptr;
+		currentLayer = SceneManager::CurrentScene()->CurrentLayer();
 		components = new ComponentSet(*this);
 
 		if (SceneManager::CurrentScene() != nullptr && SceneManager::CurrentScene()->CurrentLayer() != nullptr)
@@ -65,7 +65,10 @@ namespace Ablaze
 
 	void GameObject::Destroy()
 	{
-		currentLayer->RemoveGameObject(this);
+		if (currentLayer != nullptr)
+		{
+			currentLayer->RemoveGameObject(this);
+		}
 		delete this;
 	}
 

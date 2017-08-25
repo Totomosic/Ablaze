@@ -1,6 +1,6 @@
 #pragma once
 #include "Types.h"
-#include "Resource.h"
+#include "Asset.h"
 #include "Graphics/Resources/Shaders/Shader.h"
 #include "Graphics/Resources/Imaging/Textures/Texture.h"
 #include "Graphics/Resources/Shaders/Uniforms/UniformManager.h"
@@ -12,7 +12,7 @@ namespace Ablaze
 
 	class MaterialFactory;
 
-	class Material : public Resource
+	class Material : public Asset
 	{
 	protected:
 		Color diffuseColor;
@@ -36,6 +36,7 @@ namespace Ablaze
 		Texture* GetTexture(int index = 0) const;
 		bool HasTransparency() const;
 		bool HasTextures() const;
+		UniformManager& GetUniforms();
 
 		void AddTexture(const String& sampler, Texture* texture);
 		const TextureSet& GetAllTextures() const;

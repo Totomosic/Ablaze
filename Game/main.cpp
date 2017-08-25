@@ -6,8 +6,13 @@ class Game : public Application
 {
 private:
 	Scene* scene;
+	DynamicTexture* reflectionTexture;
+	DynamicTexture* refractionTexture;
+	UniformManager tempUniforms;
 	bool firstPersonMode;
 	float camSpeed = 500;
+
+	float* movefactor = nullptr;
 
 public:
 
@@ -15,7 +20,7 @@ public:
 	{
 		Window::SetHint(GLFW_SAMPLES, 4);
 		BuildWindow(1280, 720, "Ablaze: ", Color(100, 200, 255));
-		VFS::Mount("shader", "");
+		VFS::Mount("shader", "res/Shaders/");
 		VFS::Mount("textures", "res/Textures/");
 		VFS::Mount("water", "res/Textures/Water/");
 		VFS::Mount("res", "res/");
@@ -24,6 +29,8 @@ public:
 
 		scene = new Scene("Default");
 		Layer* layer = new Layer("Scene", new ForwardRenderer());
+
+		Shader* waterShader = Shader::FromFile("Water", VFS::RetrieveFile<GLSLFile>("/shader/water_v.glsl"), VFS::RetrieveFile<GLSLFile>("/shader/water_f.glsl"));
 
 		Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_metallic.png"));
 		Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_basecolor.png"));
@@ -52,6 +59,21 @@ public:
 
 		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/textures/gold-scuffed_normal.png"));
 
+		//sceneView = new Framebuffer(512, 512, window->GetClearColor(), true);
+
+		tempUniforms.AddVec3Uniform("ClippingPlane.clipNormal", maths::vec3(0, -1, 0));
+		tempUniforms.AddFloatUniform("ClippingPlane.clipHeight", 1000000);
+
+		reflectionTexture = new DynamicTexture("Reflection", 512, 512, UpdateMode::CreateEachFrame, 1);
+		reflectionTexture->GetUniforms().AddVec3Uniform("ClippingPlane.clipNormal", maths::vec3(0, 1, 0));
+		reflectionTexture->GetUniforms().AddFloatUniform("ClippingPlane.clipHeight", 0);
+		refractionTexture = new DynamicTexture("Refraction", 512, 512, UpdateMode::CreateEachFrame, 1);
+		refractionTexture->GetUniforms().AddVec3Uniform("ClippingPlane.clipNormal", maths::vec3(0, -1, 0));
+		refractionTexture->GetUniforms().AddFloatUniform("ClippingPlane.clipHeight", 0);
+
+		reflectionTexture->SetClearColor(window->GetClearColor());
+		refractionTexture->SetClearColor(window->GetClearColor());
+
 		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 200);
 		TerrainData* data = terrain->GetData();
 		data->EnableEditing();
@@ -59,6 +81,16 @@ public:
 		data->DisableEditing();
 
 		MaterialFactory::Order("Default", Color::White(), Shader::Default());
+		MaterialFactory::Order("Water", Color::White(), waterShader);
+
+		Material* waterMaterial = MaterialFactory::Request("Water");
+		waterMaterial->AddTexture("Tex0", reflectionTexture);
+		waterMaterial->AddTexture("Tex1", refractionTexture);
+		waterMaterial->AddTexture("Tex2", TextureFactory::Request2D("WaterDUDV"));
+		waterMaterial->AddTexture("Tex3", TextureFactory::Request2D("WaterNormalMap"));
+		waterMaterial->AddUniformFloat("moveFactor", 0);
+		movefactor = &waterMaterial->GetUniforms().GetFloat("moveFactor");
+
 		MaterialFactory::OrderPBR("RustedMaterial", Color::White(), Shader::PBR(), albedo, roughness, metallic, ao, normal);
 		MaterialFactory::OrderPBR("MetallicMaterial", Color::White(), Shader::PBR(), "GroundAlbedo", "GroundRoughness", "GroundMetallic", "AO", "GoldNormal");
 		MaterialFactory::OrderPBR("BrickMaterial", Color::White(), Shader::PBR(), "OctoAlbedo", "OctoRoughness", "OctoMetallic", "OctoAO", "OctoNormal");
@@ -100,7 +132,7 @@ public:
 		Layer* waterLayer = new Layer("Water", new ForwardRenderer());
 
 		GameObject* water = new GameObject(0, 0, 0);
-		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(10000), Color(20, 60, 120, 190)), "Default"));
+		water->SetMesh(MeshFactory::Build("Water", ModelFactory::BuildTile("Water", maths::vec2(10000), Color(200, 200, 255, 255)), "Water"));
 		water->AddComponent(new Components::RigidBody(1, true, maths::vec3(0.0f), maths::vec3(0.0f), false));
 		water->AddComponent(new Components::Collider(OBB(maths::vec3(10000, 0, 10000))));
 
@@ -108,7 +140,7 @@ public:
 		Canvas* canvas = new Canvas(window, Origin::TopLeft);
 		uiLayer->SetCamera(canvas);
 
-		Panel* crosshair = new Panel(WindowWidth() / 2, WindowHeight() / 2, maths::vec2(4), Color::Black());
+		Panel* crosshair = new Panel(WindowWidth() / 2, -WindowHeight() / 2, maths::vec2(4), Color::Black());
 		crosshair->SetColor(Color::Red());
 
 		Text* text = new Text(65, -25, "Test Text", FontFactory::Request("Arial", 24));
@@ -121,6 +153,14 @@ public:
 
 		Shader::Default()->Enable();
 		Shader::Default()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
+
+		waterShader->Enable();
+		waterShader->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
+		waterShader->SetUniformVec3("Lights[0].Color", maths::vec3(1, 1, 1));
+		waterShader->SetUniformInt("numUsedLights", 1);
+
+		glEnable(GL_CLIP_DISTANCE0);
+		//scene->SetDefaultRenderTarget(sceneView);
 	}
 
 	void Tick() override
@@ -131,9 +171,12 @@ public:
 
 	void Update() override
 	{		
-		GameObject* cam = Camera::Main();
+		Camera* cam = Camera::Main();
 		Components::Transform* t = cam->Transform();
 		Components::RigidBody* r = cam->GetComponent<Components::RigidBody>();
+
+		*movefactor += 0.001f;
+
 		if (Input::KeyDown(GLFW_KEY_W))
 		{
 			r->Acceleration() += CalculateVector(t->Forward()) * camSpeed;
@@ -205,6 +248,17 @@ public:
 
 	void Render() override
 	{
+		Camera* cam = Camera::Main();
+		maths::vec3 position = cam->Transform()->GetPosition();
+		position.y *= -1;
+		Camera* reflectionCamera = cam->Clone(position, maths::mat4::InvertY(cam->Transform()->GetRotation()));
+		reflectionTexture->SetCamera(reflectionCamera);
+		reflectionTexture->Create();
+		refractionTexture->Create();
+		reflectionCamera->Destroy();
+
+		tempUniforms.UploadAll(ShaderManager::GetAllShaders());
+
 		Application::Render();
 		UpdateDisplay();
 	}

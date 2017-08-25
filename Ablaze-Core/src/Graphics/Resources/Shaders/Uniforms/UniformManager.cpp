@@ -5,7 +5,7 @@ namespace Ablaze
 
 	UniformManager::UniformManager()
 	{
-	
+
 	}
 
 	void UniformManager::AddFloatUniform(const String& varname, float value)
@@ -70,6 +70,7 @@ namespace Ablaze
 
 	void UniformManager::UploadAll(const Shader* const shader) const
 	{
+		shader->Enable();
 		for (auto pair : floats)
 		{
 			shader->SetUniformFloat(pair.first, pair.second);
@@ -94,6 +95,24 @@ namespace Ablaze
 		{
 			shader->SetUniformMat4(pair.first, pair.second);
 		}
+	}
+
+	void UniformManager::UploadAll(const std::vector<Shader*>& shaders) const
+	{
+		for (auto shader : shaders)
+		{
+			UploadAll(shader);
+		}
+	}
+
+	void UniformManager::ClearAll()
+	{
+		floats.clear();
+		vec2s.clear();
+		vec3s.clear();
+		vec4s.clear();
+		colors.clear();
+		mat4s.clear();
 	}
 
 }

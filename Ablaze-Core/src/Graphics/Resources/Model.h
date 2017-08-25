@@ -1,7 +1,7 @@
 #pragma once
 #include "structs/Structs.h"
 #include "Types.h"
-#include "Resource.h"
+#include "Asset.h"
 
 namespace Ablaze
 {
@@ -14,7 +14,7 @@ namespace Ablaze
 		class WavefrontLoader;
 	}
 
-	class Model : public Resource
+	class Model : public Asset
 	{
 	protected:
 		VertexArray* vao;

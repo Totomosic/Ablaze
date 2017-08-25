@@ -26,6 +26,10 @@ namespace Ablaze
 		Ray ScreenPointToWorldRay(const maths::vec3& point) const;
 		maths::vec3 ScreenPointToWorldPoint(const maths::vec3& point) const;
 
+		Camera* Clone() const;
+		Camera* Clone(const maths::vec3& position);
+		Camera* Clone(const maths::vec3& position, const maths::mat4& rotation);
+
 		static Camera* Main();
 
 	};

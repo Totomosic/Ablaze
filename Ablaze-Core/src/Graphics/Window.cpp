@@ -55,7 +55,7 @@ namespace Ablaze
 		return window;
 	}
 
-	const Framebuffer* Window::GetFramebuffer() const
+	Framebuffer* Window::GetFramebuffer() const
 	{
 		return framebuffer;
 	}

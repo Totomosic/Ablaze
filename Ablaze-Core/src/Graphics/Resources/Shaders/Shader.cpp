@@ -14,6 +14,7 @@ namespace Ablaze
 	Shader::Shader(const String& name, const String& vertex, const String& frag)
 		: name(name), vertexString(&vertex), fragString(&frag)
 	{
+		ShaderManager::AddShader(this);
 		this->uniformLocations = new std::unordered_map<String, GLint>();
 		Load(vertex, frag);
 	}
@@ -161,7 +162,7 @@ namespace Ablaze
 		glGetProgramiv(programID, GL_LINK_STATUS, &status);
 		if (status == 0)
 		{
-			std::cout << "Link Error" << std::endl;
+			AB_ERROR("Link error in shader: " + name);
 		}
 
 		glDeleteShader(vertex);
@@ -205,7 +206,7 @@ namespace Ablaze
 
 			if (location == -1)
 			{
-				AB_WARN(std::string("Shader variable not found: ") + std::string(varname));
+				AB_WARN(String("Shader variable not found: ") + String(varname) + " in shader: " + name);
 			}
 
 			return location;

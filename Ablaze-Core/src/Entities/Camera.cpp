@@ -63,6 +63,29 @@ namespace Ablaze
 		return Ray(Transform()->GetPosition(), worldSpace.xyz());
 	}
 
+	Camera* Camera::Clone() const
+	{
+		Camera* camera = new Camera();
+		for (auto component : components->GetAll())
+		{
+			camera->AddComponent(component->Clone());
+		}
+		return camera;
+	}
+
+	Camera* Camera::Clone(const maths::vec3& position, const maths::mat4& rotation)
+	{
+		Camera* camera = Clone();
+		camera->Transform()->SetPosition(position);
+		camera->Transform()->SetRotation(rotation);
+		return camera;
+	}
+
+	Camera* Camera::Clone(const maths::vec3& position)
+	{
+		return Clone(position, maths::mat4::Identity());
+	}
+
 	Camera* Camera::Main()
 	{
 		return (Camera*)GameObjects::GetWithName("Main Camera");

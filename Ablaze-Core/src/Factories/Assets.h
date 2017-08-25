@@ -6,7 +6,7 @@
 namespace Ablaze
 {
 
-	class Assets
+	class Resources
 	{
 	private:
 

@@ -4,13 +4,13 @@
 namespace Ablaze
 {
 
-	Texture::Texture(const String& name, const String& filename, GLenum target) : Resource(name), 
+	Texture::Texture(const String& name, const String& filename, GLenum target) : Asset(name), 
 		path(filename), textureTarget(target), bindUnit(-1)
 	{
 		
 	}
 
-	Texture::Texture(const String& name, GLenum target, int width, int height) : Resource(name), 
+	Texture::Texture(const String& name, GLenum target, int width, int height) : Asset(name), 
 		textureTarget(target), width(width), height(height), bindUnit(-1)
 	{
 		

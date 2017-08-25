@@ -1,7 +1,5 @@
 #pragma once
 #include "Layer.h"
-#include "Types.h"
-
 #include "Scene/Physics/Physics.h"
 #include "Terrain/Terrain.h"
 #include "Terrain/HeightFunctions/PerlinNoise.h"
@@ -23,6 +21,7 @@ namespace Ablaze
 		std::vector<Layer*> layers;
 		Layer* currentLayer;
 		CommandQueue* renderer;
+		Framebuffer* defaultRenderTarget;
 
 	public:
 		Scene(const String& name);
@@ -43,20 +42,22 @@ namespace Ablaze
 		int64 MaskOf(Layer* layer) const;
 		int GetLayerCount() const;
 		std::vector<Layer*> GetLayers(int64 mask) const;
+		Framebuffer* GetDefaultRenderTarget() const;
 
 		void SetCurrentLayer(int index);
 		void SetCurrentLayer(Layer* layer);
 		void PushLayer(Layer* layer);
 		void RemoveLayer(Layer* layer);
 		Layer* PopLayer();
+		void SetDefaultRenderTarget(Framebuffer* renderTarget);
 
-		void Render() const;
-		void RenderLayer(int index) const;
+		void Render(Framebuffer* renderTargetOverride = nullptr) const;
+		void RenderLayer(int index, Framebuffer* renderTargetOverride) const;
 
 		friend class GameObject;
 
 	private:
-		void RenderLayerInternal(Layer* layer) const;
+		void RenderLayerInternal(Layer* layer, Framebuffer* renderTargetOverride) const;
 		uint GetNextID();
 		void Initialise();
 

@@ -3,30 +3,41 @@
 namespace Ablaze
 {
 
-	Resource::Resource(const String& name)
-		: name(name)
+	template<typename T>
+	Resource<T>::Resource(T* resourcePtr)
+		: m_ResourcePtr(resourcePtr)
+	{
+		
+	}
+
+	template<typename T>
+	Resource<T>::~Resource()
 	{
 	
 	}
 
-	Resource::~Resource()
+	template<typename T>
+	T* Resource<T>::Get() const
 	{
-	
+		return m_ResourcePtr;
 	}
 
-	const String& Resource::GetName() const
+	template<typename T>
+	T* Resource<T>::operator*() const
 	{
-		return name;
+		return Get();
 	}
 
-	void Resource::SetName(const String& name)
+	template<typename T>
+	String Resource<T>::ToString() const
 	{
-		this->name = name;
+		return String("Resource: ") + (typeid(T).name());
 	}
 
-	String Resource::ToString() const
-	{
-		return GetName();
-	}
+	template class Resource<Texture>;
+	template class Resource<Model>;
+	template class Resource<Font>;
+	template class Resource<Shader>;
+	template class Resource<Asset>;
 
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "AblazeGL.h"
 #include "Graphics/Resources/Imaging/ImageLoader.h"
-#include "Graphics/Resources/Resource.h"
+#include "Graphics/Resources/Asset.h"
 
 namespace Ablaze
 {
@@ -10,7 +10,7 @@ namespace Ablaze
 	class Framebuffer;
 	class TextureManager;
 
-	class Texture : public Resource
+	class Texture : public Asset
 	{
 	protected:
 		String path;

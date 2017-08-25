@@ -3,6 +3,8 @@
 #include "Graphics/Resources/Imaging/Framebuffers/Framebuffer.h"
 #include "Entities/GameObject.h"
 #include "Scene/LayerMask.h"
+#include "Graphics/Resources/Shaders/Uniforms/UniformManager.h"
+#include "Graphics/Resources/Shaders/ShaderManager.h"
 
 namespace Ablaze
 {
@@ -25,6 +27,7 @@ namespace Ablaze
 		TextureBuffer textureType;
 		GameObject* camera;
 		LayerMask layers;
+		UniformManager uniforms;
 		bool hasBeenCreated;
 
 	public:
@@ -37,8 +40,10 @@ namespace Ablaze
 		const LayerMask& GetLayerMask() const;
 		UpdateMode GetCreationMode() const;
 		const Framebuffer* const GetFramebuffer() const;
+		UniformManager& GetUniforms();
 
 		void SetCamera(GameObject* camera);
+		void SetClearColor(const Color& color);
 		void Create();
 
 	private:

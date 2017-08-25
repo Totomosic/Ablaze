@@ -3,7 +3,7 @@
 namespace Ablaze
 {
 
-	Model::Model(const String& name, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, const maths::vec3& size) : Resource(name), 
+	Model::Model(const String& name, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, const maths::vec3& size) : Asset(name), 
 		vbo(vertexBuffer), indexBuffer(indexBuffer), size(size)
 	{
 		vao = new VertexArray(Elements);
