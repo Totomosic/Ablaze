@@ -22,7 +22,7 @@ namespace Ablaze
 
 	maths::vec3 Renderable::GetPosition() const
 	{
-		return modelMatrix.columns[3].xyz();
+		return modelMatrix.GetColumn(3).xyz();
 	}
 
 	maths::mat4 Renderable::GetRotation() const

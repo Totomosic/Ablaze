@@ -1,4 +1,5 @@
 #include "Ablaze.h"
+#include <functional>
 
 using namespace Ablaze;
 
@@ -31,6 +32,7 @@ public:
 		Layer* layer = new Layer("Scene", new ForwardRenderer());
 
 		Shader* waterShader = Shader::FromFile("Water", VFS::RetrieveFile<GLSLFile>("/shader/water_v.glsl"), VFS::RetrieveFile<GLSLFile>("/shader/water_f.glsl"));
+		Shader* terrainShader = Shader::FromFile("Terrain", VFS::RetrieveFile<GLSLFile>("/shader/terrain_v.glsl"), VFS::RetrieveFile<GLSLFile>("/shader/terrain_f.glsl"));
 
 		Texture2D* metallic = TextureFactory::Build2D("Metallic", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_metallic.png"));
 		Texture2D* albedo = TextureFactory::Build2D("Albedo", VFS::RetrieveFile<ImageFile>("/textures/rustediron2_basecolor.png"));
@@ -59,17 +61,15 @@ public:
 
 		Texture2D* normalGold = TextureFactory::Build2D("GoldNormal", VFS::RetrieveFile<ImageFile>("/textures/gold-scuffed_normal.png"));
 
-		//sceneView = new Framebuffer(512, 512, window->GetClearColor(), true);
-
-		tempUniforms.AddVec3Uniform("ClippingPlane.clipNormal", maths::vec3(0, -1, 0));
-		tempUniforms.AddFloatUniform("ClippingPlane.clipHeight", 1000000);
+		tempUniforms.AddUniform("ClippingPlane.clipNormal", maths::vec3(0, -1, 0));
+		tempUniforms.AddUniform<float>("ClippingPlane.clipHeight", 1000000);
 
 		reflectionTexture = new DynamicTexture("Reflection", 512, 512, UpdateMode::CreateEachFrame, 1);
-		reflectionTexture->GetUniforms().AddVec3Uniform("ClippingPlane.clipNormal", maths::vec3(0, 1, 0));
-		reflectionTexture->GetUniforms().AddFloatUniform("ClippingPlane.clipHeight", 0);
+		reflectionTexture->GetUniforms().AddUniform("ClippingPlane.clipNormal", maths::vec3(0, 1, 0));
+		reflectionTexture->GetUniforms().AddUniform<float>("ClippingPlane.clipHeight", 0);
 		refractionTexture = new DynamicTexture("Refraction", 512, 512, UpdateMode::CreateEachFrame, 1);
-		refractionTexture->GetUniforms().AddVec3Uniform("ClippingPlane.clipNormal", maths::vec3(0, -1, 0));
-		refractionTexture->GetUniforms().AddFloatUniform("ClippingPlane.clipHeight", 0);
+		refractionTexture->GetUniforms().AddUniform("ClippingPlane.clipNormal", maths::vec3(0, -1, 0));
+		refractionTexture->GetUniforms().AddUniform<float>("ClippingPlane.clipHeight", 0);
 
 		reflectionTexture->SetClearColor(window->GetClearColor());
 		refractionTexture->SetClearColor(window->GetClearColor());
@@ -77,7 +77,7 @@ public:
 		Terrain* terrain = ModelFactory::BuildTerrain("Terrain", maths::vec2(5000), 200);
 		TerrainData* data = terrain->GetData();
 		data->EnableEditing();
-		data->SetData(PerlinNoise(688246124, 100, 16, 8));
+		data->SetData(PerlinNoise(983562, 100, 16, 8));
 		data->DisableEditing();
 
 		MaterialFactory::Order("Default", Color::White(), Shader::Default());
@@ -88,26 +88,23 @@ public:
 		waterMaterial->AddTexture("Tex1", refractionTexture);
 		waterMaterial->AddTexture("Tex2", TextureFactory::Request2D("WaterDUDV"));
 		waterMaterial->AddTexture("Tex3", TextureFactory::Request2D("WaterNormalMap"));
-		waterMaterial->AddUniformFloat("moveFactor", 0);
-		movefactor = &waterMaterial->GetUniforms().GetFloat("moveFactor");
+		waterMaterial->AddUniform<float>("moveFactor", 0);
+		movefactor = &waterMaterial->GetUniforms().GetUniform<float>("moveFactor");
 
 		MaterialFactory::OrderPBR("RustedMaterial", Color::White(), Shader::PBR(), albedo, roughness, metallic, ao, normal);
 		MaterialFactory::OrderPBR("MetallicMaterial", Color::White(), Shader::PBR(), "GroundAlbedo", "GroundRoughness", "GroundMetallic", "AO", "GoldNormal");
 		MaterialFactory::OrderPBR("BrickMaterial", Color::White(), Shader::PBR(), "OctoAlbedo", "OctoRoughness", "OctoMetallic", "OctoAO", "OctoNormal");
 		MaterialFactory::OrderPBR("GrassMaterial", Color::White(), Shader::PBR(), "GrassAlbedo", "GrassRoughness", "GrassMetallic", "GrassAO", "GrassNormal");
-		ModelFactory::OrderCuboid("Wall", maths::vec3(25, 9.9f, 2), Color::White());
-		ModelFactory::OrderTile("Floor", maths::vec2(50, 50), Color::White()); 
+		MaterialFactory::Order("TerrainMaterial", Color::White(), terrainShader, "Tex0", "GrassAlbedo");
 		ModelFactory::Order("Learjet", VFS::RetrieveFile<WavefrontFile>("/res/Plane.obj"));
 		ModelFactory::Order("Cruiser", VFS::RetrieveFile<WavefrontFile>("/res/SunPrincess.obj"));
 		ModelFactory::Order("Bridge", VFS::RetrieveFile<WavefrontFile>("/res/Bridge1.obj"));
 		FontFactory::Order("Arial", "/res/arial.ttf", 32);
-		MeshFactory::Order("Floor", "Floor", "BrickMaterial");
-		MeshFactory::Order("Wall", "Wall", "MetallicMaterial");
 		MeshFactory::Order("Learjet", "Learjet", "RustedMaterial", maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
 		MeshFactory::Order("Cruiser", "Cruiser", "RustedMaterial", maths::mat4::Translation(maths::vec3(0, 0, -500)) * maths::mat4::Rotation(maths::PI, maths::vec3(0, 1, 0)));
-		MeshFactory::Order("Terrain", "Terrain", "GrassMaterial");
+		MeshFactory::Order("Terrain", "Terrain", "TerrainMaterial");
 		MeshFactory::Order("Bridge", "Bridge", "Default", maths::mat4::Translation(16.7f, 0, 0) * maths::mat4::Rotation(maths::PI / 2, maths::vec3(0, 1, 0)));
-		MaterialFactory::RequestPBR("GrassMaterial")->AddUniformFloat("tiling", 100);
+		MaterialFactory::RequestPBR("GrassMaterial")->AddUniform<float>("tiling", 100);
 
 		Camera* camera = new Camera(window->GetViewport(), maths::vec3(0, 100, 0), maths::mat4::Identity(), Projection::Perspective, maths::PI / 6.0, Angle::Radians, 1.0f, 3000.0f);
 		camera->AddComponent(new Components::RigidBody(1, false, maths::vec3(0.0f, 0.0f, 0.0f), maths::vec3(0.0f)));
@@ -117,9 +114,9 @@ public:
 		floor->SetMesh("Terrain");
 		floor->Identifier()->SetName("Terrain");
 
-		GameObject* bridge = new GameObject(200, -120, -700);
-		bridge->Transform()->SetScale(80);
-		bridge->Transform()->Rotate(-65, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
+		GameObject* bridge = new GameObject(850, -55, 650);
+		bridge->Transform()->SetScale(40);
+		bridge->Transform()->Rotate(-50, maths::vec3(0, 1, 0), Space::World, Angle::Degrees);
 		bridge->AddComponent(new Components::RigidBody(1, true, 0, 0, false));
 		Components::Collider* collider = new Components::Collider(OBB(maths::vec3(2.7f, 0.3f, 34)), maths::mat4::Translation(0, 2.5f, 0));
 		collider->AddOBB(OBB(maths::vec3(0.7f, 3, 1.2f)), maths::mat4::Translation(1.2f, 2.5f, 11.7f));
@@ -146,21 +143,10 @@ public:
 		Text* text = new Text(65, -25, "Test Text", FontFactory::Request("Arial", 24));
 		text->Identifier()->SetName("Text");
 
-		Shader::PBR()->Enable();
-		Shader::PBR()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
-		Shader::PBR()->SetUniformVec3("Lights[0].Color", maths::vec3(1e9));
-		Shader::PBR()->SetUniformInt("lightCount", 1);
+		GameObject* sun = new GameObject(0, 1000, 0);
+		sun->AddComponent(new Components::Light(LightType::Point, Color::White()));
 
-		Shader::Default()->Enable();
-		Shader::Default()->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
-
-		waterShader->Enable();
-		waterShader->SetUniformVec3("Lights[0].Position", maths::vec3(0, 10000, 0));
-		waterShader->SetUniformVec3("Lights[0].Color", maths::vec3(1, 1, 1));
-		waterShader->SetUniformInt("numUsedLights", 1);
-
-		glEnable(GL_CLIP_DISTANCE0);
-		//scene->SetDefaultRenderTarget(sceneView);
+		GLStates::EnableClipDistance(0);
 	}
 
 	void Tick() override
@@ -253,8 +239,8 @@ public:
 		position.y *= -1;
 		Camera* reflectionCamera = cam->Clone(position, maths::mat4::InvertY(cam->Transform()->GetRotation()));
 		reflectionTexture->SetCamera(reflectionCamera);
-		reflectionTexture->Create();
 		refractionTexture->Create();
+		reflectionTexture->Create();
 		reflectionCamera->Destroy();
 
 		tempUniforms.UploadAll(ShaderManager::GetAllShaders());
@@ -263,11 +249,16 @@ public:
 		UpdateDisplay();
 	}
 
-	maths::vec3 CalculateVector(const maths::vec3& vector)
+	static maths::vec3 CalculateVector(const maths::vec3& vector)
 	{
 		maths::vec3 vec = vector;
 		vec.y = 0;
 		return vec.Normalize();
+	}
+
+	void Test(const Event& e)
+	{
+		AB_INFO(e.ToString());
 	}
 
 };

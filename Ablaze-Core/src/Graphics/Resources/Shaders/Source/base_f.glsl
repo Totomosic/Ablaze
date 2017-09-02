@@ -23,5 +23,5 @@ void main()
 	vec3 unitNormal = normalize(f_WorldNormal);
 	float NdotL = max(dot(unitToLightVector, unitNormal), 0.1);
 	finalColor = f_Color * color;
-	finalColor.xyz *= NdotL;
+	finalColor.xyz *= NdotL * Lights[0].Color;
 })"

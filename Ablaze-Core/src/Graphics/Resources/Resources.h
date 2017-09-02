@@ -4,6 +4,7 @@
 #include "Imaging/ImageLoader.h"
 #include "Imaging/Framebuffers/Framebuffer.h"
 #include "Imaging/Framebuffers/GBuffer.h"
+#include "Imaging/Framebuffers/RenderTarget.h"
 #include "Imaging/Textures/Texture2D.h"
 #include "Imaging/Textures/DynamicTexture.h"
 #include "Imaging/Textures/TextureManager.h"

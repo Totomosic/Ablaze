@@ -14,6 +14,7 @@
 #include "Debug/Debug.h"
 #include "Entities/Entities.h"
 #include "Input/Input.h"
+#include "PhysEngine/PhysEngine.h"
 
 #include "Factories/Factories.h"
 

@@ -63,4 +63,16 @@ namespace Ablaze
 		Render, Clear, Uniform, RTSwap, Other
 	};
 
+	enum class ClearBuffer
+	{
+		Color = GL_COLOR_BUFFER_BIT,
+		Depth = GL_DEPTH_BUFFER_BIT,
+		Stencil = GL_STENCIL_BUFFER_BIT
+	};
+
+	inline ClearBuffer operator|(ClearBuffer a, ClearBuffer b)
+	{
+		return static_cast<ClearBuffer>(static_cast<int>(a) | static_cast<int>(b));
+	}
+
 }

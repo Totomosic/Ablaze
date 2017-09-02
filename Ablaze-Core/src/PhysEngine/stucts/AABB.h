@@ -31,7 +31,7 @@ namespace Ablaze
 		
 		void SetSize(const maths::vec3& size);
 
-		virtual AABB* Clone() const;
+		virtual AABB Clone() const;
 
 		static AABB FromModel(Model* model);
 		static AABB FromModel(const String& modelName);

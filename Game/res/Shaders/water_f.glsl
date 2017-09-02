@@ -15,7 +15,7 @@ in vec2 f_TextureCoord;
 in vec4 f_ClipSpace;
 in vec4 f_Color;
 
-uniform int numUsedLights;
+uniform int lightCount;
 uniform Light Lights[MAX_LIGHTS];
 uniform float moveFactor;
 uniform vec4 color;
@@ -60,7 +60,7 @@ void main(void)
     reflectCoords += totalDistortion;
     reflectCoords = clamp(reflectCoords, 0.001, 0.999);
 
-    for (int i = 0; i < numUsedLights; i++) {
+    for (int i = 0; i < lightCount; i++) {
         vec3 toLightVector = Lights[i].Position - f_WorldPosition;
         float distanceToLight = length(toLightVector);
         float attenuationFactor = 1.0;

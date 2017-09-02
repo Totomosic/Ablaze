@@ -13,6 +13,14 @@ namespace Ablaze
 		Color();
 
 		float GetBrightness() const;
+		maths::vec4 rgba() const;
+		maths::vec4 abgr() const;
+		maths::vec4 bgra() const;
+		maths::vec3 rgb() const;
+		maths::vec3 bgr() const;
+		maths::vec2 rg() const;
+		maths::vec2 gb() const;
+		maths::vec2 rb() const;
 
 		float* ToFloat() const;
 		float* ToVertexBuffer(const long long& vertexCount) const;

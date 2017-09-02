@@ -20,6 +20,7 @@ namespace Ablaze
 		Random::Initialise();
 		TextureManager::Initialise();
 		DebugLayer::Initialise();
+		GLStates::Reset();
 	}
 
 	void AblazeEngine::Terminate()

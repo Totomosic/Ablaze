@@ -83,9 +83,9 @@ namespace Ablaze
 		this->size = size;
 	}
 
-	AABB* AABB::Clone() const
+	AABB AABB::Clone() const
 	{
-		return new AABB(size);
+		return AABB(size);
 	}
 
 	AABB AABB::FromModel(Model* model)

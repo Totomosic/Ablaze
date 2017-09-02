@@ -17,10 +17,10 @@ namespace Ablaze
 		fbo->Clear();
 
 		shader->Enable();
-		shader->SetUniformMat4("modelMatrix", maths::mat4::Identity());
-		shader->SetUniformMat4("viewMatrix", maths::mat4::Identity());
-		shader->SetUniformMat4("projectionMatrix", maths::mat4::Identity());
-		shader->SetUniformColor("color", Color::White());
+		shader->SetUniform("modelMatrix", maths::mat4::Identity());
+		shader->SetUniform("viewMatrix", maths::mat4::Identity());
+		shader->SetUniform("projectionMatrix", maths::mat4::Identity());
+		shader->SetUniform("color", Color::White());
 
 		Mesh* mesh = MeshFactory::BuildRectangle("_POST_PROCESSOR_RECT_SCREEN_", maths::vec2(2), Color::White(), MaterialFactory::Build("_POST_PROCESSOR_RECT_SCREEN_MATERIAL_", Color::White(), shader, "Tex0", frame));
 		mesh->GetMaterial(0)->ApplyMaterial();

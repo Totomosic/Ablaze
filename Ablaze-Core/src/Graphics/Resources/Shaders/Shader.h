@@ -4,8 +4,6 @@
 #include "structs/Data/Color.h"
 #include "Utils/Utils.h"
 #include "Graphics/Resources/Imaging/Textures/Texture.h"
-#include <vector>
-#include <map>
 
 namespace Ablaze
 {
@@ -21,7 +19,8 @@ namespace Ablaze
 
 		String name;
 		GLuint programID;
-		const String *vertexString, *fragString;
+		String vertexString;
+		String fragString;
 		std::unordered_map<String, GLint>* uniformLocations;
 
 	protected:
@@ -34,13 +33,20 @@ namespace Ablaze
 		void Enable() const;
 		void Disable() const;
 
-		void SetUniformInt(const String& varname, int value) const;
-		void SetUniformFloat(const String& varname, float value) const;
-		void SetUniformVec2(const String& varname, const maths::vec2& vec2) const;
-		void SetUniformVec3(const String& varname, const maths::vec3& vec3) const;
-		void SetUniformVec4(const String& varname, const maths::vec4& vec4) const;
-		void SetUniformMat4(const String& varname, const maths::mat4& matrix) const;
-		void SetUniformColor(const String& varname, const Color& color) const;
+		void SetUniform(const String& varname, int value) const;
+		void SetUniform(const String& varname, float value) const;
+		void SetUniform(const String& varname, const maths::vec2& vec2) const;
+		void SetUniform(const String& varname, const maths::vec3& vec3) const;
+		void SetUniform(const String& varname, const maths::vec4& vec4) const;
+		void SetUniform(const String& varname, const maths::mat4& matrix) const;
+		void SetUniform(const String& varname, const Color& color) const;
+		void SetUniform(const String& varname, const maths::Plane& plane) const;
+
+		template<class T>
+		void SetUniform(const String& varname, const T& value) const
+		{
+			SetUniform(varname, value);
+		}
 
 		void SetTexture(Ablaze::Texture& texture, const String& samplerName) const;
 

@@ -41,12 +41,11 @@ namespace Ablaze
 		void AddTexture(const String& sampler, Texture* texture);
 		const TextureSet& GetAllTextures() const;
 
-		void AddUniformFloat(const String& varname, float value);
-		void AddUniformVec2(const String& varname, const maths::vec2& value);
-		void AddUniformVec3(const String& varname, const maths::vec3& value);
-		void AddUniformVec4(const String& varname, const maths::vec4& value);
-		void AddUniformColor(const String& varname, const Color& value);
-		void AddUniformMat4(const String& varname, const maths::mat4& value);
+		template<class T>
+		void AddUniform(const String& varname, const T& value)
+		{
+			uniforms.AddUniform<T>(varname, value);
+		}
 
 		void SetColor(const Color& color);
 		void SetShader(const Shader* const shader);

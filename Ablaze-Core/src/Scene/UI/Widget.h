@@ -15,8 +15,6 @@ namespace Ablaze
 		Widget(const maths::vec3& position, const maths::vec2& size, const maths::mat4& rotation = maths::mat4::Identity(), const maths::vec3& scale = maths::vec3(1, 1, 1));
 		Widget(float x, float y, float z, const maths::vec2& size, const maths::mat4& rotation = maths::mat4::Identity(), const maths::vec3& scale = maths::vec3(1, 1, 1));
 
-		void MakeChildOf(const GameObject* parent, bool preserveCurrentPosition = false) override;
-
 		maths::vec3 Position() const;
 		const maths::vec2& Size() const;
 

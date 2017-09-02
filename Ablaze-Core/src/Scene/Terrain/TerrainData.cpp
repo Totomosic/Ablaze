@@ -189,7 +189,7 @@ namespace Ablaze
 		float heightR = GetVertexHeight(x + 1, y);
 		float heightD = GetVertexHeight(x, y - 1);
 		float heightU = GetVertexHeight(x, y + 1);
-		return (maths::vec3(heightL - heightR, 2.0, heightU - heightD).Normalize());
+		return maths::vec3(heightL - heightR, 2.0, heightD - heightU).Normalize();
 	}
 
 	float TerrainData::Interpolate(float a, float b, float blend) const

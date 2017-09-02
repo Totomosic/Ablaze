@@ -2,6 +2,7 @@
 #include "Graphics/Context.h"
 #include "Tools/Mouse.h"
 #include "Tools/Keyboard.h"
+#include "Event.h"
 
 namespace Ablaze
 {

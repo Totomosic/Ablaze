@@ -33,10 +33,12 @@ namespace Ablaze
 		void SetSize(const maths::vec2& size);
 		void SetTitle(const String& title);
 		void SetClearColor(Color clearColor);
+		void EnableVSync() const;
+		void DisableVSync() const;
 
 		bool ShouldClose() const;
 
-		void Clear(GLbitfield mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) const;
+		void Clear(ClearBuffer buffer = ClearBuffer::Color | ClearBuffer::Depth) const;
 		void SwapBuffers() const;
 		void Update();
 

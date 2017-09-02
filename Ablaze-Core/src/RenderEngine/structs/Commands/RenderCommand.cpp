@@ -20,10 +20,10 @@ namespace Ablaze
 			const Shader* shader = material->GetShader();
 
 			material->ApplyMaterial();
-			shader->SetUniformMat4("modelMatrix", renderable->GetModelMatrix() * transform);
-			shader->SetUniformMat4("viewMatrix", renderer.GetViewMatrix());
-			shader->SetUniformMat4("projectionMatrix", renderer.GetProjectionMatrix());
-			shader->SetUniformColor("color", material->GetColor());
+			shader->SetUniform("modelMatrix", renderable->GetModelMatrix() * transform);
+			shader->SetUniform("viewMatrix", renderer.GetViewMatrix());
+			shader->SetUniform("projectionMatrix", renderer.GetProjectionMatrix());
+			shader->SetUniform("color", material->GetColor());
 
 			VertexArray* vao = model->GetVertexArray();
 			vao->Bind();

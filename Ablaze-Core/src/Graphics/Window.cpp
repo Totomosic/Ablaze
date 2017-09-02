@@ -91,15 +91,25 @@ namespace Ablaze
 		framebuffer->SetClearColor(clearColor);
 	}
 
+	void Window::EnableVSync() const
+	{
+		glfwSwapInterval(1);
+	}
+
+	void Window::DisableVSync() const
+	{
+		glfwSwapInterval(0);
+	}
+
 	bool Window::ShouldClose() const
 	{
 		return glfwWindowShouldClose(window);
 	}
 
-	void Window::Clear(GLbitfield mask) const
+	void Window::Clear(ClearBuffer buffer) const
 	{
 		framebuffer->Bind();
-		framebuffer->Clear(mask);
+		framebuffer->Clear(buffer);
 	}
 
 	void Window::SwapBuffers() const

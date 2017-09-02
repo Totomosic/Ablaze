@@ -1,5 +1,6 @@
 #pragma once
 #include "Entities/Systems/System.h"
+#include "Graphics/Resources/Shaders/ShaderManager.h"
 
 namespace Ablaze
 {

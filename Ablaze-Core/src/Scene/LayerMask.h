@@ -7,6 +7,9 @@ namespace Ablaze
 
 	struct LayerMask
 	{
+	private:
+		std::vector<String> layers;
+
 	public:
 		int64 mask;
 
@@ -19,6 +22,8 @@ namespace Ablaze
 
 		void AddLayer(const String& layer);
 		void AddLayer(Layer* layer);
+		
+		void Evaluate();
 
 		static LayerMask All();
 	};

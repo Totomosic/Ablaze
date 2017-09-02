@@ -1,6 +1,5 @@
 #include "Transform.h"
 #include "Entities/GameObject.h"
-#include "../Misc/Parent.h"
 #include "Log.h"
 
 namespace Ablaze
@@ -27,7 +26,7 @@ namespace Ablaze
 
 		maths::vec3 Transform::GetPosition() const
 		{
- 			if (owner->HasComponent<Parent>())
+ 			if (owner->HasParent())
 			{
 				return owner->Parent()->Transform()->GetModelMatrix().GetColumn(3).xyz() + position;
 			}
@@ -36,7 +35,7 @@ namespace Ablaze
 
 		maths::vec3 Transform::GetNievePosition() const
 		{
-			if (owner->HasComponent<Parent>())
+			if (owner->HasParent())
 			{
 				return owner->Parent()->Transform()->GetNievePosition() + position;
 			}
@@ -45,7 +44,7 @@ namespace Ablaze
 
 		maths::mat4 Transform::GetRotation() const
 		{
-			if (owner->HasComponent<Parent>())
+			if (owner->HasParent())
 			{
 				return rotation * owner->Parent()->Transform()->GetRotation();
 			}
@@ -54,18 +53,18 @@ namespace Ablaze
 
 		maths::vec3 Transform::GetScale() const
 		{
-			if (owner->HasComponent<Parent>())
+			if (owner->HasParent())
 			{
-				return owner->GetComponent<Parent>()->GetParentObject()->Transform()->GetScale() * scale;
+				return owner->Parent()->Transform()->GetScale() * scale;
 			}
 			return scale;
 		}
 
 		maths::mat4 Transform::GetModelMatrix() const
 		{
-			if (owner->HasComponent<Parent>())
+			if (owner->HasParent())
 			{
-				return owner->GetComponent<Parent>()->GetParentObject()->Transform()->GetModelMatrix() * maths::mat4::Translation(position) * rotation * maths::mat4::Scale(scale);
+				return owner->Parent()->Transform()->GetModelMatrix() * maths::mat4::Translation(position) * rotation * maths::mat4::Scale(scale);
 			}
 			return maths::mat4::Translation(position) * rotation * maths::mat4::Scale(scale);
 		}

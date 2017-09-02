@@ -12,7 +12,7 @@ namespace Ablaze
 	Shader* Shader::baseUIShader = nullptr;
 
 	Shader::Shader(const String& name, const String& vertex, const String& frag)
-		: name(name), vertexString(&vertex), fragString(&frag)
+		: name(name), vertexString(vertex), fragString(frag)
 	{
 		ShaderManager::AddShader(this);
 		this->uniformLocations = new std::unordered_map<String, GLint>();
@@ -44,39 +44,44 @@ namespace Ablaze
 		ShaderManager::DisableShader(this);
 	}
 
-	void Shader::SetUniformInt(const String& varname, int value) const
+	void Shader::SetUniform(const String& varname, int value) const
 	{
 		glUniform1i(GetUniformLocation(varname), value);
 	}
 
-	void Shader::SetUniformFloat(const String& varname, float value) const
+	void Shader::SetUniform(const String& varname, float value) const
 	{
 		glUniform1f(GetUniformLocation(varname), value);
 	}
 
-	void Shader::SetUniformVec2(const String& varname, const maths::vec2& vec2) const
+	void Shader::SetUniform(const String& varname, const maths::vec2& vec2) const
 	{
 		glUniform2f(GetUniformLocation(varname), vec2.x, vec2.y);
 	}
 
-	void Shader::SetUniformVec3(const String& varname, const maths::vec3& vec3) const
+	void Shader::SetUniform(const String& varname, const maths::vec3& vec3) const
 	{
 		glUniform3f(GetUniformLocation(varname), vec3.x, vec3.y, vec3.z);
 	}
 
-	void Shader::SetUniformVec4(const String& varname, const maths::vec4& vec4) const
+	void Shader::SetUniform(const String& varname, const maths::vec4& vec4) const
 	{
 		glUniform4f(GetUniformLocation(varname), vec4.x, vec4.y, vec4.z, vec4.z);
 	}
 
-	void Shader::SetUniformMat4(const String& varname, const maths::mat4& mat4) const
+	void Shader::SetUniform(const String& varname, const maths::mat4& mat4) const
 	{
 		glUniformMatrix4fv(GetUniformLocation(varname), 1, GL_FALSE, mat4.values);
 	}
 
-	void Shader::SetUniformColor(const String& varname, const Color& color) const
+	void Shader::SetUniform(const String& varname, const Color& color) const
 	{
 		glUniform4f(GetUniformLocation(varname), color.r, color.g, color.b, color.a);
+	}
+
+	void Shader::SetUniform(const String& varname, const maths::Plane& plane) const
+	{
+		SetUniform(varname, maths::vec4(plane.normal.x, plane.normal.y, plane.normal.z, plane.height));
 	}
 
 	void Shader::SetTexture(Ablaze::Texture& texture, const String& textureBank) const
@@ -86,7 +91,7 @@ namespace Ablaze
 		{
 			bank = texture.Bind();
 		}
-		SetUniformInt(textureBank, bank);
+		SetUniform(textureBank, bank);
 	}
 
 	Shader* Shader::FromSource(const String& name, const String& vertexData, const String& fragData)

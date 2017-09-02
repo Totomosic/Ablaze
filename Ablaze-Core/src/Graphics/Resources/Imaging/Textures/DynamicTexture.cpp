@@ -90,7 +90,7 @@ namespace Ablaze
 				{
 					GameObject* originalCamera = layer->GetCamera();
 					layer->SetCamera(camera);
-					layer->Render();
+					layer->Render(fbo);
 					layer->SetCamera(originalCamera);
 				}
 				else

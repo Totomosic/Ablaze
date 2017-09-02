@@ -20,11 +20,6 @@ namespace Ablaze
 	
 	}
 
-	void Widget::MakeChildOf(const GameObject* parent, bool preserveCurrentPosition)
-	{
-		GameObject::MakeChildOf(parent, preserveCurrentPosition);
-	}
-
 	maths::vec3 Widget::Position() const
 	{
 		return Transform()->GetPosition();

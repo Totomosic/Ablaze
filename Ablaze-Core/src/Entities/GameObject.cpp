@@ -29,14 +29,16 @@ namespace Ablaze
 		currentLayer = SceneManager::CurrentScene()->CurrentLayer();
 		components = new ComponentSet(*this);
 
+		parent = nullptr;
+
 		if (SceneManager::CurrentScene() != nullptr && SceneManager::CurrentScene()->CurrentLayer() != nullptr)
 		{
 			SceneManager::CurrentScene()->CurrentLayer()->AddGameObject(this);
+			parent = SceneManager::CurrentScene()->Anchor();
 		}
 
 		// Add Default Components
 		AddComponent(new Components::Transform(position, rotation, scale));
-		AddComponent(new Components::Parent(SceneManager::CurrentScene()->Anchor())); // All objects are a child of the Anchor Object
 		AddComponent(new Components::Identifier(Tags::None));
 		AddComponent(new Components::MeshComponent(MeshFactory::BuildCuboidUnnamed(maths::vec3(1, 1, 1), Color::White(), MaterialFactory::Fabricate(Color::White(), Shader::Default()))));
 	}
@@ -51,7 +53,7 @@ namespace Ablaze
 		
 	}
 
-	GameObject::GameObject(const GameObject* parent, bool preserveCurrentPosition) : GameObject()
+	GameObject::GameObject(GameObject* parent, bool preserveCurrentPosition) : GameObject()
 	{
 		parent->GetLayer()->AddGameObject(this);
 		MakeChildOf(parent, preserveCurrentPosition);
@@ -77,35 +79,39 @@ namespace Ablaze
 		return Instantiate(this);
 	}
 
-	void GameObject::MakeChildOf(const GameObject* parent, bool preserveCurrentPosition)
+	void GameObject::MakeChildOf(GameObject* parent, bool preserveCurrentPosition)
 	{
-		if (preserveCurrentPosition && GetComponentSet().HasComponent<Components::Parent>() && parent->GetComponentSet().HasComponent<Components::Transform>())
+		if (preserveCurrentPosition && this->parent != nullptr && parent->GetComponentSet().HasComponent<Components::Transform>())
 		{
 			Components::Transform* thisTransform = Transform();
 			Components::Transform* parentTransform = parent->Transform();
 			thisTransform->SetPosition(thisTransform->GetPosition() - parentTransform->GetPosition());
 		}
-		AddComponent(new Components::Parent(parent));
+		this->parent = parent;
 	}
 
 	void GameObject::MakeStandalone(bool preserveCurrentPosition)
 	{		
-		if (components->HasComponent<Components::Parent>() && preserveCurrentPosition)
+		if (parent != nullptr && preserveCurrentPosition)
 		{
-			Components::Parent* parent = GetComponent<Components::Parent>();
-			if (components->HasComponent<Components::Transform>() && parent->GetParentObject()->components->HasComponent<Components::Transform>())
+			if (components->HasComponent<Components::Transform>() && parent->components->HasComponent<Components::Transform>())
 			{
 				Components::Transform* thisTransform = Transform();
-				Components::Transform* parentTransform = parent->GetParentObject()->Transform();
+				Components::Transform* parentTransform = parent->Transform();
 				thisTransform->SetPosition(thisTransform->GetPosition() + parentTransform->GetPosition());
 			}
 		}		
-		GetComponentSet().RemoveComponent<Components::Parent>();
+		parent = nullptr;
 	}
 
 	Layer* GameObject::GetLayer() const
 	{
 		return currentLayer;
+	}
+
+	bool GameObject::HasParent() const
+	{
+		return parent != nullptr;
 	}
 
 	void GameObject::SetLayer(Layer* layer)
@@ -137,11 +143,6 @@ namespace Ablaze
 		return GetComponent<Components::Transform>();
 	}
 
-	Components::Parent* GameObject::ParentComponent() const
-	{
-		return GetComponent<Components::Parent>();
-	}
-
 	Components::Identifier* GameObject::Identifier() const
 	{
 		return GetComponent<Components::Identifier>();
@@ -152,9 +153,9 @@ namespace Ablaze
 		return GetComponent<Components::MeshComponent>();
 	}
 
-	const GameObject* const GameObject::Parent() const
+	GameObject* const GameObject::Parent() const
 	{
-		return ParentComponent()->GetParentObject();
+		return parent;
 	}
 
 	void GameObject::SetMesh(Ablaze::Mesh* mesh)
@@ -193,18 +194,18 @@ namespace Ablaze
 		return obj;
 	}
 
-	GameObject* GameObject::Instantiate(const GameObject* prefab, const GameObject* parent)
+	GameObject* GameObject::Instantiate(const GameObject* prefab, GameObject* parent)
 	{
 		GameObject* obj = Instantiate(prefab);
-		obj->AddComponent(new Components::Parent(parent));
+		obj->parent = parent;
 		obj->SetLayer(parent->GetLayer());
 		return obj;
 	}
 
-	GameObject* GameObject::Instantiate(const GameObject* prefab, const GameObject* parent, const maths::vec3& position)
+	GameObject* GameObject::Instantiate(const GameObject* prefab, GameObject* parent, const maths::vec3& position)
 	{
 		GameObject* obj = Instantiate(prefab, position);
-		obj->AddComponent(new Components::Parent(parent));
+		obj->parent = parent;
 		obj->SetLayer(parent->GetLayer());
 		return obj;
 	}

@@ -1,6 +1,5 @@
 #pragma once
 #include "Layer.h"
-#include "Scene/Physics/Physics.h"
 #include "Terrain/Terrain.h"
 #include "Terrain/HeightFunctions/PerlinNoise.h"
 #include "Terrain/HeightFunctions/HeightmapFunction.h"
@@ -12,7 +11,7 @@ namespace Ablaze
 	class Scene
 	{
 	private:
-		GameObject** gameObjects;
+		GameObject** gameObjects; // Array of all GameObjects
 		uint highestID;
 		GameObject* anchorObject; // All GameObjects are children of anchor, most of the time will be positioned at (0, 0, 0)
 
@@ -31,7 +30,6 @@ namespace Ablaze
 		uint GetHightestID() const;
 		GameObject* GetAtID(uint id) const;
 		bool IsValid(uint id) const;
-		void DestroyAll();
 
 		Layer* CurrentLayer() const;
 		Layer* GetLayer(int index = 0) const;

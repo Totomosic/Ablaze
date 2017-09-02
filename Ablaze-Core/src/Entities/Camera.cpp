@@ -10,14 +10,14 @@
 namespace Ablaze
 {
 
-	bool Camera::firstCamera = true;
+	Camera* Camera::mainCamera = nullptr;
 
 	Camera::Camera(const Viewport& viewport, const maths::vec3& position, const maths::mat4& rotation, Projection type, float fov, Angle angle, float nearPlane, float farPlane) : GameObject(position, rotation)
 	{
 		AddComponent(new Components::Camera(viewport, type, fov, angle, nearPlane, farPlane));
-		if (firstCamera)
+		if (mainCamera == nullptr)
 		{
-			firstCamera = false;
+			mainCamera = this;
 			AddComponent(new Components::Identifier(Tags::MainCamera));
 		}
 		if (!SceneManager::CurrentScene()->CurrentLayer()->HasCamera())
@@ -88,7 +88,7 @@ namespace Ablaze
 
 	Camera* Camera::Main()
 	{
-		return (Camera*)GameObjects::GetWithName("Main Camera");
+		return mainCamera;
 	}
 
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "Entities/Components/Component.h"
-#include "Scene/Physics/stucts/OBB.h"
+#include "PhysEngine/stucts/OBB.h"
 
 namespace Ablaze
 {

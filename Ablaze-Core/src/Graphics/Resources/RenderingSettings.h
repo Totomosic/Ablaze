@@ -1,7 +1,7 @@
 #pragma once
-#include "AblazeGL.h"
 #include "Types.h"
 #include "Object.h"
+#include "Utils/GLStates.h"
 
 namespace Ablaze
 {
@@ -11,18 +11,18 @@ namespace Ablaze
 	public:
 		bool useDepthTest;
 		bool useBlend;
-		GLenum depthFunction;
-		GLenum blendSrcFunction;
-		GLenum blendDstFunction;
+		DepthFunc depthFunction;
+		BlendSrcFunc blendSrcFunction;
+		BlendDstFunc blendDstFunction;
 
 		RenderingSettings();
-		explicit RenderingSettings(bool useDepthTest, bool useBlend, GLenum depthFunction, GLenum blendSrcFunction, GLenum blendDstFunction);
+		explicit RenderingSettings(bool useDepthTest, bool useBlend, DepthFunc depthFunction, BlendSrcFunc blendSrcFunction, BlendDstFunc blendDstFunction);
 		explicit RenderingSettings(bool useDepthTest, bool useBlend);
-		explicit RenderingSettings(bool useDepthTest, GLenum depthFunction);
-		explicit RenderingSettings(bool useBlend, GLenum blendSrcFunction, GLenum blendDstFunction);
-		explicit RenderingSettings(GLenum depthFunction, GLenum blendSrcFunction, GLenum blendDstFunction);
-		explicit RenderingSettings(GLenum blendSrcFunction, GLenum blendDstFunction);
-		explicit RenderingSettings(GLenum depthFunction);
+		explicit RenderingSettings(bool useDepthTest, DepthFunc depthFunction);
+		explicit RenderingSettings(bool useBlend, BlendSrcFunc blendSrcFunction, BlendDstFunc blendDstFunction);
+		explicit RenderingSettings(DepthFunc depthFunction, BlendSrcFunc blendSrcFunction, BlendDstFunc blendDstFunction);
+		explicit RenderingSettings(BlendSrcFunc blendSrcFunction, BlendDstFunc blendDstFunction);
+		explicit RenderingSettings(DepthFunc depthFunction);
 
 		void ApplySettings() const;
 

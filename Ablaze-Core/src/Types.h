@@ -8,6 +8,7 @@
 #include "structs/Data/Vertex.h"
 
 typedef std::string String;
-typedef unsigned int uint;
+
+typedef uint32_t uint;
 typedef uint8_t byte;
-typedef long long int64;
+typedef int64_t int64;

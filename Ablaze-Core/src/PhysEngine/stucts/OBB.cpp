@@ -59,9 +59,9 @@ namespace Ablaze
 		return new maths::vec3[6]{ GetNormal(0), GetNormal(1), GetNormal(2), GetNormal(3), GetNormal(4), GetNormal(5) };
 	}
 
-	AABB* OBB::Clone() const
+	AABB OBB::Clone() const
 	{
-		OBB* obb = new OBB(size, transform);
+		OBB obb = OBB(size, transform);
 		return obb;
 	}
 

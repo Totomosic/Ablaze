@@ -98,7 +98,7 @@ void main()
         vec3 L = normalize(Lights[i].Position - f_WorldPosition);
         vec3 H = normalize(V + L);
         float distance    = length(Lights[i].Position - f_WorldPosition);
-        float attenuation = 1.0 / (distance * distance);
+        float attenuation = 1.0;
         vec3 radiance     = Lights[i].Color * attenuation;        
         
         // cook-torrance brdf

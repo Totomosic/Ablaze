@@ -27,7 +27,7 @@ namespace Ablaze
 		maths::vec3* GetCorners() const;
 		maths::vec3* GetNormals() const;
 
-		AABB* Clone() const override;
+		AABB Clone() const override;
 
 	private:
 		void CreateDefaultNormals(); // Front, Back, Right, Left, Top, Bottom

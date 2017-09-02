@@ -32,12 +32,12 @@ namespace Ablaze
 
 		vec4 mat4::GetColumn(int col) const
 		{
-			return columns[col];
+			return maths::vec4(values[0 + col * 4], values[1 + col * 4], values[2 + col * 4], values[3 + col * 4]);
 		}
 
 		vec4 mat4::GetRow(int row) const
 		{
-			return maths::vec4(row + 0 * 4, row + 1 * 4, row + 2 * 4, row + 3 * 4);
+			return maths::vec4(values[row + 0 * 4], values[row + 1 * 4], values[row + 2 * 4], values[row + 3 * 4]);
 		}
 
 		float mat4::GetElement(int row, int col) const
@@ -349,7 +349,7 @@ namespace Ablaze
 
 		std::ostream& operator<<(std::ostream& stream, const mat4& matrix)
 		{
-			char* s = " ";
+			const char* s = " ";
 			stream << "|" << matrix.values[0 + 0 * 4] << s << matrix.values[0 + 1 * 4] << s << matrix.values[0 + 2 * 4] << s << matrix.values[0 + 3 * 4] << "|" << std::endl
 				<< "|" << matrix.values[1 + 0 * 4] << s << matrix.values[1 + 1 * 4] << s << matrix.values[1 + 2 * 4] << s << matrix.values[1 + 3 * 4] << "|" << std::endl
 				<< "|" << matrix.values[2 + 0 * 4] << s << matrix.values[2 + 1 * 4] << s << matrix.values[2 + 2 * 4] << s << matrix.values[2 + 3 * 4] << "|" << std::endl

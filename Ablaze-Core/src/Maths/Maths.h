@@ -3,6 +3,7 @@
 #include <math.h>
 // Includes all vectors along with mat4
 #include "mat4.h"
+#include "Plane.h"
 #include "Ray.h"
 #include "Random.h"
 

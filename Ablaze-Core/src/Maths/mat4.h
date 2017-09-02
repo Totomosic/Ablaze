@@ -12,11 +12,7 @@ namespace Ablaze
 	{
 		struct mat4
 		{
-			union
-			{
-				float values[4 * 4];
-				vec4 columns[4];
-			};
+			float values[4 * 4];
 
 			mat4();
 			mat4(float diagonal);
@@ -32,8 +28,8 @@ namespace Ablaze
 			mat4 Inverse() const;
 
 			static mat4 Identity();
-			static mat4 Orthographic(float left, float right, float bottom, float top, float near, float far);
-			static mat4 Perspective(float fov, float aspect, float near, float far);
+			static mat4 Orthographic(float left, float right, float bottom, float top, float nearPlane, float farPlane);
+			static mat4 Perspective(float fov, float aspect, float nearPlane, float farPlane);
 
 			static mat4 Translation(const vec3& translation);
 			static mat4 Translation(float x, float y, float z);

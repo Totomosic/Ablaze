@@ -35,19 +35,25 @@ namespace Ablaze
 
 	void Framebuffer::Bind() const
 	{
-		viewport.Bind();
-		glBindFramebuffer(GL_FRAMEBUFFER, id);
+		if (currentlyBound != this)
+		{
+			viewport.Bind();
+			glBindFramebuffer(GL_FRAMEBUFFER, id);
+			currentlyBound = this;
+		}
 	}
 
 	void Framebuffer::Unbind() const
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		currentlyBound = nullptr;
 	}
 
-	void Framebuffer::Clear(GLbitfield mask) const
+	void Framebuffer::Clear(ClearBuffer buffer) const
 	{
+		Bind();
 		glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
-		ClearBuffer(mask);
+		glClear((GLbitfield)buffer);
 	}
 
 	const Viewport& Framebuffer::GetViewport() const
@@ -90,11 +96,13 @@ namespace Ablaze
 		clearColor = color;
 	}
 
-	void Framebuffer::CopyToScreen(GLbitfield mask) const
+	void Framebuffer::CopyToScreen(ClearBuffer buffer) const
 	{
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, id);
-		glBlitFramebuffer(0, 0, GetWidth(), GetHeight(), 0, 0, Context::Window()->GetWidth(), Context::Window()->GetHeight(), mask, GL_NEAREST);
+		glReadBuffer(GL_COLOR_ATTACHMENT0);
+		glDrawBuffer(GL_COLOR_ATTACHMENT0);
+		glBlitFramebuffer(0, 0, GetWidth(), GetHeight(), 0, 0, Context::Window()->GetWidth(), Context::Window()->GetHeight(), (GLbitfield)buffer, GL_NEAREST);
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 	}
@@ -143,14 +151,21 @@ namespace Ablaze
 		return textures[attachment];
 	}
 
+	bool Framebuffer::CheckFramebufferCompleteness() const
+	{
+		Bind();
+		GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		if (status != GL_FRAMEBUFFER_COMPLETE)
+		{
+			AB_ERROR("Framebuffer is not complete with error: " + std::to_string(status));
+			return false;
+		}
+		return true;
+	}
+
 	Framebuffer* Framebuffer::Screen(int width, int height)
 	{
 		return new Framebuffer(width, height, true);
-	}
-
-	void Framebuffer::ClearBuffer(GLbitfield mask)
-	{
-		glClear(mask);
 	}
 
 	const Framebuffer* const Framebuffer::GetCurrentlyBound()

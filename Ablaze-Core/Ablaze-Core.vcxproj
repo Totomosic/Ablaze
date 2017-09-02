@@ -121,7 +121,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointModel>Precise</FloatingPointModel>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -143,7 +143,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointModel>Precise</FloatingPointModel>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -159,13 +159,19 @@
     <ClCompile Include="src\Entities\Canvas.cpp" />
     <ClCompile Include="src\Entities\Components\UI\TextComponent.cpp" />
     <ClCompile Include="src\Entities\Components\UI\Clickable.cpp" />
+    <ClCompile Include="src\Graphics\Resources\Imaging\Framebuffers\RenderTarget.cpp" />
     <ClCompile Include="src\Graphics\Resources\RenderingSettings.cpp" />
     <ClCompile Include="src\Graphics\Resources\Asset.cpp" />
     <ClCompile Include="src\Graphics\Resources\Resource.cpp" />
+    <ClCompile Include="src\Input\EventArgs.cpp" />
+    <ClCompile Include="src\Maths\Plane.cpp" />
+    <ClCompile Include="src\Scene\Terrain\Quadtree\QuadtreeNode.cpp" />
+    <ClCompile Include="src\Scene\Terrain\Quadtree\TerrainQuadtree.cpp" />
     <ClCompile Include="src\Scene\UI\Panel.cpp" />
     <ClCompile Include="src\Scene\UI\Menu.cpp" />
     <ClCompile Include="src\Scene\UI\Text.cpp" />
     <ClCompile Include="src\Scene\UI\Widget.cpp" />
+    <ClCompile Include="src\Utils\GLStates.cpp" />
     <ClCompile Include="src\Utils\Timer.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\Entities\Camera.cpp" />
@@ -174,7 +180,6 @@
     <ClCompile Include="src\Entities\Components\ComponentSet.cpp" />
     <ClCompile Include="src\Entities\Components\Lighting\Light.cpp" />
     <ClCompile Include="src\Entities\Components\Misc\Identifier.cpp" />
-    <ClCompile Include="src\Entities\Components\Misc\Parent.cpp" />
     <ClCompile Include="src\Entities\Components\Motion\RigidBody.cpp" />
     <ClCompile Include="src\Entities\Components\Motion\Transform.cpp" />
     <ClCompile Include="src\Entities\Components\Rendering\CameraComponent.cpp" />
@@ -242,12 +247,12 @@
     <ClCompile Include="src\Graphics\Resources\Mesh.cpp" />
     <ClCompile Include="src\Graphics\Resources\Model.cpp" />
     <ClCompile Include="src\Scene\Layer.cpp" />
-    <ClCompile Include="src\Scene\Physics\stucts\OBB.cpp" />
+    <ClCompile Include="src\PhysEngine\stucts\OBB.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Scene\LayerMask.cpp" />
-    <ClCompile Include="src\Scene\Physics\Physics.cpp" />
-    <ClCompile Include="src\Scene\Physics\stucts\AABB.cpp" />
-    <ClCompile Include="src\Scene\Physics\stucts\CollisionInfo.cpp" />
+    <ClCompile Include="src\PhysEngine\Physics.cpp" />
+    <ClCompile Include="src\PhysEngine\stucts\AABB.cpp" />
+    <ClCompile Include="src\PhysEngine\stucts\CollisionInfo.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\Terrain\HeightFunctions\HeightFunction.cpp" />
     <ClCompile Include="src\Scene\Terrain\HeightFunctions\HeightmapFunction.cpp" />
@@ -285,15 +290,24 @@
     <ClInclude Include="src\Entities\Canvas.h" />
     <ClInclude Include="src\Entities\Components\UI\TextComponent.h" />
     <ClInclude Include="src\Entities\Components\UI\Clickable.h" />
+    <ClInclude Include="src\Graphics\Resources\Imaging\Framebuffers\RenderTarget.h" />
     <ClInclude Include="src\Graphics\Resources\RenderingSettings.h" />
     <ClInclude Include="src\Graphics\Resources\Asset.h" />
     <ClInclude Include="src\Graphics\Resources\Resource.h" />
     <ClInclude Include="src\Graphics\Resources\Resources.h" />
+    <ClInclude Include="src\Graphics\Resources\Shaders\Uniforms\Uniform.h" />
+    <ClInclude Include="src\Input\Event.h" />
+    <ClInclude Include="src\Input\EventArgs.h" />
+    <ClInclude Include="src\Maths\Plane.h" />
+    <ClInclude Include="src\PhysEngine\PhysEngine.h" />
+    <ClInclude Include="src\Scene\Terrain\Quadtree\QuadtreeNode.h" />
+    <ClInclude Include="src\Scene\Terrain\Quadtree\TerrainQuadtree.h" />
     <ClInclude Include="src\Scene\UI\Panel.h" />
     <ClInclude Include="src\Scene\UI\Menu.h" />
     <ClInclude Include="src\Scene\UI\Text.h" />
     <ClInclude Include="src\Scene\UI\UI.h" />
     <ClInclude Include="src\Scene\UI\Widget.h" />
+    <ClInclude Include="src\Utils\GLStates.h" />
     <ClInclude Include="src\Utils\Timer.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Entities\Camera.h" />
@@ -303,7 +317,6 @@
     <ClInclude Include="src\Entities\Components\ComponentSet.h" />
     <ClInclude Include="src\Entities\Components\Lighting\Light.h" />
     <ClInclude Include="src\Entities\Components\Misc\Identifier.h" />
-    <ClInclude Include="src\Entities\Components\Misc\Parent.h" />
     <ClInclude Include="src\Entities\Components\Motion\RigidBody.h" />
     <ClInclude Include="src\Entities\Components\Motion\Transform.h" />
     <ClInclude Include="src\Entities\Components\Rendering\CameraComponent.h" />
@@ -380,13 +393,13 @@
     <ClInclude Include="src\Graphics\Resources\Mesh.h" />
     <ClInclude Include="src\Graphics\Resources\Model.h" />
     <ClInclude Include="src\Scene\Layer.h" />
-    <ClInclude Include="src\Scene\Physics\stucts\OBB.h" />
+    <ClInclude Include="src\PhysEngine\stucts\OBB.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Scene\LayerMask.h" />
-    <ClInclude Include="src\Scene\Physics\Physics.h" />
-    <ClInclude Include="src\Scene\Physics\stucts\AABB.h" />
-    <ClInclude Include="src\Scene\Physics\stucts\CollisionInfo.h" />
-    <ClInclude Include="src\Scene\Physics\stucts\RayCastInfo.h" />
+    <ClInclude Include="src\PhysEngine\Physics.h" />
+    <ClInclude Include="src\PhysEngine\stucts\AABB.h" />
+    <ClInclude Include="src\PhysEngine\stucts\CollisionInfo.h" />
+    <ClInclude Include="src\PhysEngine\stucts\RayCastInfo.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Scene\Terrain\HeightFunctions\HeightFunction.h" />
     <ClInclude Include="src\Scene\Terrain\HeightFunctions\HeightmapFunction.h" />

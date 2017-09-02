@@ -26,6 +26,46 @@ namespace Ablaze
 		return (r + b + g) / 3.0f;
 	}
 
+	maths::vec4 Color::rgba() const
+	{
+		return maths::vec4(r, g, b, a);
+	}
+
+	maths::vec4 Color::abgr() const
+	{
+		return maths::vec4(a, b, g, r);
+	}
+
+	maths::vec4 Color::bgra() const
+	{
+		return maths::vec4(b, g, r, a);
+	}
+
+	maths::vec3 Color::rgb() const
+	{
+		return maths::vec3(r, g, b);
+	}
+
+	maths::vec3 Color::bgr() const
+	{
+		return maths::vec3(b, g, r);
+	}
+
+	maths::vec2 Color::rg() const
+	{
+		return maths::vec2(r, g);
+	}
+
+	maths::vec2 Color::gb() const
+	{
+		return maths::vec2(g, b);
+	}
+
+	maths::vec2 Color::rb() const
+	{
+		return maths::vec2(r, b);
+	}
+
 	float* Color::ToFloat() const
 	{
 		return new float[4]{ r, g, b, a };
